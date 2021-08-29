@@ -1,13 +1,12 @@
 class DevelopersController < ApplicationController
   before_action :set_developer, only: %i[show edit update destroy detail]
   before_action :set_project_options, only: %i[new edit]
-  before_action :fetch_current_day_tech, :fetch_current_developer, only: %i[index]
+  before_action :filter_params, :fetch_free_developer, only: %i[index]
   after_action :set_tech_stack, only: %i[create update]
+
   def index
     @developers = Developer.all
-    fetch_filter_tech_day
-    fetch_free_after_x_days
-    fetch_filter_tech
+    developer_filter
     @pagy, @developers = pagy_array(@developers.uniq, items: per_page)
   end
 
@@ -27,10 +26,8 @@ class DevelopersController < ApplicationController
     respond_to do |format|
       if @developer.save
         format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
-        format.json { render :show, status: :created, location: @developer }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @developer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -39,10 +36,8 @@ class DevelopersController < ApplicationController
     respond_to do |format|
       if @developer.update(developer_params)
         format.html { redirect_to @developer, notice: 'Developer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @developer }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @developer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,7 +46,6 @@ class DevelopersController < ApplicationController
     @developer.destroy
     respond_to do |format|
       format.html { redirect_to developers_url, notice: 'Developer was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -82,38 +76,34 @@ class DevelopersController < ApplicationController
     end
   end
 
-  def fetch_current_day_tech
-    @cur_day = params[:day] if params[:filter]
-    @cur_tech = params[:filter][:tech_ids] if params[:filter]
+  def filter_params
+    return unless params[:filter]
+
+    @cur_day = params[:day]
+    @cur_tech = params[:filter][:tech_ids]
   end
 
-  def fetch_current_developer
-    if params[:filter] && params[:filter][:tech_ids].present?
-      @developers_current = Developer.joins(:projects, :teches).not_have_current_project.with_teches(params[:filter][:tech_ids])
-    else
-      @developers_current = Developer.joins(:projects, :teches).not_have_current_project
-    end
+  def fetch_free_developer
+    @developers_free = Developer.joins(:projects, :teches).not_have_current_project
+    return unless @cur_tech.present?
+
+    @developers_free = @developers_free.with_teches(@cur_tech)
   end
 
-  def fetch_filter_tech
-    return unless params[:filter] && @cur_day.blank? && @cur_tech.present?
-
-    @developers = Developer.joins(:projects, :teches).with_teches(params[:filter][:tech_ids]).or(@developers_current)
-  end
-
-  def fetch_free_after_x_days
-    return unless params[:filter] && @cur_day.present? && @cur_tech.blank?
-
-    @developers = Developer.joins(:projects, :teches).free_after_x_days(params[:day].to_d).or(@developers_current)
-  end
-
-  def fetch_filter_tech_day
-    return unless params[:filter] && @cur_day.present? && @cur_tech.present?
-
-    @developers = Developer.joins(:projects, :teches).free_after_x_days(params[:day].to_d).with_teches(params[:filter][:tech_ids]).or(@developers_current)
+  def developer_filter
+    @param_day = @cur_day.to_d
+    @developers = Developer.joins(:projects, :teches)
+    @developers = @developers.with_teches(@cur_tech) if @cur_tech.present?
+    @developers = @developers.free_after_x_days(@param_day) if @cur_day.present?
+    @developers = @developers.or(@developers_free)
+    @developers = @developers.order(id: :asc)
   end
 
   def developer_params
-    params.require(:developer).permit({ project_ids: [], tech_ids: [] }, :full_name, :company_name, :belong_team, :level, developer_projects_attributes: %i[join_date current id])
+    params.require(:developer).permit(
+      { project_ids: [], tech_ids: [] },
+      :full_name, :company_name, :belong_team, :level,
+      developer_projects_attributes: %i[join_date current id]
+    )
   end
 end
