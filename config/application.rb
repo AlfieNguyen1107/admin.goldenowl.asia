@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module AdminGoldenowlAsia
   class Application < Rails::Application
+    # Config for service
+    config.autoload_paths += %W(#{config.root}/services)
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
