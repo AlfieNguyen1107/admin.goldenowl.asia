@@ -7,8 +7,9 @@ class FilterDeveloper
 
   def developer_filter
     @developers_free = @developers.not_have_current_project
-    @developers_free = @developers_free.with_teches(@tech_ids) if @tech_ids.present?
-
+    if @tech_ids.present?
+      @developers_free = @developers_free.with_teches(@tech_ids)
+    end
     @developers = @developers.with_teches(@tech_ids) if @tech_ids.present?
     @developers = @developers.free_after_x_days(@days) if @days != 0
     @developers = @developers.or(@developers_free)
