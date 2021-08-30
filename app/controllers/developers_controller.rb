@@ -2,7 +2,6 @@ class DevelopersController < ApplicationController
   before_action :set_developer, only: %i[show edit update destroy detail]
   before_action :set_project_options, only: %i[new edit]
   before_action :filter_params, only: %i[index]
-  after_action :set_tech_stack, only: %i[create update]
 
   def index
     @developers = Developer.all
@@ -64,19 +63,6 @@ class DevelopersController < ApplicationController
 
   def set_project_options
     @project_options = Project.pluck(:name, :id)
-  end
-
-  def set_tech_stack
-    @developers = Developer.all
-    @developers.each do |d|
-      @temp = []
-      @temp2 = []
-      d.projects.each do |p|
-        @temp += p.teches
-      end
-      @temp2 += @temp.uniq
-      d.teches = @temp2.uniq
-    end
   end
 
   def filter_params

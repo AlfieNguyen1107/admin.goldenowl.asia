@@ -28,6 +28,8 @@ class Developer < ApplicationRecord
   validates :belong_team, presence: true
   validates :level, presence: true
 
+  after_save :set_tech_stack
+
   scope :with_teches, ->(params) { where('tech_id = ?', params) }
   scope :not_have_current_project, -> { where('developer_projects.current IS NULL') }
   scope :have_current_project, -> { where('developer_projects.current = true') }
@@ -36,5 +38,17 @@ class Developer < ApplicationRecord
     available_developer_ids = Developer.joins(:projects).where('current = true').group(:id).having('max(projects.end_date) <= ?', Date.today + params).pluck(:id)
 
     where(id: available_developer_ids)
+  end
+
+  private
+
+  def set_tech_stack
+    @temp = []
+    @temp2 = []
+    self.projects.each do |p|
+      @temp += p.teches
+    end
+    @temp2 += @temp.uniq
+    self.teches = @temp2.uniq
   end
 end

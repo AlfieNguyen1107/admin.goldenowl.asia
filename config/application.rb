@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -8,9 +10,6 @@ Bundler.require(*Rails.groups)
 
 module AdminGoldenowlAsia
   class Application < Rails::Application
-    # Config for service
-    config.autoload_paths += %W(#{config.root}/services)
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
@@ -19,22 +18,22 @@ module AdminGoldenowlAsia
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    if Rails.env.test? || Rails.env.development?
-      config.paperclip_defaults = {
-        storage: :fog,
-        fog_credentials: {
-          provider: 'Local',
-          default_url: '/images/:style/missing.png',
-          local_root: "#{Rails.root}/public"
-        },
-        fog_directory: '',
-        fog_host: ''
-      }
-    else
-      config.paperclip_defaults = {
-        storage: :cloudinary,
-        path: ':class/:attachment/:id/:style/:filename'
-      }
-    end
+    config.paperclip_defaults = if Rails.env.test? || Rails.env.development?
+                                  {
+                                    storage: :fog,
+                                    fog_credentials: {
+                                      provider: 'Local',
+                                      default_url: '/images/:style/missing.png',
+                                      local_root: "#{Rails.root}/public"
+                                    },
+                                    fog_directory: '',
+                                    fog_host: ''
+                                  }
+                                else
+                                  {
+                                    storage: :cloudinary,
+                                    path: ':class/:attachment/:id/:style/:filename'
+                                  }
+                                end
   end
 end
