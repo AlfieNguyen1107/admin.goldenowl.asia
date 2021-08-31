@@ -16,20 +16,20 @@ class FilterDeveloperService < ApplicationService
   attr_reader :params, :days, :tech_ids
 
   def fetch_developers_free
-    @developers = Developer.joins(:projects, :teches)
-    @developers_free = @developers.not_have_current_project
     return unless tech_ids.present?
 
-    @developers_free = @developers_free.with_teches(tech_ids)
+    developers.not_have_current_project.with_teches(tech_ids)
   end
 
   def developer_filter
-    developers = Developer.all
     return unless developers.present?
 
-    developers = developers.joins(:projects, :teches)
-    developers = developers.with_teches(tech_ids) if tech_ids.present?
-    developers = developers.free_after_x_days(days) unless days.zero?
-    developers.or(fetch_developers_free).order(id: :asc)
+    developer_filter = developers.with_teches(tech_ids) if tech_ids.present?
+    developer_filter = developer_filter.free_after_x_days(days) unless days.zero?
+    developer_filter.or(fetch_developers_free).order(id: :asc)
+  end
+
+  def developers
+    @developers ||= Developer.all.joins(:projects, :teches)
   end
 end
