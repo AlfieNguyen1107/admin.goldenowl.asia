@@ -5,10 +5,7 @@ class DevelopersController < ApplicationController
 
   def index
     @developers = Developer.all
-    if params[:filter].present?
-      @developers = Developer.joins(:projects, :teches)
-      @developers = FilterDeveloper.new(@developers, @cur_day.to_d, @cur_tech).developer_filter
-    end
+    @developers = FilterDeveloperService.call(params).payload if params[:filter].present?
     @pagy, @developers = pagy_array(@developers.uniq, items: per_page)
   end
 

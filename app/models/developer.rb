@@ -43,12 +43,10 @@ class Developer < ApplicationRecord
   private
 
   def set_tech_stack
-    @temp = []
-    @temp2 = []
-    self.projects.each do |p|
-      @temp += p.teches
+    @project_technology = []
+    projects.each do |p|
+      @project_technology += p.teches
     end
-    @temp2 += @temp.uniq
-    self.teches = @temp2.uniq
+    self.teches = @project_technology.uniq
   end
 end
