@@ -25,7 +25,9 @@ class FilterDeveloperService < ApplicationService
     return unless developers.present?
 
     developer_filter = developers.with_teches(tech_ids) if tech_ids.present?
-    developer_filter = developer_filter.free_after_x_days(days) unless days.zero?
+    unless days.zero?
+      developer_filter = developer_filter.free_after_x_days(days)
+    end
     developer_filter.or(fetch_developers_free).order(id: :asc)
   end
 
