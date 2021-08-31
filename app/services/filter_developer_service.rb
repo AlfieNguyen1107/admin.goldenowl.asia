@@ -18,7 +18,9 @@ class FilterDeveloperService < ApplicationService
   def fetch_developers_free
     @developers = Developer.joins(:projects, :teches)
     @developers_free = @developers.not_have_current_project
-    @developers_free = @developers_free.with_teches(tech_ids) if tech_ids.present?
+    return unless tech_ids.present?
+
+    @developers_free = @developers_free.with_teches(tech_ids)
   end
 
   def developer_filter

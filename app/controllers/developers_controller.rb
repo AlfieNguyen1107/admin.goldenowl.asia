@@ -5,7 +5,7 @@ class DevelopersController < ApplicationController
 
   def index
     @developers = Developer.all
-    @developers = FilterDeveloperService.call(params).payload if params[:filter].present?
+    @developers = FilterDeveloperService.call(params).payload if @filter.present?
     @pagy, @developers = pagy_array(@developers.uniq, items: per_page)
   end
 
@@ -65,6 +65,7 @@ class DevelopersController < ApplicationController
   def filter_params
     return unless params[:filter]
 
+    @filter = params[:filter]
     @cur_day = params[:day]
     @cur_tech = params[:filter][:tech_ids]
   end
