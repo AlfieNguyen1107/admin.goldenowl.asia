@@ -27,11 +27,12 @@
 #
 FactoryBot.define do
   factory :project do
-    name { "MyString" }
-    description { "MyString" }
-    start_date { Date.today }
+    name { Faker::Lorem.words.join(" ") }
+    description { Faker::Lorem.paragraph }
+    start_date { Faker::Date.in_date_period }
     end_date { Date.today }
     deployment { "MyString" }
     website { "MyString" }
+    client
   end
 end
