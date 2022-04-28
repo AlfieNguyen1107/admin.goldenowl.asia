@@ -14,8 +14,8 @@
 #
 FactoryBot.define do
   factory :client do
-    name { "MyString" }
-    address { "MyString" }
-    hq { "MyString" }
+    name { Faker::Company.name }
+    address { Faker::Address.full_address }
+    hq { Faker::Address.country }
   end
 end
