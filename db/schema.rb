@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_183744) do
+ActiveRecord::Schema.define(version: 2022_04_29_050900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,8 +98,13 @@ ActiveRecord::Schema.define(version: 2021_08_05_183744) do
     t.string "full_name"
     t.string "company_name"
     t.string "belong_team"
+    t.bigint "university_id"
+    t.integer "graduation_year"
+    t.bigint "position_id", null: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true
     t.index ["full_name"], name: "index_developers_on_full_name", unique: true
+    t.index ["position_id"], name: "index_developers_on_position_id"
+    t.index ["university_id"], name: "index_developers_on_university_id"
   end
 
   create_table "developers_projects", id: false, force: :cascade do |t|
@@ -163,6 +168,13 @@ ActiveRecord::Schema.define(version: 2021_08_05_183744) do
     t.string "level", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_positions_on_name"
   end
 
   create_table "post_categories", force: :cascade do |t|
@@ -233,6 +245,15 @@ ActiveRecord::Schema.define(version: 2021_08_05_183744) do
     t.integer "tech_type"
   end
 
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_universities_on_code"
+    t.index ["name"], name: "index_universities_on_name"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -250,6 +271,8 @@ ActiveRecord::Schema.define(version: 2021_08_05_183744) do
   add_foreign_key "developer_projects", "projects"
   add_foreign_key "developer_teches", "developers"
   add_foreign_key "developer_teches", "teches"
+  add_foreign_key "developers", "positions"
+  add_foreign_key "developers", "universities"
   add_foreign_key "development_types_projects", "development_types"
   add_foreign_key "development_types_projects", "projects"
   add_foreign_key "job_submissions", "careers"
