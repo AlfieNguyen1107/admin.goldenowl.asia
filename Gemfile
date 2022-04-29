@@ -67,7 +67,7 @@ gem 'select2-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Trix
-gem 'image_processing', '~> 1.0'
+gem 'image_processing', '~> 1.12'
 
 # API
 gem 'fast_jsonapi'
