@@ -5,33 +5,45 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+admin = User.create email: 'admin@goldenowl.asia', password: '123456', password_confirmation: '123456'
+require 'factory_bot_rails'
+
+F = FactoryBot
+
+clients = F.create_list :client, rand(10)
+
+clients.each do |c|
+  F.create_list :project, rand(2), client: c
+end
+
 Tech.create([
-    {
-        name: "Rails",
-        tech_type: 1
-    },
-    {
-        name: "ReactJS",
-        tech_type: 0
-    },
-    {
-        name: "NodeJS",
-        tech_type: 1
-    },
-    {
-        name: "PHP",
-        tech_type: 1
-    },
+  {
+    name: "Rails",
+    tech_type: 1
+  },
+  {
+    name: "ReactJS",
+    tech_type: 0
+  },
+  {
+    name: "NodeJS",
+    tech_type: 1
+  },
+  {
+    name: "PHP",
+    tech_type: 1
+  },
 ])
 
 DevelopmentType.create([
-    {
-        name: "Mobile IOS"
-    },
-    {
-        name: "Mobile Android"
-    },
-    {
-        name: "Website"
-    },
+  {
+    name: "Mobile IOS"
+  },
+  {
+    name: "Mobile Android"
+  },
+  {
+    name: "Website"
+  },
 ])
