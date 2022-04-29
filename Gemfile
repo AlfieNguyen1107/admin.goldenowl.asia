@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '2.6.8'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jbuilder', '~> 2.7'
@@ -67,7 +67,7 @@ gem 'select2-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Trix
-gem 'image_processing', '~> 1.0'
+gem 'image_processing', '~> 1.12'
 
 # API
 gem 'fast_jsonapi'
