@@ -2,20 +2,27 @@
 #
 # Table name: developers
 #
-#  id           :bigint           not null, primary key
-#  belong_team  :string
-#  company_name :string
-#  full_name    :string
-#  level        :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :bigint           not null, primary key
+#  belong_team   :string
+#  company_name  :string
+#  full_name     :string
+#  level         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  university_id :bigint
 #
 # Indexes
 #
-#  index_developers_on_company_name  (company_name) UNIQUE
-#  index_developers_on_full_name     (full_name) UNIQUE
+#  index_developers_on_company_name   (company_name) UNIQUE
+#  index_developers_on_full_name      (full_name) UNIQUE
+#  index_developers_on_university_id  (university_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (university_id => universities.id)
 #
 class Developer < ApplicationRecord
+  belongs_to :university, optional: true
   has_many :developer_projects, dependent: :destroy
   has_many :projects, through: :developer_projects
   has_many :developer_teches, dependent: :destroy
@@ -24,8 +31,8 @@ class Developer < ApplicationRecord
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
 
   validates :full_name, presence: true, uniqueness: true
-  validates :company_name, presence: true, uniqueness: true
-  validates :belong_team, presence: true
+  # validates :company_name, presence: true, uniqueness: true
+  # validates :belong_team, presence: true
   validates :level, presence: true
 
   scope :with_teches, ->(params) { where('tech_id = ?', params) }

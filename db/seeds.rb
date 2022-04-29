@@ -17,6 +17,17 @@ clients.each do |c|
   F.create_list :project, rand(2), client: c
 end
 
+University.create name: "Ho Chi Minh City University of Technology", code: 'BKU'
+University.create name: "Ho Chi Minh City University of Information Technology", code: 'UIT'
+
+universities = University.all.to_a
+
+devs = F.create_list :developer, rand(100)
+devs.each do |d|
+  d.university = universities.sample
+  d.save
+end
+
 Tech.create([
   {
     name: "Rails",
