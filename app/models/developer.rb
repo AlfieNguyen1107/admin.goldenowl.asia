@@ -2,14 +2,15 @@
 #
 # Table name: developers
 #
-#  id            :bigint           not null, primary key
-#  belong_team   :string
-#  company_name  :string
-#  full_name     :string
-#  level         :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  university_id :bigint
+#  id              :bigint           not null, primary key
+#  belong_team     :string
+#  company_name    :string
+#  full_name       :string
+#  graduation_year :integer
+#  level           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  university_id   :bigint
 #
 # Indexes
 #

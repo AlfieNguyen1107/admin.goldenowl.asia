@@ -48,19 +48,19 @@ section.section
                     tr
                       th scope="col" ID
                       th scope="col" Full name
-                      th scope="col" Company name
+                      th scope="col" University
                       th scope="col" Belong to team                    
                       th scope="col" Level
                       th scope="col" Project
                       th scope="col" Current Project
-                      th scope="col" Join Date
+                      th scope="col" Exp
                       th scope="col" TechStack
                       th scope="col" Detail
                       - @developers.each do |d|
                           tr
                             td = d.id
                             td = link_to d.full_name, d
-                            td = link_to d.company_name, d
+                            td = link_to d.university&.code, d
                             td = d.belong_team
                             td = d.level
                             td
@@ -73,10 +73,7 @@ section.section
                                   = link_to dp.project.name, dp.project
                                   br
                             td
-                              - d.developer_projects.each do |dp|
-                                - if dp.current?
-                                  = dp.join_date
-                                  br
+                              = Date.today.year - d.graduation_year
                             td
                               - d.teches.each do |t|
                                 = t.name  

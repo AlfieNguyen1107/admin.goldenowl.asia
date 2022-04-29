@@ -27,7 +27,7 @@
 #
 FactoryBot.define do
   factory :project do
-    name { Faker::Lorem.words.join(" ") }
+    name { Faker::App.name }
     description { Faker::Lorem.paragraph }
     start_date { Faker::Date.in_date_period }
     end_date { Date.today }
