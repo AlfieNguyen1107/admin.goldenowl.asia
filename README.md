@@ -8,7 +8,7 @@ Admin panel of `goldenowl.asia`. Includes crud panels and resful api for clients
 
 ## General Information
 
-- Ruby version: `ruby 2.6.9`
+- Ruby version: `ruby 2.6.8`
 - Rails version: `rails 6.0.2`
 - Database: `postgresql`
 
@@ -20,8 +20,8 @@ Admin panel of `goldenowl.asia`. Includes crud panels and resful api for clients
 4. Install correct ruby version for our project. If you have `rbenv`, use these commands:
 
 ```
-rbenv install 2.6.9
-rbenv local 2.6.9
+rbenv install 2.6.8
+rbenv local 2.6.8
 ```
 
 5. Install bundler: `gem install bundler`
