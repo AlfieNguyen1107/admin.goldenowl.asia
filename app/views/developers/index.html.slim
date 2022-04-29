@@ -48,6 +48,7 @@ section.section
                     tr
                       th scope="col" ID
                       th scope="col" Full name
+                      th scope="col" Position
                       th scope="col" University
                       th scope="col" Belong to team                    
                       th scope="col" Level
@@ -60,6 +61,7 @@ section.section
                           tr
                             td = d.id
                             td = link_to d.full_name, d
+                            td = d.position.name
                             td = link_to d.university&.code, d
                             td = d.belong_team
                             td = d.level
