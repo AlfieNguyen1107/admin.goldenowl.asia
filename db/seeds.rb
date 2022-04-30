@@ -64,7 +64,7 @@ positions = Position.create([
 clients = F.create_list :client, rand(10)
 
 clients.each do |c|
-  F.create_list :project, rand(2), client: c
+  F.create_list :project, rand(20), client: c
 end
 
 projects = Project.all.to_a

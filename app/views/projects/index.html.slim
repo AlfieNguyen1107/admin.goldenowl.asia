@@ -43,21 +43,21 @@ section.section
                       tr
                         th scope="col" ID
                         th scope="col" Name
+                        th scope="col" Rank
                         th scope="col" Start Date
                         th scope="col" End Date
-                        th scope="col" HQ
                         th scope="col" Technology
                         th scope="col" Deployment
                         th scope="col" Developement
                         th scope="col" Industry
-                        th scope="col" Website
+                        th scope="col" Status
                       - @projects.each do |p|
                           tr
                             td = p.id
                             td = link_to p.name, p
+                            td = p.rank_to_s
                             td = p.start_date
                             td = p.end_date
-                            td = p.client.hq
                             td
                               - p.teches.each do |t|
                                 = t.name
@@ -68,7 +68,7 @@ section.section
                                 = t.name
                                 br
                             td = p.industry
-                            td = link_to p.website, p.website
+                            td = p.status
 
 section.section
   .container.mb-3
