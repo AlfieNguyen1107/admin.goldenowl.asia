@@ -1,5 +1,9 @@
-$octicons-font-path: "@primer/octicons/build";
-@import "@primer/octicons/build/build";
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";
+@import "@fortawesome/fontawesome-free/scss/regular";
+@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/scss/v4-shims";
 
 @import "./application/components/index";
 @import "./application/pages/index";
