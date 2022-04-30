@@ -44,19 +44,24 @@ section.section
                           td = contact.id
                           td = link_to contact.full_name, contact
                           td
-                            = "Homepage: "
+                            i.fa-circle-envelope
+                            = " "
                             = link_to contact.company_homepage_url, contact.company_homepage_url, target: :_blank
                             br
-                            = "LinkedIn: "
+                            i.fa-linkedin.fa-brands
+                            = " "
                             = link_to contact.company_linkedin_url, contact.company_linkedin_url, target: :_blank
                           td
-                            = "Facebook: "
+                            i.fa-facebook.fa-brands
+                            = " "
                             = link_to contact.personal_facebook_url, contact.personal_facebook_url, target: :_blank
                             br
-                            = "LinkedIn: "
+                            i.fa-linkedin.fa-brands
+                            = " "
                             = link_to contact.personal_linkedin_url, contact.personal_linkedin_url, target: :_blank
                             br
-                            = "Twitter: "
+                            i.fa-twitter.fa-brands
+                            = " "
                             = link_to contact.personal_twitter_url, contact.personal_twitter_url, target: :_blank
                           td = contact.client&.nationality
 section.section

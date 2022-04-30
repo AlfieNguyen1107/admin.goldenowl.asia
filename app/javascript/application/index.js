@@ -1,5 +1,6 @@
-import './hyper';
-import './components';
-import './pages';
+import "@fortawesome/fontawesome-free/js/all";
+import "./hyper";
+import "./components";
+import "./pages";
 
-import '../stylesheets/application.scss';
+import "../stylesheets/application.scss";
