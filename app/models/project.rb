@@ -44,6 +44,8 @@ class Project < ApplicationRecord
   belongs_to :client
 
   validates :name, presence: true, uniqueness: true
+  validates :rank, presence: true
+  validates :status, presence: true
   validates :description, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true

@@ -34,10 +34,12 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :rank }
     it { is_expected.to validate_presence_of :description }
     it { is_expected.to validate_presence_of :start_date }
     it { is_expected.to validate_presence_of :end_date }
     it { is_expected.to validate_presence_of :deployment }
+    it { is_expected.to validate_presence_of :status }
   end
 
   describe 'assocation' do
@@ -45,5 +47,17 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_and_belong_to_many(:development_types) }
     it { is_expected.to have_many(:developers) }
     it { is_expected.to belong_to(:client) }
+  end
+
+  context "rank_to_s" do
+    it 'convert rank to string' do
+      project = FactoryBot.create(:project, rank: 1)
+      expect(project.rank_to_s).to eq 'A'
+    end
+
+    it 'convert rank to unset' do
+      project = FactoryBot.create(:project, rank: -1)
+      expect(project.rank_to_s).to eq 'unset'
+    end
   end
 end
