@@ -61,6 +61,8 @@ positions = Position.create([
 ])
 
 
+contacts = F.create_list :contact, rand(500)
+
 clients = F.create_list :client, rand(10)
 
 clients.each do |c|
