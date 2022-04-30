@@ -23,5 +23,6 @@ FactoryBot.define do
     name { Faker::Company.name }
     address { Faker::Address.full_address }
     hq { Faker::Address.country }
+    association :contactable, factory: :contact
   end
 end

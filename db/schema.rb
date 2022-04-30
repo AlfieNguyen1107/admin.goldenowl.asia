@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_104717) do
+ActiveRecord::Schema.define(version: 2022_04_30_112259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,10 @@ ActiveRecord::Schema.define(version: 2022_04_30_104717) do
     t.string "personal_twitter_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "based_nationality"
+    t.string "current_living_country"
+    t.index ["based_nationality"], name: "index_contacts_on_based_nationality"
+    t.index ["current_living_country"], name: "index_contacts_on_current_living_country"
     t.index ["full_name"], name: "index_contacts_on_full_name"
   end
 

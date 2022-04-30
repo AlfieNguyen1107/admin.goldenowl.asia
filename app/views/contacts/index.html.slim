@@ -44,7 +44,7 @@ section.section
                           td = contact.id
                           td = link_to contact.full_name, contact
                           td
-                            i.fa-circle-envelope
+                            i.fa-archway.fa-brands
                             = " "
                             = link_to contact.company_homepage_url, contact.company_homepage_url, target: :_blank
                             br
@@ -63,7 +63,10 @@ section.section
                             i.fa-twitter.fa-brands
                             = " "
                             = link_to contact.personal_twitter_url, contact.personal_twitter_url, target: :_blank
-                          td = contact.client&.nationality
+                          td
+                            = "Based: #{contact.based_nationality}"
+                            br
+                            = "Living: #{contact.current_living_country}"
 section.section
   .container.mb-3
     .d-flex.justify-content-center
