@@ -1,0 +1,74 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Contacts
+      h4.page-title
+        | Contacts
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Contact", new_contact_path, class:"navbar-item"
+  .hero-body
+    .container.has-text-centered
+      h1.title
+        = yield :page_title
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Contacts
+                .table-responsive-sm
+                  table.table.table-centered.mb-0
+                    tr
+                      th scope="col" ID
+                      th scope="col" Name
+                      th scope="col" Company
+                      th scope="col" Personal
+                      th scope="col" Nationality
+                    - @contacts.each do |contact|
+                        tr
+                          td = contact.id
+                          td = link_to contact.full_name, contact
+                          td
+                            i.fa-archway.fa-brands
+                            = " "
+                            = link_to contact.company_homepage_url, contact.company_homepage_url, target: :_blank
+                            br
+                            i.fa-linkedin.fa-brands
+                            = " "
+                            = link_to contact.company_linkedin_url, contact.company_linkedin_url, target: :_blank
+                          td
+                            i.fa-facebook.fa-brands
+                            = " "
+                            = link_to contact.personal_facebook_url, contact.personal_facebook_url, target: :_blank
+                            br
+                            i.fa-linkedin.fa-brands
+                            = " "
+                            = link_to contact.personal_linkedin_url, contact.personal_linkedin_url, target: :_blank
+                            br
+                            i.fa-twitter.fa-brands
+                            = " "
+                            = link_to contact.personal_twitter_url, contact.personal_twitter_url, target: :_blank
+                          td
+                            = "Based: #{contact.based_nationality}"
+                            br
+                            = "Living: #{contact.current_living_country}"
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @contacts.size > 0
+        == pagy_bootstrap_nav(@pagy)

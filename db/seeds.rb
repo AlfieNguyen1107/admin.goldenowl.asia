@@ -61,7 +61,12 @@ positions = Position.create([
 ])
 
 
-clients = F.create_list :client, rand(10)
+contacts = F.create_list :contact, rand(50)
+rand(10).times do
+  F.create :client, contactable: contacts.sample
+end
+
+clients = Client.all.to_a
 
 clients.each do |c|
   F.create_list :project, rand(20), client: c

@@ -21,6 +21,10 @@
           i.dripicons-user-group
           span Clients
       li.side-nav-item
+        = link_to contacts_path, class: "side-nav-link #{active_items('contacts')}" do
+          i.dripicons-user-group
+          span Contacts
+      li.side-nav-item
         = link_to post_categories_path, class: "side-nav-link #{active_items('post_categories')}" do
           i.dripicons-menu
           span Blog Categories

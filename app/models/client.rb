@@ -2,17 +2,25 @@
 #
 # Table name: clients
 #
-#  id          :bigint           not null, primary key
-#  address     :string
-#  hq          :string
-#  latitude    :float
-#  longitude   :float
-#  name        :string
-#  nationality :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id               :bigint           not null, primary key
+#  address          :string
+#  contactable_type :string
+#  hq               :string
+#  latitude         :float
+#  longitude        :float
+#  name             :string
+#  nationality      :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  contactable_id   :bigint
+#
+# Indexes
+#
+#  index_clients_on_contactable_type_and_contactable_id  (contactable_type,contactable_id)
 #
 class Client < ApplicationRecord
+  belongs_to :contactable, polymorphic: true
+  delegate_missing_to :contactable
   geocoded_by :address
   after_validation :geocode
 
