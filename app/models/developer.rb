@@ -5,20 +5,22 @@
 #  id              :bigint           not null, primary key
 #  belong_team     :string
 #  company_name    :string
-#  full_name       :string
+#  employable_type :string
 #  graduation_year :integer
 #  level           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  employable_id   :integer
 #  position_id     :bigint           not null
 #  university_id   :bigint
 #
 # Indexes
 #
-#  index_developers_on_company_name   (company_name) UNIQUE
-#  index_developers_on_full_name      (full_name) UNIQUE
-#  index_developers_on_position_id    (position_id)
-#  index_developers_on_university_id  (university_id)
+#  index_developers_on_company_name     (company_name) UNIQUE
+#  index_developers_on_employable_id    (employable_id)
+#  index_developers_on_employable_type  (employable_type)
+#  index_developers_on_position_id      (position_id)
+#  index_developers_on_university_id    (university_id)
 #
 # Foreign Keys
 #
@@ -26,6 +28,9 @@
 #  fk_rails_...  (university_id => universities.id)
 #
 class Developer < ApplicationRecord
+  belongs_to :employable, polymorphic: true
+  delegate_missing_to :employable
+  
   belongs_to :university, optional: true
   belongs_to :position
   has_many :developer_projects, dependent: :destroy
@@ -35,7 +40,7 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
 
-  validates :full_name, presence: true, uniqueness: true
+  # validates :full_name, presence: true, uniqueness: true
   # validates :company_name, presence: true, uniqueness: true
   # validates :belong_team, presence: true
   validates :level, presence: true

@@ -11,7 +11,7 @@
 #  name        :string           not null
 #  rank        :integer          default(0)
 #  start_date  :date
-#  status      :integer          default("new")
+#  status      :integer          default("planning")
 #  trello      :string
 #  website     :string
 #  created_at  :datetime         not null

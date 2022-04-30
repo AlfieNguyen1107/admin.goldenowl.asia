@@ -11,7 +11,7 @@
 #  name        :string           not null
 #  rank        :integer          default(0)
 #  start_date  :date
-#  status      :integer          default("new")
+#  status      :integer          default("planning")
 #  trello      :string
 #  website     :string
 #  created_at  :datetime         not null
@@ -31,7 +31,7 @@
 #
 FactoryBot.define do
   factory :project do
-    name { Faker::Team.name }
+    name { Faker::Lorem.words.join(" ").capitalize }
     description { Faker::Lorem.paragraph }
     start_date { Faker::Date.in_date_period }
     rank { (1..5).to_a.sample }

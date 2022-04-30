@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_071008) do
+ActiveRecord::Schema.define(version: 2022_04_30_084149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,14 +95,16 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
     t.string "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "full_name"
     t.string "company_name"
     t.string "belong_team"
     t.bigint "university_id"
     t.integer "graduation_year"
     t.bigint "position_id", null: false
+    t.integer "employable_id"
+    t.string "employable_type"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true
-    t.index ["full_name"], name: "index_developers_on_full_name", unique: true
+    t.index ["employable_id"], name: "index_developers_on_employable_id"
+    t.index ["employable_type"], name: "index_developers_on_employable_type"
     t.index ["position_id"], name: "index_developers_on_position_id"
     t.index ["university_id"], name: "index_developers_on_university_id"
   end
@@ -127,6 +129,19 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["development_type_id"], name: "index_development_types_projects_on_development_type_id"
     t.index ["project_id"], name: "index_development_types_projects_on_project_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "full_name"
+    t.string "current_address"
+    t.integer "emp_number"
+    t.string "phone_number"
+    t.string "registered_address"
+    t.date "joined_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["emp_number"], name: "index_employees_on_emp_number"
+    t.index ["full_name"], name: "index_employees_on_full_name"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
