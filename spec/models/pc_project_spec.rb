@@ -2,21 +2,22 @@
 #
 # Table name: pc_projects
 #
-#  id         :bigint           not null, primary key
-#  join_date  :date
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  pc_id      :bigint           not null
-#  project_id :bigint           not null
+#  id                     :bigint           not null, primary key
+#  finished_date          :date
+#  join_date              :date
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  project_coordinator_id :bigint           not null
+#  project_id             :bigint           not null
 #
 # Indexes
 #
-#  index_pc_projects_on_pc_id       (pc_id)
-#  index_pc_projects_on_project_id  (project_id)
+#  index_pc_projects_on_project_coordinator_id  (project_coordinator_id)
+#  index_pc_projects_on_project_id              (project_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (pc_id => pcs.id)
+#  fk_rails_...  (project_coordinator_id => project_coordinators.id)
 #  fk_rails_...  (project_id => projects.id)
 #
 require 'rails_helper'

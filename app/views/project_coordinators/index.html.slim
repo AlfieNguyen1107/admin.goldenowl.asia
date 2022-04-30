@@ -16,7 +16,7 @@ section.hero.is-primary.is-medium
         .navbar-brand
         #navbarMenuHeroA.navbar-menu
           .navbar-end
-            = link_to "Create PC", new_pc_path, class:"navbar-item"
+            = link_to "Create PC", new_project_coordinator_path, class:"navbar-item"
   .hero-body
     .container.has-text-centered
       h1.title
@@ -36,26 +36,16 @@ section.section
                     tr
                       th scope="col" ID
                       th scope="col" Full Name
-                      th scope="col" Company Name
+                      th scope="col" Current Project
                       th scope="col" Level
-                      th scope="col" Project
-                      th scope="col" Join Date
-                    - @pcs.each do |pc|
+                    - @project_coordinators.each do |pc|
                         tr
                           td = pc.id
                           td = link_to pc.full_name, pc
-                          td = pc.company_name
+                          td = pc.current_project&.name
                           td = pc.level
-                          td
-                              - pc.projects.each do |p|
-                                = link_to p.name, p
-                                br
-                          td
-                            - pc.pc_projects.each do |pp|
-                                = pp.join_date
-                                br
 section.section
   .container.mb-3
     .d-flex.justify-content-center
-      - if @pcs.size > 0
+      - if @project_coordinators.size > 0
         == pagy_bootstrap_nav(@pagy)

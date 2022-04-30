@@ -84,3 +84,12 @@ devs.each do |d|
   d.position = positions.sample
   d.save
 end
+
+rand(10).times do
+  F.create :project_coordinator
+end
+
+pcs = ProjectCoordinator.all.to_a
+pcs.each do |p|
+  F.create :pc_project, project: projects.sample, project_coordinator: pcs.sample
+end

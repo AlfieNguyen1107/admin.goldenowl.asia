@@ -62,4 +62,12 @@ class Project < ApplicationRecord
       'unset'
     end
   end
+
+  def current_pc
+    pc_projects.order(created_at: :desc).first&.project_coordinator
+  end
+
+  def assign_pc(pc)
+    self.pc_projects.create project_coordinator: pc, join_date: Date.today
+  end
 end
