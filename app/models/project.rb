@@ -54,7 +54,7 @@ class Project < ApplicationRecord
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
   def rank_to_s
-    if rank > 0
+    if rank.positive?
       (64 + rank).chr
     else
       'unset'
