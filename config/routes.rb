@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :pcs
+  resources :project_coordinators
   resources :clients
   resources :developers do 
     get 'detail', on: :member

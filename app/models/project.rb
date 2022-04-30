@@ -11,7 +11,7 @@
 #  name        :string           not null
 #  rank        :integer          default(0)
 #  start_date  :date
-#  status      :integer          default("new")
+#  status      :integer          default("planning")
 #  trello      :string
 #  website     :string
 #  created_at  :datetime         not null
@@ -39,7 +39,7 @@ class Project < ApplicationRecord
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
   has_many :pc_projects, dependent: :destroy
-  has_many :pcs, through: :pc_projects
+  has_many :project_coordinators, through: :pc_projects
   has_one_attached :image
   belongs_to :client
 
@@ -61,5 +61,13 @@ class Project < ApplicationRecord
     else
       'unset'
     end
+  end
+
+  def current_pc
+    pc_projects.order(created_at: :desc).first&.project_coordinator
+  end
+
+  def assign_pc(project_coordinator)
+    pc_projects.create project_coordinator: project_coordinator, join_date: Date.today
   end
 end

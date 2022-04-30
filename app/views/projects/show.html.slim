@@ -67,7 +67,7 @@
       | Management
     p.card-text
       - @project.pc_projects.each do |pp|
-        = link_to pp.pc.company_name, pc_path(pp.pc)
+        = link_to pp.pc.company_name, project_coordinator_path(pp.pc)
         br
     .card-body
     h5.card-title

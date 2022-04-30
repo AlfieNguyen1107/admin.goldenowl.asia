@@ -92,6 +92,6 @@ class ProjectsController < ApplicationController
   end
 
   def prepare_projects
-    @projects = Project.order(id: :desc)
+    @projects = Project.order(rank: :asc)
   end
 end

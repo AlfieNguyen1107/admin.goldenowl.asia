@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_071008) do
+ActiveRecord::Schema.define(version: 2022_04_30_091030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,14 +95,16 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
     t.string "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "full_name"
     t.string "company_name"
     t.string "belong_team"
     t.bigint "university_id"
     t.integer "graduation_year"
     t.bigint "position_id", null: false
+    t.integer "employable_id"
+    t.string "employable_type"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true
-    t.index ["full_name"], name: "index_developers_on_full_name", unique: true
+    t.index ["employable_id"], name: "index_developers_on_employable_id"
+    t.index ["employable_type"], name: "index_developers_on_employable_type"
     t.index ["position_id"], name: "index_developers_on_position_id"
     t.index ["university_id"], name: "index_developers_on_university_id"
   end
@@ -127,6 +129,19 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["development_type_id"], name: "index_development_types_projects_on_development_type_id"
     t.index ["project_id"], name: "index_development_types_projects_on_project_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "full_name"
+    t.string "current_address"
+    t.integer "emp_number"
+    t.string "phone_number"
+    t.string "registered_address"
+    t.date "joined_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["emp_number"], name: "index_employees_on_emp_number"
+    t.index ["full_name"], name: "index_employees_on_full_name"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -154,11 +169,12 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
 
   create_table "pc_projects", force: :cascade do |t|
     t.date "join_date"
-    t.bigint "pc_id", null: false
+    t.bigint "project_coordinator_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["pc_id"], name: "index_pc_projects_on_pc_id"
+    t.date "finished_date"
+    t.index ["project_coordinator_id"], name: "index_pc_projects_on_project_coordinator_id"
     t.index ["project_id"], name: "index_pc_projects_on_project_id"
   end
 
@@ -204,6 +220,16 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
     t.string "meta_description"
     t.index ["post_category_id"], name: "index_posts_on_post_category_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
+  end
+
+  create_table "project_coordinators", force: :cascade do |t|
+    t.string "employable_type", null: false
+    t.bigint "employable_id", null: false
+    t.integer "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employable_type", "employable_id"], name: "index_project_coordinators_on_employable_type_and_employable_id"
+    t.index ["level"], name: "index_project_coordinators_on_level"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -280,7 +306,7 @@ ActiveRecord::Schema.define(version: 2022_04_30_071008) do
   add_foreign_key "development_types_projects", "development_types"
   add_foreign_key "development_types_projects", "projects"
   add_foreign_key "job_submissions", "careers"
-  add_foreign_key "pc_projects", "pcs"
+  add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
   add_foreign_key "projects", "clients"
 end
