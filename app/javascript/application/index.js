@@ -1,4 +1,4 @@
-import "@fortawesome/fontawesome-free/js/all";
+import "@primer/octicons";
 import "./hyper";
 import "./components";
 import "./pages";

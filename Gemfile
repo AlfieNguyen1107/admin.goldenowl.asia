@@ -83,6 +83,6 @@ gem 'fog', '2.1.0'
 
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'paranoia'
 gem 'nationality', '~> 1.0.7'
+gem 'paranoia'
 gem 'summernote-rails'
