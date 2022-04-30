@@ -9,7 +9,9 @@
 #  git_repo    :string
 #  industry    :integer
 #  name        :string           not null
+#  rank        :integer          default(0)
 #  start_date  :date
+#  status      :integer          default("new")
 #  trello      :string
 #  website     :string
 #  created_at  :datetime         not null
@@ -20,6 +22,8 @@
 #
 #  index_projects_on_client_id  (client_id)
 #  index_projects_on_name       (name) UNIQUE
+#  index_projects_on_rank       (rank)
+#  index_projects_on_status     (status)
 #
 # Foreign Keys
 #
@@ -28,6 +32,7 @@
 class Project < ApplicationRecord
   DAYS_FROM_NOW = [10, 30, 60].freeze
   enum industry: { sport: 0, ecommerce: 1, finance: 2, education: 3, manufacturing: 4, medical: 5, health_fitness: 6 }
+  enum status: { planning: 0, ongoing: 1, finished: 2, archived: 3 }
 
   has_and_belongs_to_many :teches
   has_and_belongs_to_many :development_types
@@ -47,4 +52,12 @@ class Project < ApplicationRecord
   scope :filter_development_type, ->(development_type_ids) { where('development_type_id = ?', development_type_ids) }
   scope :filter_industry, ->(industry) { where('industry = ?', industry) }
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
+
+  def rank_to_s
+    if rank > 0
+      (64 + rank).chr
+    else
+      'unset'
+    end
+  end
 end

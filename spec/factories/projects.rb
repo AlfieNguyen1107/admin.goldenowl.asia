@@ -9,7 +9,9 @@
 #  git_repo    :string
 #  industry    :integer
 #  name        :string           not null
+#  rank        :integer          default(0)
 #  start_date  :date
+#  status      :integer          default("new")
 #  trello      :string
 #  website     :string
 #  created_at  :datetime         not null
@@ -20,6 +22,8 @@
 #
 #  index_projects_on_client_id  (client_id)
 #  index_projects_on_name       (name) UNIQUE
+#  index_projects_on_rank       (rank)
+#  index_projects_on_status     (status)
 #
 # Foreign Keys
 #
@@ -27,12 +31,14 @@
 #
 FactoryBot.define do
   factory :project do
-    name { Faker::App.name }
+    name { Faker::Team.name }
     description { Faker::Lorem.paragraph }
     start_date { Faker::Date.in_date_period }
+    rank { (1..5).to_a.sample }
     end_date { Date.today }
     deployment { "MyString" }
     website { "MyString" }
+    status { Project.statuses.keys.map(&:to_sym).sample  }
     client
   end
 end

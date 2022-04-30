@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_050900) do
+ActiveRecord::Schema.define(version: 2022_04_30_071008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,8 +219,12 @@ ActiveRecord::Schema.define(version: 2022_04_29_050900) do
     t.string "git_repo"
     t.string "trello"
     t.integer "industry"
+    t.integer "rank", default: 0
+    t.integer "status", default: 0
     t.index ["client_id"], name: "index_projects_on_client_id"
     t.index ["name"], name: "index_projects_on_name", unique: true
+    t.index ["rank"], name: "index_projects_on_rank"
+    t.index ["status"], name: "index_projects_on_status"
   end
 
   create_table "projects_teches", id: false, force: :cascade do |t|
