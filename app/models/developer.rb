@@ -30,7 +30,6 @@
 class Developer < ApplicationRecord
   belongs_to :employable, polymorphic: true
   delegate_missing_to :employable
-  
   belongs_to :university, optional: true
   belongs_to :position
   has_many :developer_projects, dependent: :destroy

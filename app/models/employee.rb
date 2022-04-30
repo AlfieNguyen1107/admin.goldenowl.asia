@@ -18,6 +18,6 @@
 #  index_employees_on_full_name   (full_name)
 #
 class Employee < ApplicationRecord
-  has_many :developers, as: :employable 
+  has_many :developers, as: :employable
   has_many :project_coordinators, as: :employable 
 end

@@ -23,5 +23,4 @@
 class PcProject < ApplicationRecord
   belongs_to :project_coordinator
   belongs_to :project
-
 end

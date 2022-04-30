@@ -39,7 +39,7 @@ class Project < ApplicationRecord
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
   has_many :pc_projects, dependent: :destroy
-  has_many :pcs, through: :pc_projects
+  has_many :project_coordinators, through: :pc_projects
   has_one_attached :image
   belongs_to :client
 
@@ -67,7 +67,7 @@ class Project < ApplicationRecord
     pc_projects.order(created_at: :desc).first&.project_coordinator
   end
 
-  def assign_pc(pc)
-    self.pc_projects.create project_coordinator: pc, join_date: Date.today
+  def assign_pc(project_coordinator)
+    pc_projects.create project_coordinator: project_coordinator, join_date: Date.today
   end
 end
