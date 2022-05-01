@@ -115,3 +115,14 @@ pcs = ProjectCoordinator.all.to_a
 pcs.each do |p|
   F.create :pc_project, project: projects.sample, project_coordinator: pcs.sample
 end
+
+interns = F.create_list :intern, 10
+interns.each do |i|
+  rand(2).times do
+    i.mentor = devs.sample
+    i.save
+  end
+  rand(5).times do
+    F.create :assignment, assigned_to: i
+  end
+end

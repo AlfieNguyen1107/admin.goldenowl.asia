@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_042904) do
+ActiveRecord::Schema.define(version: 2022_05_01_075740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,31 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "assignment_scores", force: :cascade do |t|
+    t.string "name"
+    t.integer "score"
+    t.bigint "assignment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assignment_id"], name: "index_assignment_scores_on_assignment_id"
+    t.index ["name"], name: "index_assignment_scores_on_name"
+    t.index ["score"], name: "index_assignment_scores_on_score"
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.date "from_date"
+    t.date "to_date"
+    t.bigint "assigned_to_id", null: false
+    t.bigint "assigned_by_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assigned_by_id"], name: "index_assignments_on_assigned_by_id"
+    t.index ["assigned_to_id"], name: "index_assignments_on_assigned_to_id"
+    t.index ["name"], name: "index_assignments_on_name"
   end
 
   create_table "careers", force: :cascade do |t|
@@ -148,10 +173,14 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
     t.bigint "position_id", null: false
     t.integer "employable_id"
     t.string "employable_type"
+    t.string "type", default: "Developer"
+    t.bigint "mentor_id"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true
     t.index ["employable_id"], name: "index_developers_on_employable_id"
     t.index ["employable_type"], name: "index_developers_on_employable_type"
+    t.index ["mentor_id"], name: "index_developers_on_mentor_id"
     t.index ["position_id"], name: "index_developers_on_position_id"
+    t.index ["type"], name: "index_developers_on_type"
     t.index ["university_id"], name: "index_developers_on_university_id"
   end
 
@@ -365,6 +394,9 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "assignment_scores", "assignments"
+  add_foreign_key "assignments", "developers", column: "assigned_to_id"
+  add_foreign_key "assignments", "employees", column: "assigned_by_id"
   add_foreign_key "developer_frameworks", "developers"
   add_foreign_key "developer_frameworks", "frameworks"
   add_foreign_key "developer_programming_languages", "developers"
@@ -373,6 +405,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
   add_foreign_key "developer_projects", "projects"
   add_foreign_key "developer_teches", "developers"
   add_foreign_key "developer_teches", "teches"
+  add_foreign_key "developers", "developers", column: "mentor_id"
   add_foreign_key "developers", "positions"
   add_foreign_key "developers", "universities"
   add_foreign_key "development_types_projects", "development_types"

@@ -33,11 +33,6 @@
 #  fk_rails_...  (university_id => universities.id)
 #
 FactoryBot.define do
-  factory :developer do
-    belong_team { "MyString" }
-    level { [:junior, :mid, :senior].sample }
-    graduation_year { Faker::Date.between(from: 20.years.ago, to: Date.today).year }
-    association :employable, factory: :employee
-    position
+  factory :intern, class: Intern, parent: :developer do
   end
 end

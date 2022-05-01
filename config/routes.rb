@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :developers do 
     get 'detail', on: :member
   end
+  resources :interns
   resources :projects
   resources :teches
   resources :careers do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :post_categories
   resources :posts
+  resources :assignments
 
   get 'home', to: 'home#index'
   root 'home#index'

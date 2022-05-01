@@ -49,6 +49,10 @@
           i.dripicons-briefcase
           span Developers
       li.side-nav-item
+        = link_to interns_path, class: "side-nav-link #{active_items('interns')}" do
+          i.dripicons-briefcase
+          span Interns
+      li.side-nav-item
         = link_to project_coordinators_path, class: "side-nav-link #{active_items('project_coordinators')}" do
           i.dripicons-briefcase
           span Project Coordinators
