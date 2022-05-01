@@ -8,6 +8,7 @@
 #  employable_type :string
 #  graduation_year :integer
 #  level           :string
+#  type            :string           default("Developer")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  employable_id   :integer
@@ -20,6 +21,7 @@
 #  index_developers_on_employable_id    (employable_id)
 #  index_developers_on_employable_type  (employable_type)
 #  index_developers_on_position_id      (position_id)
+#  index_developers_on_type             (type)
 #  index_developers_on_university_id    (university_id)
 #
 # Foreign Keys

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_042904) do
+ActiveRecord::Schema.define(version: 2022_05_01_070232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,10 +148,12 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
     t.bigint "position_id", null: false
     t.integer "employable_id"
     t.string "employable_type"
+    t.string "type", default: "Developer"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true
     t.index ["employable_id"], name: "index_developers_on_employable_id"
     t.index ["employable_type"], name: "index_developers_on_employable_type"
     t.index ["position_id"], name: "index_developers_on_position_id"
+    t.index ["type"], name: "index_developers_on_type"
     t.index ["university_id"], name: "index_developers_on_university_id"
   end
 
@@ -211,6 +213,11 @@ ActiveRecord::Schema.define(version: 2022_05_01_042904) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "interns", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "job_submissions", force: :cascade do |t|

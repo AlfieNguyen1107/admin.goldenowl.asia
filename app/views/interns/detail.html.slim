@@ -1,0 +1,50 @@
+
+.card
+  .card-body
+    span.float-left.m-2.mr-4
+      = image_pack_tag 'users/avatar.svg', alt: 'user-image', class: 'rounded-circle'
+    .media-body
+      h4.mt-1.mb-1
+        = @developer.full_name
+      p.font-13
+        = @developer.level
+      div[style="display:flex"]
+        .list-inline-item.mr-3
+          h5.mb-1
+            | Projects
+          p.mb-0.font-13
+            - @developer.projects.each do |p|
+              .mb-0.mt-0.font-13
+                = p.name
+        .list-inline-item
+          h5.mb-1
+            | TechStack
+          p.mb-0.font-13
+            - @temp = []
+            - @developer.teches.each do |t|
+              = t.name  
+              br
+        .list-inline-item
+          h5.mb-1
+            | Programming Languages
+          p.mb-0.font-13
+            - @temp = []
+            - @developer.developer_programming_languages.each do |t|
+              = t.programming_langauge.name
+              = " - "
+              = t.level
+              br
+
+        .list-inline-item
+          h5.mb-1
+            | Frameworks
+          p.mb-0.font-13
+            - @temp = []
+            - @developer.developer_frameworks.each do |t|
+              = t.framework.name
+              = " - "
+              = t.level
+              br
+ 
+
+ 

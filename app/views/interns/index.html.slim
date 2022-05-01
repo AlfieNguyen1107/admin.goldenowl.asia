@@ -1,0 +1,85 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Interns
+      h4.page-title
+        | Interns List
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Intern", new_intern_path, class:"navbar-item"
+  .hero-body
+    .container.has-text-centered
+      h1.title
+        = yield :page_title
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Interns
+                .field.mb-3.float-md-right.ml-3
+                  = link_to "Clear", interns_path 
+                = form_tag("/interns", method: 'get') do
+                  .field.mb-3.float-md-right
+                    = select_tag(:day, options_for_select(Project::DAYS_FROM_NOW, :selected => @cur_day ), {:prompt => "Select day",  onchange: "this.form.submit();"})
+                  .field.mb-3.float-md-right.mr-2
+                    = collection_select(:filter, :tech_ids, Tech.all, :id, :name, {:prompt => "Select technology", :selected => @cur_tech}, onchange: "this.form.submit();")
+                .field.mb-3.float-md-right
+                  span.header-title.mr-3 style=("font-weight: bold;") Filter:
+                .table-responsive-sm
+                  table.table.table-centered.mb-0
+                    tr
+                      th scope="col" ID
+                      th scope="col" Full name
+                      th scope="col" Position
+                      th scope="col" University
+                      th scope="col" Belong to team                    
+                      th scope="col" Level
+                      th scope="col" Project
+                      th scope="col" Current Project
+                      th scope="col" Exp
+                      th scope="col" TechStack
+                      th scope="col" Detail
+                      - @interns.each do |d|
+                          tr
+                            td = d.id
+                            td = link_to d.full_name, d
+                            td = d.position.name
+                            td = link_to d.university&.code, d
+                            td = d.belong_team
+                            td = d.level
+                            td
+                              - d.projects.each do |p|
+                                = link_to p.name, p
+                                br
+                            td
+                              - d.developer_projects.each do |dp|
+                                - if dp.current?
+                                  = link_to dp.project.name, dp.project
+                                  br
+                            td
+                              = Date.today.year - d.graduation_year
+                            td
+                              - d.teches.each do |t|
+                                = t.name  
+                                br
+                            td = link_to "Detail", intern_path(d)
+  section.section
+    .container.mb-3
+      .d-flex.justify-content-center
+        - if @interns.size > 0
+          == pagy_bootstrap_nav(@pagy)
