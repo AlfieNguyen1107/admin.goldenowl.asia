@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_112259) do
+ActiveRecord::Schema.define(version: 2022_05_01_042904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,32 @@ ActiveRecord::Schema.define(version: 2022_04_30_112259) do
     t.index ["full_name"], name: "index_contacts_on_full_name"
   end
 
+  create_table "developer_frameworks", force: :cascade do |t|
+    t.bigint "developer_id", null: false
+    t.bigint "framework_id", null: false
+    t.integer "level"
+    t.integer "start_counting_year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["developer_id"], name: "index_developer_frameworks_on_developer_id"
+    t.index ["framework_id"], name: "index_developer_frameworks_on_framework_id"
+    t.index ["level"], name: "index_developer_frameworks_on_level"
+    t.index ["start_counting_year"], name: "index_developer_frameworks_on_start_counting_year"
+  end
+
+  create_table "developer_programming_languages", force: :cascade do |t|
+    t.bigint "developer_id", null: false
+    t.bigint "programming_language_id", null: false
+    t.integer "level"
+    t.integer "start_counting_year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["developer_id"], name: "index_developer_programming_languages_on_developer_id"
+    t.index ["level"], name: "index_developer_programming_languages_on_level"
+    t.index ["programming_language_id"], name: "ind_dev_prog_fk"
+    t.index ["start_counting_year"], name: "index_developer_programming_languages_on_start_counting_year"
+  end
+
   create_table "developer_projects", force: :cascade do |t|
     t.bigint "developer_id", null: false
     t.bigint "project_id", null: false
@@ -162,6 +188,18 @@ ActiveRecord::Schema.define(version: 2022_04_30_112259) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["emp_number"], name: "index_employees_on_emp_number"
     t.index ["full_name"], name: "index_employees_on_full_name"
+  end
+
+  create_table "frameworks", force: :cascade do |t|
+    t.string "name"
+    t.bigint "programming_language_id", null: false
+    t.integer "year_of_release"
+    t.string "latest_version"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["latest_version"], name: "index_frameworks_on_latest_version"
+    t.index ["name"], name: "index_frameworks_on_name"
+    t.index ["programming_language_id"], name: "index_frameworks_on_programming_language_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -242,6 +280,16 @@ ActiveRecord::Schema.define(version: 2022_04_30_112259) do
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
+  create_table "programming_languages", force: :cascade do |t|
+    t.string "name"
+    t.integer "year_of_release"
+    t.string "latest_version"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["latest_version"], name: "index_programming_languages_on_latest_version"
+    t.index ["name"], name: "index_programming_languages_on_name"
+  end
+
   create_table "project_coordinators", force: :cascade do |t|
     t.string "employable_type", null: false
     t.bigint "employable_id", null: false
@@ -317,6 +365,10 @@ ActiveRecord::Schema.define(version: 2022_04_30_112259) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "developer_frameworks", "developers"
+  add_foreign_key "developer_frameworks", "frameworks"
+  add_foreign_key "developer_programming_languages", "developers"
+  add_foreign_key "developer_programming_languages", "programming_languages"
   add_foreign_key "developer_projects", "developers"
   add_foreign_key "developer_projects", "projects"
   add_foreign_key "developer_teches", "developers"
@@ -325,6 +377,7 @@ ActiveRecord::Schema.define(version: 2022_04_30_112259) do
   add_foreign_key "developers", "universities"
   add_foreign_key "development_types_projects", "development_types"
   add_foreign_key "development_types_projects", "projects"
+  add_foreign_key "frameworks", "programming_languages"
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
