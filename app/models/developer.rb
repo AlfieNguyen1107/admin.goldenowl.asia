@@ -36,6 +36,10 @@ class Developer < ApplicationRecord
   has_many :projects, through: :developer_projects
   has_many :developer_teches, dependent: :destroy
   has_many :teches, through: :developer_teches
+  has_many :developer_programming_languages, dependent: :destroy
+  has_many :developer_frameworks, dependent: :destroy
+  has_many :programming_languages, through: :developer_programming_languages
+  has_many :frameworks, through: :developer_frameworks
 
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
 

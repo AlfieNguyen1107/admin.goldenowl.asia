@@ -31,9 +31,20 @@ section.section
       - @developer.teches.each do |t|
         = t.name  
         br
-    - if @developers.size > 0
-      .container.mb-3
-        .d-flex.justify-content-center
-          == pagy_bootstrap_nav(@pagy)
-
-
+    | Programming language:
+    h4.title
+      - @developer.developer_programming_languages.each do |t|
+        = t.programming_language.name
+        = " - "
+        = t.level
+        br
+    
+    | Frameworks:
+    h4.title
+      - @developer.developer_frameworks.each do |t|
+        = t.framework.name
+        = " - "
+        = t.level
+        br
+    
+      

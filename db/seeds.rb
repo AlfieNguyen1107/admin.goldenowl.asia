@@ -60,6 +60,15 @@ positions = Position.create([
   },
 ])
 
+programming_languages = F.create_list :programming_language, rand(15)
+
+rand(30).times do
+  F.create :framework, programming_language: programming_languages.sample
+end
+
+frameworks = Framework.all.to_a
+
+
 
 contacts = F.create_list :contact, rand(50)
 rand(10).times do
@@ -79,7 +88,7 @@ University.create name: "Ho Chi Minh City University of Information Technology",
 
 universities = University.all.to_a
 
-rand(100).times do 
+(20 + rand(30)).times do 
   F.create :developer, position: positions.sample, university: universities.sample
 end
 devs = Developer.all.to_a
@@ -88,6 +97,14 @@ devs.each do |d|
   d.projects << projects.sample
   d.position = positions.sample
   d.save
+
+  rand(3).times do
+    d.developer_programming_languages.create programming_language: programming_languages.sample, level: rand(5)
+  end
+
+  rand(10).times do
+    d.developer_frameworks.create framework: frameworks.sample, level: rand(5)
+  end
 end
 
 rand(10).times do
