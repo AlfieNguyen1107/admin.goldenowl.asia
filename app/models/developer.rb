@@ -46,6 +46,7 @@ class Developer < ApplicationRecord
   has_many :programming_languages, through: :developer_programming_languages
   has_many :frameworks, through: :developer_frameworks
   has_many :interns
+  has_many :assignments, foreign_key: 'assigned_to_id'
 
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
 

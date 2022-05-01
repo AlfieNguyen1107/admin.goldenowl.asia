@@ -6,45 +6,43 @@ section.section
           strong Actions
       .level-right.d-flex
         p.level-item.mr-3
-          = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"
+          = link_to "Edit", edit_intern_path(@intern), class:"button btn btn-primary btn-sm"
         p.level-item.mr-3
-          = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+          = link_to "Delete", intern_path(@intern), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
         p.level-item
-          = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
+          = link_to  "Back", interns_path(page: @page), class:"button btn btn-dark btn-sm"
     hr/
     | Full name:
     h4.title
-      = @developer.full_name
+      = @intern.full_name
     | Company name:
-    h4.title
-      = @developer.company_name
     | Level:
     h4.title
-      = @developer.level
+      = @intern.level
     | Project:
     h4.title
-      - @developer.projects.each do |p|
+      - @intern.projects.each do |p|
         = p.name
         br
     | TechStack:
     h4.title
-      - @developer.teches.each do |t|
+      - @intern.teches.each do |t|
         = t.name  
         br
-    | Programming language:
+
+    br
+    | Assignments
     h4.title
-      - @developer.developer_programming_languages.each do |t|
-        = t.programming_language.name
-        = " - "
-        = t.level
+      - @intern.assignments.each do |t|
+        = t.name  
         br
-    
-    | Frameworks:
-    h4.title
-      - @developer.developer_frameworks.each do |t|
-        = t.framework.name
-        = " - "
-        = t.level
+        = t.description
         br
+        h5 Score
+        - t.assignment_scores.each do |as|
+          = as.name
+          | :
+          = as.score
+          br
+        = "Average: #{t.average_score}"
     
-      

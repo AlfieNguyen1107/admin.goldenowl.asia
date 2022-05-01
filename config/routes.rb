@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :post_categories
   resources :posts
+  resources :assignments
 
   get 'home', to: 'home#index'
   root 'home#index'

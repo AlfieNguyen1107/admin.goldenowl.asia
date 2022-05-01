@@ -122,4 +122,7 @@ interns.each do |i|
     i.mentor = devs.sample
     i.save
   end
+  rand(5).times do
+    F.create :assignment, assigned_to: i
+  end
 end

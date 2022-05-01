@@ -49,8 +49,8 @@ section.section
                       th scope="col" University
                       th scope="col" Mentor
                       th scope="col" Level
-                      th scope="col" Project
-                      th scope="col" Current Project
+                      th scope="col" Assignments
+                      th scope="col" Score
                       th scope="col" Exp
                       th scope="col" TechStack
                       th scope="col" Detail
@@ -65,14 +65,12 @@ section.section
                                 = link_to d.mentor.full_name, developer_path(d.mentor.id)
                             td = d.level
                             td
-                              - d.projects.each do |p|
+                              - d.assignments.each do |p|
                                 = link_to p.name, p
                                 br
                             td
-                              - d.developer_projects.each do |dp|
-                                - if dp.current?
-                                  = link_to dp.project.name, dp.project
-                                  br
+                              = d.assignments.last&.average_score
+                              br
                             td
                               = Date.today.year - d.graduation_year
                             td
