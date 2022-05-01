@@ -19,9 +19,7 @@ module ApplicationHelper
     content_tag :ul do
       attributes.each do |attribute|
         concat(content_tag(:li, attribute.name))
-        if attribute.has_children?
-            concat(nested_attributes(attribute.children))
-        end
+        concat(nested_attributes(attribute.children)) if attribute.has_children?
       end
     end
   end
