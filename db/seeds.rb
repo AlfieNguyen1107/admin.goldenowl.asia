@@ -11,6 +11,25 @@ require 'factory_bot_rails'
 
 F = FactoryBot
 
+ceo = Position.create name: "CEO"
+ast = ceo.children.create name: "Secretary"
+cto = ceo.children.create name: "CTO"
+om = ceo.children.create name: "OM"
+hrm = om.children.create name: "HRM"
+tl = cto.children.create name: "Techlead"
+teamlead = tl.children.create name: "Teamlead"
+mentor = tl.children.create name: "Mentor"
+teamlead.children.create name: "Vice Lead"
+teamlead.children.create name: "Developer"
+em = cto.children.create name: "Engineering Manager"
+pcl = cto.children.create name: "PC Lead"
+pcl.children.create name: "Vice PC Lead"
+pcl.children.create name: "Project Coordinator"
+em.children.create name: "QC Lead"
+hrm.children.create name: "C&B"
+hrm.children.create name: "Recruiter"
+hrm.children.create name: "Admin"
+
 Tech.create([
   {
     name: "Rails",

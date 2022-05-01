@@ -17,6 +17,7 @@ gem 'webpacker', '~> 4.0'
 # Views
 gem 'simple_form', '~> 5.0'
 gem 'slim'
+gem 'slim-rails'
 
 # Auth
 gem 'devise'
@@ -81,6 +82,7 @@ gem 'sendgrid-ruby'
 # Storage
 gem 'fog', '2.1.0'
 
+gem 'ancestry'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'nationality', '~> 1.0.7'

@@ -14,4 +14,13 @@ module ApplicationHelper
   def active_items(item)
     'active' if controller_name == item
   end
+
+  def nested_attributes(attributes)
+    content_tag :ul do
+      attributes.each do |attribute|
+        concat(content_tag(:li, attribute.name))
+        concat(nested_attributes(attribute.children)) if attribute.has_children?
+      end
+    end
+  end
 end
