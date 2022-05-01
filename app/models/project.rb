@@ -51,6 +51,7 @@ class Project < ApplicationRecord
   validates :end_date, presence: true
   validates :deployment, presence: true
 
+  scope :active_projects, -> { where(status: Project.statuses[:ongoing]) }
   scope :filter_development_type, ->(development_type_ids) { where('development_type_id = ?', development_type_ids) }
   scope :filter_industry, ->(industry) { where('industry = ?', industry) }
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }

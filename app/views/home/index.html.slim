@@ -5,33 +5,75 @@
         ol.breadcrumb.m-0
           li.breadcrumb-item
             = link_to 'Home', root_path
-          li.breadcrumb-item User
+          li.breadcrumb-item Dashboard
       h4.page-title
-        | User
+        | Dashboard
 .row
-  .col
-    .container
-      .card
-        .card-body
-          h4.header-title.mb-2 Admin Account
-          .table-responsive-sm
-            table.table.table-centered.mb-0
-              tr
-                th scope="col" ID
-                th scope="col" UserName
-                th scope="col" Email
-                th scope="col" Active ?
-              - @users.each do |user|
-                  tr
-                    td = user.id
-                    td = user.user_name
-                    td = user.email
-                    td
-                      div
-                        input#switch1 checked="checked" data-switch="success" type="checkbox" /
-                        label.mb-0.d-block data-off-label="No" data-on-label="Yes" for=""
-section.section
-  .container.mb-3
-    .d-flex.justify-content-center
-      - if @users.size > 0
-          == pagy_bootstrap_nav(@pagy)
+  .col-xl-5.col-lg-6
+    .row
+      .col-sm-6
+        .card.widget-flat
+          .card-body
+            .float-end
+              i.mdi.mdi-account-multiple.widget-icon
+            h5.text-muted.fw-normal.mt-0 title=("Number of Customers")  Projects
+            h3.mt-3.mb-3
+              = Project.active_projects.count
+            p.mb-0.text-muted
+              span.text-success.me-2
+                i.mdi.mdi-arrow-up-bold
+                | 5.27%
+              span.text-nowrap Since last month
+      .col-sm-6
+        .card.widget-flat
+          .card-body
+            .float-end
+              i.mdi.mdi-cart-plus.widget-icon
+            h5.text-muted.fw-normal.mt-0 title=("Number of Orders")  Orders
+            h3.mt-3.mb-3 5,543
+            p.mb-0.text-muted
+              span.text-danger.me-2
+                i.mdi.mdi-arrow-down-bold
+                | 1.08%
+              span.text-nowrap Since last month
+    .row
+      .col-sm-6
+        .card.widget-flat
+          .card-body
+            .float-end
+              i.mdi.mdi-currency-usd.widget-icon
+            h5.text-muted.fw-normal.mt-0 title=("Average Revenue")  Revenue
+            h3.mt-3.mb-3 $6,254
+            p.mb-0.text-muted
+              span.text-danger.me-2
+                i.mdi.mdi-arrow-down-bold
+                | 7.00%
+              span.text-nowrap Since last month
+      .col-sm-6
+        .card.widget-flat
+          .card-body
+            .float-end
+              i.mdi.mdi-pulse.widget-icon
+            h5.text-muted.fw-normal.mt-0 title="Growth"  Growth
+            h3.mt-3.mb-3 + 30.56%
+            p.mb-0.text-muted
+              span.text-success.me-2
+                i.mdi.mdi-arrow-up-bold
+                | 4.87%
+              span.text-nowrap Since last month
+  .col-xl-7.col-lg-6
+    .card.card-h-100
+      .card-body
+        .d-flex.justify-content-between.align-items-center.mb-2
+          h4.header-title Projections Vs Actuals
+          .dropdown
+            a.dropdown-toggle.arrow-none.card-drop aria-expanded="false" data-bs-toggle="dropdown" href="#" 
+              i.mdi.mdi-dots-vertical
+            .dropdown-menu.dropdown-menu-end
+              a.dropdown-item href="javascript:void(0);"  Sales Report
+              a.dropdown-item href="javascript:void(0);"  Export Report
+              a.dropdown-item href="javascript:void(0);"  Profit
+              a.dropdown-item href="javascript:void(0);"  Action
+        div dir="ltr" 
+          #high-performing-product.apex-charts data-colors="#727cf5,#e3eaef" style=("min-height: 257px;") 
+
