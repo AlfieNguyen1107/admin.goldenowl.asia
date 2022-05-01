@@ -12,6 +12,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  employable_id   :integer
+#  mentor_id       :bigint
 #  position_id     :bigint           not null
 #  university_id   :bigint
 #
@@ -20,12 +21,14 @@
 #  index_developers_on_company_name     (company_name) UNIQUE
 #  index_developers_on_employable_id    (employable_id)
 #  index_developers_on_employable_type  (employable_type)
+#  index_developers_on_mentor_id        (mentor_id)
 #  index_developers_on_position_id      (position_id)
 #  index_developers_on_type             (type)
 #  index_developers_on_university_id    (university_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (mentor_id => developers.id)
 #  fk_rails_...  (position_id => positions.id)
 #  fk_rails_...  (university_id => universities.id)
 #

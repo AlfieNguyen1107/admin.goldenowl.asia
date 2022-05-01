@@ -117,3 +117,9 @@ pcs.each do |p|
 end
 
 interns = F.create_list :intern, 10
+interns.each do |i|
+  rand(2).times do
+    i.mentor = devs.sample
+    i.save
+  end
+end

@@ -47,7 +47,7 @@ section.section
                       th scope="col" Full name
                       th scope="col" Position
                       th scope="col" University
-                      th scope="col" Belong to team                    
+                      th scope="col" Mentor
                       th scope="col" Level
                       th scope="col" Project
                       th scope="col" Current Project
@@ -60,7 +60,9 @@ section.section
                             td = link_to d.full_name, d
                             td = d.position.name
                             td = link_to d.university&.code, d
-                            td = d.belong_team
+                            td
+                              - if d.mentor.present?
+                                = link_to d.mentor.full_name, developer_path(d.mentor.id)
                             td = d.level
                             td
                               - d.projects.each do |p|
