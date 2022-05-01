@@ -33,5 +33,5 @@
 #  fk_rails_...  (university_id => universities.id)
 #
 class Intern < Developer
-  belongs_to :mentor, class_name: "Developer", optional: true
+  belongs_to :mentor, class_name: 'Developer', optional: true
 end

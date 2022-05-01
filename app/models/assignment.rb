@@ -24,8 +24,8 @@
 #  fk_rails_...  (assigned_to_id => developers.id)
 #
 class Assignment < ApplicationRecord
-  belongs_to :assigned_to, class_name: "Developer"
-  belongs_to :assigned_by, class_name: "Employee"
+  belongs_to :assigned_to, class_name: 'Developer'
+  belongs_to :assigned_by, class_name: 'Employee'
   has_many :assignment_scores, dependent: :destroy
 
   def average_score
