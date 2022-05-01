@@ -11,6 +11,11 @@ require 'factory_bot_rails'
 
 F = FactoryBot
 
+ceo = Position.create name: "CEO"
+cto = ceo.children.create name: "CTO"
+om = ceo.children.create name: "OM"
+hrm = om.children.create name: "HRM"
+
 Tech.create([
   {
     name: "Rails",
