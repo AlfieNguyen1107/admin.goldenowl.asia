@@ -3,9 +3,5 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-  end
-
-  private
-
+  def index end
 end
