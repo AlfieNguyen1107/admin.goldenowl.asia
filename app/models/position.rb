@@ -15,4 +15,5 @@
 #
 class Position < ApplicationRecord
   has_ancestry
+  has_many :employees
 end

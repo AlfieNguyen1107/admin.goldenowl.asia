@@ -15,6 +15,6 @@
 #
 FactoryBot.define do
   factory :position do
-    name { "MyString" }
+    name { "Unset" }
   end
 end
