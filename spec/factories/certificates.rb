@@ -1,21 +1,21 @@
 # == Schema Information
 #
-# Table name: universities
+# Table name: certificates
 #
 #  id         :bigint           not null, primary key
-#  code       :string
 #  name       :string
+#  rating     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 # Indexes
 #
-#  index_universities_on_code  (code)
-#  index_universities_on_name  (name)
+#  index_certificates_on_name    (name)
+#  index_certificates_on_rating  (rating)
 #
 FactoryBot.define do
-  factory :university do
-    name { Faker::Educator.university }
-    code { "MyString" }
+  factory :certificate do
+    name { Faker::FunnyName.four_word_name }
+    rating { rand(10) }
   end
 end

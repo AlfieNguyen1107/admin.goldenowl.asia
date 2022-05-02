@@ -107,6 +107,8 @@ University.create name: "Ho Chi Minh City University of Information Technology",
 
 universities = University.all.to_a
 
+certificates = F.create_list :certificate, rand(20)
+
 (20 + rand(30)).times do 
   F.create :developer, position: positions.sample, university: universities.sample
 end
@@ -115,6 +117,11 @@ devs.each do |d|
   d.university = universities.sample
   d.projects << projects.sample
   d.position = positions.sample
+  d.education_histories << F.create(:education_history)
+  rand(5).times do
+    d.employment_histories << F.create(:employment_history)
+  end
+  d.certificate_employees << F.create(:certificate_employee, certificate: certificates.sample)
   d.save
 
   rand(3).times do
