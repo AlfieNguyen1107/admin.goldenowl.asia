@@ -15,4 +15,5 @@
 #
 class University < ApplicationRecord
   has_many :developers
+  has_many :education_histories, dependent: :destroy
 end

@@ -7,7 +7,7 @@
 #  company_name    :string
 #  employable_type :string
 #  graduation_year :integer
-#  level           :string
+#  senority        :string
 #  type            :string           default("Developer")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

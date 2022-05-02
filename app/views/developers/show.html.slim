@@ -1,50 +1,104 @@
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
-    hr/
-    | Full name:
-    h4.title
-      = @developer.full_name
-    | Company name:
-    h4.title
-      = @developer.company_name
-    | Level:
-    h4.title
-      = @developer.level
-    | Project:
-    h4.title
-      - @developer.projects.each do |p|
-        = p.name
-        br
-    | TechStack:
-    h4.title
-      - @developer.teches.each do |t|
-        = t.name  
-        br
-    | Programming language:
-    h4.title
-      - @developer.developer_programming_languages.each do |t|
-        = t.programming_language.name
-        = " - "
-        = t.level
-        br
-    
-    | Frameworks:
-    h4.title
-      - @developer.developer_frameworks.each do |t|
-        = t.framework.name
-        = " - "
-        = t.level
-        br
-    
-      
+    .row
+      .col-12
+        nav.level
+          .level-left.mt-2
+            p.level-item
+              strong Actions
+          .level-right.d-flex
+            p.level-item.mr-3
+              = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"
+            p.level-item.mr-3
+              = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+            p.level-item
+              = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
+        hr/
+    .row
+      .col-xl-5.col-lg-6
+        | Full name:
+        h4.title
+          = @developer.full_name
+        | Company name:
+        h4.title
+          = @developer.company_name
+        | Level:
+        h4.title
+          = @developer.senority
+        | Project:
+        h4.title
+          - @developer.projects.each do |p|
+            = p.name
+            br
+        | TechStack:
+        h4.title
+          - @developer.teches.each do |t|
+            = t.name  
+            br
+        | Programming language:
+        h4.title
+          - @developer.developer_programming_languages.each do |t|
+            = t.programming_language.name
+            = " - "
+            = t.level
+            br
+        
+        | Frameworks:
+        h4.title
+          - @developer.developer_frameworks.each do |t|
+            = t.framework.name
+            = " - "
+            = t.level
+            br
+      .col-xl-5.col-lg-6
+        | Education:
+        h4.title
+        - @developer.education_histories.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.university.name
+              br
+              = eh.subject
+              br
+              = eh.details
+            .col-4
+              = eh.from
+              | - 
+              = eh.to
+          br
+        hr
+        | Employments:
+        h4.title
+        - @developer.employment_histories.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.company_name
+              br
+              = eh.profession
+              br
+              = eh.details
+            .col-4
+              = eh.from
+              | - 
+              = eh.to
+          br
+        hr
+        | Certificates:
+        h4.title
+        - @developer.certificate_employees.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.certificate.name
+              br
+              | Score: 
+              = eh.score
+            .col-4
+              = eh.year
+          br
+
+          
+
+          

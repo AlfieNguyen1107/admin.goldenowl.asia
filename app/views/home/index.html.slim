@@ -29,8 +29,9 @@
           .card-body
             .float-end
               i.mdi.mdi-cart-plus.widget-icon
-            h5.text-muted.fw-normal.mt-0 title=("Number of Orders")  Orders
-            h3.mt-3.mb-3 5,543
+            h5.text-muted.fw-normal.mt-0 title=("Number of Employees")  Emps
+            h3.mt-3.mb-3
+              = Employee.active_employees_count
             p.mb-0.text-muted
               span.text-danger.me-2
                 i.mdi.mdi-arrow-down-bold

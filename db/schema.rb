@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_102946) do
+ActiveRecord::Schema.define(version: 2022_05_02_074319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,28 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
     t.datetime "image_updated_at"
     t.string "slug"
     t.index ["slug"], name: "index_careers_on_slug", unique: true
+  end
+
+  create_table "certificate_employees", force: :cascade do |t|
+    t.bigint "certificate_id", null: false
+    t.bigint "employee_id", null: false
+    t.integer "year"
+    t.string "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["certificate_id"], name: "index_certificate_employees_on_certificate_id"
+    t.index ["employee_id"], name: "index_certificate_employees_on_employee_id"
+    t.index ["score"], name: "index_certificate_employees_on_score"
+    t.index ["year"], name: "index_certificate_employees_on_year"
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.string "name"
+    t.integer "rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_certificates_on_name"
+    t.index ["rating"], name: "index_certificates_on_rating"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -163,7 +185,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "level"
+    t.string "senority"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "company_name"
@@ -206,6 +228,22 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
     t.index ["project_id"], name: "index_development_types_projects_on_project_id"
   end
 
+  create_table "education_histories", force: :cascade do |t|
+    t.bigint "university_id", null: false
+    t.bigint "employee_id", null: false
+    t.string "subject"
+    t.date "from"
+    t.date "to"
+    t.text "details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "degree"
+    t.index ["degree"], name: "index_education_histories_on_degree"
+    t.index ["employee_id"], name: "index_education_histories_on_employee_id"
+    t.index ["subject"], name: "index_education_histories_on_subject"
+    t.index ["university_id"], name: "index_education_histories_on_university_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "full_name"
     t.string "current_address"
@@ -216,9 +254,38 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "position_id", null: false
+    t.integer "employment_status"
+    t.integer "contract_status"
+    t.integer "working_arrangement"
+    t.integer "genger"
+    t.string "email"
+    t.text "career_objectives"
+    t.index ["contract_status"], name: "index_employees_on_contract_status"
+    t.index ["email"], name: "index_employees_on_email"
     t.index ["emp_number"], name: "index_employees_on_emp_number"
+    t.index ["employment_status"], name: "index_employees_on_employment_status"
     t.index ["full_name"], name: "index_employees_on_full_name"
+    t.index ["genger"], name: "index_employees_on_genger"
     t.index ["position_id"], name: "index_employees_on_position_id"
+    t.index ["working_arrangement"], name: "index_employees_on_working_arrangement"
+  end
+
+  create_table "employment_histories", force: :cascade do |t|
+    t.string "company_name"
+    t.string "profession"
+    t.date "from"
+    t.date "to"
+    t.integer "contract_status"
+    t.integer "order"
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "details"
+    t.index ["company_name"], name: "index_employment_histories_on_company_name"
+    t.index ["contract_status"], name: "index_employment_histories_on_contract_status"
+    t.index ["employee_id"], name: "index_employment_histories_on_employee_id"
+    t.index ["order"], name: "index_employment_histories_on_order"
+    t.index ["profession"], name: "index_employment_histories_on_profession"
   end
 
   create_table "frameworks", force: :cascade do |t|
@@ -401,6 +468,8 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
   add_foreign_key "assignment_scores", "assignments"
   add_foreign_key "assignments", "developers", column: "assigned_to_id"
   add_foreign_key "assignments", "employees", column: "assigned_by_id"
+  add_foreign_key "certificate_employees", "certificates"
+  add_foreign_key "certificate_employees", "employees"
   add_foreign_key "developer_frameworks", "developers"
   add_foreign_key "developer_frameworks", "frameworks"
   add_foreign_key "developer_programming_languages", "developers"
@@ -414,7 +483,10 @@ ActiveRecord::Schema.define(version: 2022_05_01_102946) do
   add_foreign_key "developers", "universities"
   add_foreign_key "development_types_projects", "development_types"
   add_foreign_key "development_types_projects", "projects"
+  add_foreign_key "education_histories", "employees"
+  add_foreign_key "education_histories", "universities"
   add_foreign_key "employees", "positions"
+  add_foreign_key "employment_histories", "employees"
   add_foreign_key "frameworks", "programming_languages"
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"
