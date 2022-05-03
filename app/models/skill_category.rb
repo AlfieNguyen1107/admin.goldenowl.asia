@@ -21,4 +21,6 @@
 class SkillCategory < ApplicationRecord
   belongs_to :skill_category_group
   has_many :skills
+  has_many :frameworks
+  has_many :tools
 end

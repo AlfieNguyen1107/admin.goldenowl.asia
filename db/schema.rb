@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_112911) do
+ActiveRecord::Schema.define(version: 2022_05_03_040900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,17 @@ ActiveRecord::Schema.define(version: 2022_05_02_112911) do
     t.index ["skill_id"], name: "index_employee_skills_on_skill_id"
   end
 
+  create_table "employee_tools", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "tool_id", null: false
+    t.integer "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_employee_tools_on_employee_id"
+    t.index ["level"], name: "index_employee_tools_on_level"
+    t.index ["tool_id"], name: "index_employee_tools_on_tool_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "full_name"
     t.string "current_address"
@@ -315,9 +326,11 @@ ActiveRecord::Schema.define(version: 2022_05_02_112911) do
     t.string "latest_version"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "skill_category_id"
     t.index ["latest_version"], name: "index_frameworks_on_latest_version"
     t.index ["name"], name: "index_frameworks_on_name"
     t.index ["programming_language_id"], name: "index_frameworks_on_programming_language_id"
+    t.index ["skill_category_id"], name: "index_frameworks_on_skill_category_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -508,6 +521,15 @@ ActiveRecord::Schema.define(version: 2022_05_02_112911) do
     t.integer "tech_type"
   end
 
+  create_table "tools", force: :cascade do |t|
+    t.string "name"
+    t.bigint "skill_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tools_on_name"
+    t.index ["skill_category_id"], name: "index_tools_on_skill_category_id"
+  end
+
   create_table "universities", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -552,10 +574,13 @@ ActiveRecord::Schema.define(version: 2022_05_02_112911) do
   add_foreign_key "education_histories", "universities"
   add_foreign_key "employee_skills", "employees"
   add_foreign_key "employee_skills", "skills"
+  add_foreign_key "employee_tools", "employees"
+  add_foreign_key "employee_tools", "tools"
   add_foreign_key "employees", "positions"
   add_foreign_key "employment_histories", "companies"
   add_foreign_key "employment_histories", "employees"
   add_foreign_key "frameworks", "programming_languages"
+  add_foreign_key "frameworks", "skill_categories"
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
@@ -564,4 +589,5 @@ ActiveRecord::Schema.define(version: 2022_05_02_112911) do
   add_foreign_key "projects", "clients"
   add_foreign_key "skill_categories", "skill_category_groups"
   add_foreign_key "skills", "skill_categories"
+  add_foreign_key "tools", "skill_categories"
 end
