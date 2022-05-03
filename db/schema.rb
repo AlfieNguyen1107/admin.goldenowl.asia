@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_074319) do
+ActiveRecord::Schema.define(version: 2022_05_03_040900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,15 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.string "contactable_type"
     t.bigint "contactable_id"
     t.index ["contactable_type", "contactable_id"], name: "index_clients_on_contactable_type_and_contactable_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "registration_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_companies_on_name"
+    t.index ["registration_number"], name: "index_companies_on_registration_number"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -244,6 +253,28 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.index ["university_id"], name: "index_education_histories_on_university_id"
   end
 
+  create_table "employee_skills", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "skill_id", null: false
+    t.integer "level"
+    t.integer "years_of_exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_employee_skills_on_employee_id"
+    t.index ["skill_id"], name: "index_employee_skills_on_skill_id"
+  end
+
+  create_table "employee_tools", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "tool_id", null: false
+    t.integer "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_employee_tools_on_employee_id"
+    t.index ["level"], name: "index_employee_tools_on_level"
+    t.index ["tool_id"], name: "index_employee_tools_on_tool_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "full_name"
     t.string "current_address"
@@ -271,7 +302,6 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
   end
 
   create_table "employment_histories", force: :cascade do |t|
-    t.string "company_name"
     t.string "profession"
     t.date "from"
     t.date "to"
@@ -281,7 +311,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "details"
-    t.index ["company_name"], name: "index_employment_histories_on_company_name"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_employment_histories_on_company_id"
     t.index ["contract_status"], name: "index_employment_histories_on_contract_status"
     t.index ["employee_id"], name: "index_employment_histories_on_employee_id"
     t.index ["order"], name: "index_employment_histories_on_order"
@@ -295,9 +326,11 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.string "latest_version"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "skill_category_id"
     t.index ["latest_version"], name: "index_frameworks_on_latest_version"
     t.index ["name"], name: "index_frameworks_on_name"
     t.index ["programming_language_id"], name: "index_frameworks_on_programming_language_id"
+    t.index ["skill_category_id"], name: "index_frameworks_on_skill_category_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -400,6 +433,23 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.index ["level"], name: "index_project_coordinators_on_level"
   end
 
+  create_table "project_histories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "company_id", null: false
+    t.string "position"
+    t.date "from"
+    t.date "to"
+    t.integer "order"
+    t.text "details"
+    t.bigint "developer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_project_histories_on_company_id"
+    t.index ["developer_id"], name: "index_project_histories_on_developer_id"
+    t.index ["name"], name: "index_project_histories_on_name"
+    t.index ["position"], name: "index_project_histories_on_position"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
@@ -428,6 +478,34 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.index ["tech_id", "project_id"], name: "index_projects_teches_on_tech_id_and_project_id"
   end
 
+  create_table "skill_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "order"
+    t.bigint "skill_category_group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_skill_categories_on_name"
+    t.index ["skill_category_group_id"], name: "index_skill_categories_on_skill_category_group_id"
+  end
+
+  create_table "skill_category_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_skill_category_groups_on_name"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.bigint "skill_category_id", null: false
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_skills_on_name"
+    t.index ["skill_category_id"], name: "index_skills_on_skill_category_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
@@ -441,6 +519,15 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "tech_type"
+  end
+
+  create_table "tools", force: :cascade do |t|
+    t.string "name"
+    t.bigint "skill_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tools_on_name"
+    t.index ["skill_category_id"], name: "index_tools_on_skill_category_id"
   end
 
   create_table "universities", force: :cascade do |t|
@@ -485,11 +572,22 @@ ActiveRecord::Schema.define(version: 2022_05_02_074319) do
   add_foreign_key "development_types_projects", "projects"
   add_foreign_key "education_histories", "employees"
   add_foreign_key "education_histories", "universities"
+  add_foreign_key "employee_skills", "employees"
+  add_foreign_key "employee_skills", "skills"
+  add_foreign_key "employee_tools", "employees"
+  add_foreign_key "employee_tools", "tools"
   add_foreign_key "employees", "positions"
+  add_foreign_key "employment_histories", "companies"
   add_foreign_key "employment_histories", "employees"
   add_foreign_key "frameworks", "programming_languages"
+  add_foreign_key "frameworks", "skill_categories"
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
+  add_foreign_key "project_histories", "companies"
+  add_foreign_key "project_histories", "developers"
   add_foreign_key "projects", "clients"
+  add_foreign_key "skill_categories", "skill_category_groups"
+  add_foreign_key "skills", "skill_categories"
+  add_foreign_key "tools", "skill_categories"
 end

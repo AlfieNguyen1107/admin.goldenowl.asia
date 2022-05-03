@@ -38,7 +38,7 @@ section.section
         | Programming language:
         h4.title
           - @developer.developer_programming_languages.each do |t|
-            = t.programming_language.name
+            span.badge.rounded-pill.bg-primary = t.programming_language.name
             = " - "
             = t.level
             br
@@ -46,10 +46,21 @@ section.section
         | Frameworks:
         h4.title
           - @developer.developer_frameworks.each do |t|
-            = t.framework.name
+            span.badge.rounded-pill.bg-secondary = t.framework.name
             = " - "
             = t.level
             br
+        | Tools:
+        h4.title
+          - @developer.employee_tools.each do |t|
+            span.badge.rounded-pill.bg-info = t.tool.name
+            = " - "
+            = t.level
+            br
+        | Skills:
+        h4.title
+          - @developer.skills.each do |s|
+            span.badge.rounded-pill.bg-danger = s.name
       .col-xl-5.col-lg-6
         | Education:
         h4.title
@@ -68,13 +79,30 @@ section.section
               = eh.to
           br
         hr
+        | Projects:
+        h4.title
+        - @developer.employment_histories.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.company&.name
+              br
+              = eh.profession
+              br
+              = eh.details
+            .col-4
+              = eh.from
+              | - 
+              = eh.to
+          br
+        hr
         | Employments:
         h4.title
         - @developer.employment_histories.each do |eh|
           .row
             .col-8
               b
-                = eh.company_name
+                = eh.company&.name
               br
               = eh.profession
               br

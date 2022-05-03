@@ -41,6 +41,10 @@ class Employee < ApplicationRecord
   has_many :employment_histories, dependent: :destroy
   has_many :certificate_employees, dependent: :destroy
   has_many :certificates, through: :certificate_employees
+  has_many :employee_skills
+  has_many :skills, through: :employee_skills
+  has_many :employee_tools, dependent: :destroy
+  has_many :tools, through: :employee_tools
   belongs_to :position
 
   enum employment_status: { active: 0, retired: 1 }
