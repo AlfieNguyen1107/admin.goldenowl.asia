@@ -47,13 +47,14 @@ class Developer < ApplicationRecord
   has_many :frameworks, through: :developer_frameworks
   has_many :interns
   has_many :assignments, foreign_key: 'assigned_to_id'
+  has_many :project_histories, dependent: :destroy
 
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
 
   # validates :full_name, presence: true, uniqueness: true
   # validates :company_name, presence: true, uniqueness: true
   # validates :belong_team, presence: true
-  validates :level, presence: true
+  validates :senority, presence: true
 
   after_save :set_tech_stack
 

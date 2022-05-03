@@ -50,6 +50,10 @@ section.section
             = " - "
             = t.level
             br
+        | Skills:
+        h4.title
+          - @developer.skills.each do |s|
+            span.badge.rounded-pill.bg-danger = s.name
       .col-xl-5.col-lg-6
         | Education:
         h4.title
@@ -68,13 +72,30 @@ section.section
               = eh.to
           br
         hr
+        | Projects:
+        h4.title
+        - @developer.employment_histories.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.company&.name
+              br
+              = eh.profession
+              br
+              = eh.details
+            .col-4
+              = eh.from
+              | - 
+              = eh.to
+          br
+        hr
         | Employments:
         h4.title
         - @developer.employment_histories.each do |eh|
           .row
             .col-8
               b
-                = eh.company_name
+                = eh.company&.name
               br
               = eh.profession
               br

@@ -79,7 +79,7 @@ positions = Position.create([
   },
 ])
 
-programming_languages = F.create_list :programming_language, rand(15)
+programming_languages = F.create_list :programming_language, rand(15) + 1
 
 rand(30).times do
   F.create :framework, programming_language: programming_languages.sample
@@ -87,6 +87,48 @@ end
 
 frameworks = Framework.all.to_a
 
+scg1 = SkillCategoryGroup.create name: 'Development'
+scg2 = SkillCategoryGroup.create name: 'HR'
+scg3 = SkillCategoryGroup.create name: 'Marketing'
+
+
+sc1 = SkillCategory.create name: 'Database', skill_category_group: scg1
+sc2 = SkillCategory.create name: 'Web Frontend', skill_category_group: scg1
+sc3 = SkillCategory.create name: 'Web Backend', skill_category_group: scg1
+sc4 = SkillCategory.create name: 'Mobile Native', skill_category_group: scg1
+sc5 = SkillCategory.create name: 'Mobile Hybrid', skill_category_group: scg1
+sc6 = SkillCategory.create name: 'UI/UX Designer', skill_category_group: scg1
+
+# list out database choices
+sc1.skills.create name: 'MySQL'
+sc1.skills.create name: 'Postgres'
+sc1.skills.create name: 'MS SQL'
+sc1.skills.create name: 'Oracle'
+sc1.skills.create name: 'MongoDB'
+
+sc2.skills.create name: 'Reactjs'
+sc2.skills.create name: 'Angularjs'
+sc2.skills.create name: 'Vuejs'
+
+sc3.skills.create name: 'Ruby on Rails'
+sc3.skills.create name: 'Nodejs'
+sc3.skills.create name: 'Django'
+sc3.skills.create name: 'Wordpress'
+
+sc4.skills.create name: 'Android'
+sc4.skills.create name: 'Swift iOS'
+sc4.skills.create name: 'Objective-C iOS'
+
+sc5.skills.create name: 'Flutter'
+sc5.skills.create name: 'React Native'
+sc5.skills.create name: 'Kotlin'
+sc5.skills.create name: 'Ionic'
+
+sc6.skills.create name: 'Figma'
+sc6.skills.create name: 'Canva'
+sc6.skills.create name: 'Photoshop'
+
+skills = Skill.all.to_a
 
 
 contacts = F.create_list :contact, rand(50)
@@ -97,7 +139,7 @@ end
 clients = Client.all.to_a
 
 clients.each do |c|
-  F.create_list :project, rand(20), client: c
+  F.create_list :project, 1 + rand(20), client: c
 end
 
 projects = Project.all.to_a
@@ -107,7 +149,7 @@ University.create name: "Ho Chi Minh City University of Information Technology",
 
 universities = University.all.to_a
 
-certificates = F.create_list :certificate, rand(20)
+certificates = F.create_list :certificate, 1 + rand(20)
 
 (20 + rand(30)).times do 
   F.create :developer, position: positions.sample, university: universities.sample
@@ -122,6 +164,14 @@ devs.each do |d|
     d.employment_histories << F.create(:employment_history)
   end
   d.certificate_employees << F.create(:certificate_employee, certificate: certificates.sample)
+  rand(10).times do
+    d.skills << skills.sample
+  end
+
+  rand(10).times do
+    d.project_histories << F.create(:project_history)
+  end
+
   d.save
 
   rand(3).times do
