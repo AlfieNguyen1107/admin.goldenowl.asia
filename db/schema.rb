@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_040900) do
+ActiveRecord::Schema.define(version: 2022_05_03_063927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -450,6 +450,34 @@ ActiveRecord::Schema.define(version: 2022_05_03_040900) do
     t.index ["position"], name: "index_project_histories_on_position"
   end
 
+  create_table "project_member_assignments", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "project_member_request_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "shadow_by_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_project_member_assignments_on_employee_id"
+    t.index ["project_member_request_id"], name: "index_project_member_assignments_on_project_member_request_id"
+    t.index ["shadow_by_id"], name: "index_project_member_assignments_on_shadow_by_id"
+  end
+
+  create_table "project_member_requests", force: :cascade do |t|
+    t.string "position"
+    t.integer "engagement_type"
+    t.date "requested_date"
+    t.date "expected_date"
+    t.boolean "billable"
+    t.integer "status"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["engagement_type"], name: "index_project_member_requests_on_engagement_type"
+    t.index ["position"], name: "index_project_member_requests_on_position"
+    t.index ["project_id"], name: "index_project_member_requests_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
@@ -586,6 +614,10 @@ ActiveRecord::Schema.define(version: 2022_05_03_040900) do
   add_foreign_key "pc_projects", "projects"
   add_foreign_key "project_histories", "companies"
   add_foreign_key "project_histories", "developers"
+  add_foreign_key "project_member_assignments", "employees"
+  add_foreign_key "project_member_assignments", "employees", column: "shadow_by_id"
+  add_foreign_key "project_member_assignments", "project_member_requests"
+  add_foreign_key "project_member_requests", "projects"
   add_foreign_key "projects", "clients"
   add_foreign_key "skill_categories", "skill_category_groups"
   add_foreign_key "skills", "skill_categories"

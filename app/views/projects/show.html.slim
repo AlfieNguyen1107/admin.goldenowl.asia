@@ -64,11 +64,63 @@
           br
   .card-body
     h5.card-title
-      | Management
+      | PC in Charge
     p.card-text
-      - @project.pc_projects.each do |pp|
-        = link_to pp.pc.company_name, project_coordinator_path(pp.pc)
-        br
+      table.table
+        thead
+          tr
+            td Name
+            td Joined Date
+            td Finished Date
+            td
+        tbody
+          - @project.pc_projects.each do |i|
+            tr
+              td
+                = link_to i.project_coordinator.full_name, project_coordinator_path(i.project_coordinator)
+              td
+                = i.join_date
+              td
+                = i.finished_date
+              td
+  .card-body
+    h5.card-title
+      | Purchase Orders
+    p.card-text
+      table.table
+        thead
+          tr
+            td Position
+            td Billable
+            td Engagement Type
+            td Requested Date
+            td Join Date
+            td Members
+            td Status
+        - @project.project_member_requests.each do |i|
+          tr
+            td
+              = i.position
+            td
+              = i.billable
+            td
+              = i.engagement_type
+            td
+              = i.requested_date
+            td
+              = i.expected_date
+            td
+              table.table
+                - i.project_member_assignments.each do |pmr|
+                  tr
+                    td
+                      = pmr.employee.full_name
+                    td
+                      = pmr.start_date
+                    td
+                      = pmr.end_date
+            td
+              = i.status
     .card-body
     h5.card-title
       | Start date

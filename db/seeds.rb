@@ -197,16 +197,8 @@ rand(10).times do
   F.create :client, contactable: contacts.sample
 end
 
-clients = Client.all.to_a
-
-clients.each do |c|
-  F.create_list :project, 1 + rand(20), client: c
-end
-
-projects = Project.all.to_a
-
-University.create name: "Ho Chi Minh City University of Technology", code: 'BKU'
-University.create name: "Ho Chi Minh City University of Information Technology", code: 'UIT'
+University.create name: "HCMC University of Technology", code: 'BKU'
+University.create name: "HCMC University of Information Technology", code: 'UIT'
 
 universities = University.all.to_a
 
@@ -218,7 +210,7 @@ end
 devs = Developer.all.to_a
 devs.each do |d|
   d.university = universities.sample
-  d.projects << projects.sample
+  # d.projects << projects.sample
   d.position = positions.sample
   d.education_histories << F.create(:education_history)
   rand(5).times do
@@ -254,9 +246,6 @@ rand(10).times do
 end
 
 pcs = ProjectCoordinator.all.to_a
-pcs.each do |p|
-  F.create :pc_project, project: projects.sample, project_coordinator: pcs.sample
-end
 
 interns = F.create_list :intern, 10
 interns.each do |i|
@@ -266,5 +255,32 @@ interns.each do |i|
   end
   rand(5).times do
     F.create :assignment, assigned_to: i
+  end
+end
+
+employees = Employee.all.to_a
+
+clients = Client.all.to_a
+clients.each do |c|
+  F.create_list :project, 1 + rand(20), client: c
+end
+
+projects = Project.all.to_a
+
+projects.each do |p|
+  (1 + rand(2)).times do
+    p.pc_projects << F.create(:pc_project, project: p, project_coordinator: pcs.sample)
+  end
+
+  rand(5).times do
+    p.project_member_requests << F.create(:project_member_request, project: p)
+  end
+  p.save!
+
+  p.project_member_requests.each do |pmr|
+    rand(3).times do
+      pmr.project_member_assignments << F.create(:project_member_assignment, employee: employees.sample, project_member_request: pmr)
+    end
+    pmr.save!
   end
 end

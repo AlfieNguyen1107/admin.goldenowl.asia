@@ -20,7 +20,7 @@
 #
 FactoryBot.define do
   factory :client do
-    name { Faker::Company.name }
+    name { Faker::Name.name }
     address { Faker::Address.full_address }
     hq { Faker::Address.country }
     association :contactable, factory: :contact
