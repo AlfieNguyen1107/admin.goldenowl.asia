@@ -40,6 +40,7 @@ class Project < ApplicationRecord
   has_many :developers, through: :developer_projects
   has_many :pc_projects, dependent: :destroy
   has_many :project_coordinators, through: :pc_projects
+  has_many :project_member_requests, dependent: :destroy
   has_one_attached :image
   belongs_to :client
 

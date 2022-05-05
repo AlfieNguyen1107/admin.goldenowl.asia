@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :project_member_assignments
+  resources :project_member_requests
   resources :contacts
   resources :project_coordinators
   resources :clients
