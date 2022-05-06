@@ -137,6 +137,16 @@
     p.card-text
       = @project.end_date
   .card-body
+    h5.card-title
+      | Project Resources
+    p.card-text
+      ul
+        - @project.project_resources.each do |r|
+          li
+            = r.name 
+            | - 
+            = link_to r.url, r.url, target: '_blank'
+  .card-body
     .level-right.d-flex
       p.level-item.mr-3
         = link_to '<i class="mdi mdi-pencil mr-1"></i> Edit'.html_safe, edit_project_path(@project), class:"button btn btn-primary btn-sm"

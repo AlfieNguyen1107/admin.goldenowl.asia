@@ -341,6 +341,10 @@ projects.each do |p|
     pmr.save!
   end
 
+  rand(5).times do
+    p.project_resources.create! url: 'https://drive.google.com/file/d/1BzJtHIm8YAvU0Jjl_CPO1WL4Sivg_1gv/view?usp=sharing', name: 'Project Requirements'
+  end
+
   p.software_category_list = cats.shuffle.take(1 + rand(4)).map(&:name)
   p.save!
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_020722) do
+ActiveRecord::Schema.define(version: 2022_05_06_021938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -488,6 +488,21 @@ ActiveRecord::Schema.define(version: 2022_05_06_020722) do
     t.index ["project_id"], name: "index_project_member_requests_on_project_id"
   end
 
+  create_table "project_resources", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "name"
+    t.string "file"
+    t.string "url"
+    t.string "storage_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["file"], name: "index_project_resources_on_file"
+    t.index ["name"], name: "index_project_resources_on_name"
+    t.index ["project_id"], name: "index_project_resources_on_project_id"
+    t.index ["storage_name"], name: "index_project_resources_on_storage_name"
+    t.index ["url"], name: "index_project_resources_on_url"
+  end
+
   create_table "project_skills", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "skill_id", null: false
@@ -689,6 +704,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_020722) do
   add_foreign_key "project_member_assignments", "employees", column: "shadow_by_id"
   add_foreign_key "project_member_assignments", "project_member_requests"
   add_foreign_key "project_member_requests", "projects"
+  add_foreign_key "project_resources", "projects"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
   add_foreign_key "project_tools", "projects"
