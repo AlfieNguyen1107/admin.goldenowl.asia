@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_063927) do
+ActiveRecord::Schema.define(version: 2022_05_06_020722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,6 +433,16 @@ ActiveRecord::Schema.define(version: 2022_05_03_063927) do
     t.index ["level"], name: "index_project_coordinators_on_level"
   end
 
+  create_table "project_frameworks", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "framework_id", null: false
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["framework_id"], name: "index_project_frameworks_on_framework_id"
+    t.index ["project_id"], name: "index_project_frameworks_on_project_id"
+  end
+
   create_table "project_histories", force: :cascade do |t|
     t.string "name"
     t.bigint "company_id", null: false
@@ -476,6 +486,26 @@ ActiveRecord::Schema.define(version: 2022_05_03_063927) do
     t.index ["engagement_type"], name: "index_project_member_requests_on_engagement_type"
     t.index ["position"], name: "index_project_member_requests_on_position"
     t.index ["project_id"], name: "index_project_member_requests_on_project_id"
+  end
+
+  create_table "project_skills", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "skill_id", null: false
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_skills_on_project_id"
+    t.index ["skill_id"], name: "index_project_skills_on_skill_id"
+  end
+
+  create_table "project_tools", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "tool_id", null: false
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_tools_on_project_id"
+    t.index ["tool_id"], name: "index_project_tools_on_tool_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -534,12 +564,51 @@ ActiveRecord::Schema.define(version: 2022_05_03_063927) do
     t.index ["skill_category_id"], name: "index_skills_on_skill_category_id"
   end
 
+  create_table "software_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_software_categories_on_name"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
     t.string "subscription_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "tag_id"
+    t.string "taggable_type"
+    t.bigint "taggable_id"
+    t.string "tagger_type"
+    t.bigint "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.string "tenant", limit: 128
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
+    t.index ["tenant"], name: "index_taggings_on_tenant"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "teches", force: :cascade do |t|
@@ -612,14 +681,21 @@ ActiveRecord::Schema.define(version: 2022_05_03_063927) do
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
+  add_foreign_key "project_frameworks", "frameworks"
+  add_foreign_key "project_frameworks", "projects"
   add_foreign_key "project_histories", "companies"
   add_foreign_key "project_histories", "developers"
   add_foreign_key "project_member_assignments", "employees"
   add_foreign_key "project_member_assignments", "employees", column: "shadow_by_id"
   add_foreign_key "project_member_assignments", "project_member_requests"
   add_foreign_key "project_member_requests", "projects"
+  add_foreign_key "project_skills", "projects"
+  add_foreign_key "project_skills", "skills"
+  add_foreign_key "project_tools", "projects"
+  add_foreign_key "project_tools", "tools"
   add_foreign_key "projects", "clients"
   add_foreign_key "skill_categories", "skill_category_groups"
   add_foreign_key "skills", "skill_categories"
+  add_foreign_key "taggings", "tags"
   add_foreign_key "tools", "skill_categories"
 end
