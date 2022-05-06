@@ -6,27 +6,32 @@
       | Description
     p.card-text
       = @project.description
+  
+  .card-body
+    p.card-text
+      - @project.software_category_list.each do |t|
+        span.badge.bg-primary.mr-1 = t
+  
+  - @project.tools.each do |t|
+    .card-body
+      h5.card-title
+        = t.skill_category.name
+      p.card-text
+        = t.name
   .card-body
     h5.card-title
-      | Frontend
+      | Frameworks
     p.card-text
-      - @project.teches.frontend.each do |t|
-        = t.name
+      - @project.frameworks.each do |f|
+        = f.name
         br
-  .card-body
-    h5.card-title
-      | Backend
-    p.card-text
-      - @project.teches.backend.each do |t|
+  - @project.skills.each do |t|
+    .card-body
+      h5.card-title
+        = t.skill_category.name
+      p.card-text
         = t.name
-        br
-  .card-body
-    h5.card-title
-      | DB
-    p.card-text
-      - @project.teches.db.each do |t|
-        = t.name
-        br
+
   .card-body
     h5.card-title
       | Development type
@@ -131,6 +136,16 @@
       | End date
     p.card-text
       = @project.end_date
+  .card-body
+    h5.card-title
+      | Project Resources
+    p.card-text
+      ul
+        - @project.project_resources.each do |r|
+          li
+            = r.name 
+            | - 
+            = link_to r.url, r.url, target: '_blank'
   .card-body
     .level-right.d-flex
       p.level-item.mr-3

@@ -82,6 +82,7 @@ gem 'sendgrid-ruby'
 # Storage
 gem 'fog', '2.1.0'
 
+gem 'acts-as-taggable-on', '~> 9.0'
 gem 'ancestry'
 gem 'bootstrap'
 gem 'jquery-rails'

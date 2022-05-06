@@ -87,7 +87,7 @@ class ProjectsController < ApplicationController
       :description,
       :deployment,
       :industry,
-      :git_repo, :trello, :website, :image, :start_date, :end_date
+      :git_repo, :task_tracker_url, :website, :image, :start_date, :end_date
     )
   end
 

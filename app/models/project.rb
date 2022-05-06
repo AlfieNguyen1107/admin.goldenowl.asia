@@ -2,21 +2,21 @@
 #
 # Table name: projects
 #
-#  id          :bigint           not null, primary key
-#  deployment  :string
-#  description :string           not null
-#  end_date    :date
-#  git_repo    :string
-#  industry    :integer
-#  name        :string           not null
-#  rank        :integer          default(0)
-#  start_date  :date
-#  status      :integer          default("planning")
-#  trello      :string
-#  website     :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  client_id   :bigint
+#  id               :bigint           not null, primary key
+#  deployment       :string
+#  description      :string           not null
+#  end_date         :date
+#  git_repo         :string
+#  industry         :integer
+#  name             :string           not null
+#  rank             :integer          default(0)
+#  start_date       :date
+#  status           :integer          default("planning")
+#  task_tracker_url :string
+#  website          :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  client_id        :bigint
 #
 # Indexes
 #
@@ -34,13 +34,22 @@ class Project < ApplicationRecord
   enum industry: { sport: 0, ecommerce: 1, finance: 2, education: 3, manufacturing: 4, medical: 5, health_fitness: 6 }
   enum status: { planning: 0, ongoing: 1, finished: 2, archived: 3 }
 
+  acts_as_taggable_on :software_categories
+
   has_and_belongs_to_many :teches
   has_and_belongs_to_many :development_types
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
+  has_many :project_frameworks, dependent: :destroy
+  has_many :frameworks, through: :project_frameworks
+  has_many :project_tools, dependent: :destroy
+  has_many :tools, through: :project_tools
+  has_many :project_skills, dependent: :destroy
+  has_many :skills, through: :project_skills
   has_many :pc_projects, dependent: :destroy
   has_many :project_coordinators, through: :pc_projects
   has_many :project_member_requests, dependent: :destroy
+  has_many :project_resources, dependent: :destroy
   has_one_attached :image
   belongs_to :client
 

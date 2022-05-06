@@ -2,21 +2,21 @@
 #
 # Table name: projects
 #
-#  id          :bigint           not null, primary key
-#  deployment  :string
-#  description :string           not null
-#  end_date    :date
-#  git_repo    :string
-#  industry    :integer
-#  name        :string           not null
-#  rank        :integer          default(0)
-#  start_date  :date
-#  status      :integer          default("planning")
-#  trello      :string
-#  website     :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  client_id   :bigint
+#  id               :bigint           not null, primary key
+#  deployment       :string
+#  description      :string           not null
+#  end_date         :date
+#  git_repo         :string
+#  industry         :integer
+#  name             :string           not null
+#  rank             :integer          default(0)
+#  start_date       :date
+#  status           :integer          default("planning")
+#  task_tracker_url :string
+#  website          :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  client_id        :bigint
 #
 # Indexes
 #

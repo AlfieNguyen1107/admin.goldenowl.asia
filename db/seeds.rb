@@ -79,6 +79,51 @@ positions = Position.create([
   },
 ])
 
+SoftwareCategory.create name: 'Enterprise Resource Planning (ERP)'
+SoftwareCategory.create name: 'Supply Chain & Logistics'
+SoftwareCategory.create name: 'Inventory Management'
+SoftwareCategory.create name: 'Geographical Information System (GIS)'
+SoftwareCategory.create name: 'Supply Chain Management (SCM)'
+SoftwareCategory.create name: 'Business Intelligence'
+SoftwareCategory.create name: 'Data Analysis'
+SoftwareCategory.create name: 'Content Management System (CMS)'
+SoftwareCategory.create name: 'Document Management Systems (DMS)'
+SoftwareCategory.create name: 'Task Management'
+SoftwareCategory.create name: 'Collaboration'
+SoftwareCategory.create name: 'Project Management'
+SoftwareCategory.create name: 'Facility Management'
+SoftwareCategory.create name: 'Asset Management (EAM)'
+SoftwareCategory.create name: 'Graphic Design'
+SoftwareCategory.create name: 'Video Editing'
+SoftwareCategory.create name: '3D Modeling'
+SoftwareCategory.create name: 'Accounting'
+SoftwareCategory.create name: 'Payroll'
+SoftwareCategory.create name: 'Cryptocurrency'
+SoftwareCategory.create name: 'Point of Sale (POS)'
+SoftwareCategory.create name: 'Live Chat'
+SoftwareCategory.create name: 'Help Desk'
+SoftwareCategory.create name: 'Cloud Security'
+SoftwareCategory.create name: 'Natural Language Processing (NLP)'
+SoftwareCategory.create name: 'Recruiting'
+SoftwareCategory.create name: 'Absence & Leave Management'
+SoftwareCategory.create name: 'Employee Management'
+SoftwareCategory.create name: 'Human Resource Management (HRM)'
+SoftwareCategory.create name: 'Performance Management'
+SoftwareCategory.create name: 'Learning Management Systems (LMS)'
+SoftwareCategory.create name: 'Marketing Automation'
+SoftwareCategory.create name: 'Search Engine Optimization (SEO)'
+SoftwareCategory.create name: 'GDPR'
+SoftwareCategory.create name: 'Contract Management'
+SoftwareCategory.create name: 'E-commerce'
+SoftwareCategory.create name: 'Website Builder'
+SoftwareCategory.create name: 'Event Management'
+SoftwareCategory.create name: 'Customer Relationship Management (CRM)'
+SoftwareCategory.create name: 'Field Service Management (FSM)'
+SoftwareCategory.create name: 'Customer Support'
+
+cats = SoftwareCategory.all.to_a
+
+
 
 scg1 = SkillCategoryGroup.create name: 'Development'
 scg2 = SkillCategoryGroup.create name: 'HR'
@@ -94,11 +139,8 @@ sc6 = SkillCategory.create name: 'UI/UX Designer', skill_category_group: scg1
 sc7 = SkillCategory.create name: 'Blockchain', skill_category_group: scg1
 
 # list out database choices
-sc1.skills.create name: 'MySQL'
-sc1.skills.create name: 'Postgres'
-sc1.skills.create name: 'MS SQL'
-sc1.skills.create name: 'Oracle'
-sc1.skills.create name: 'MongoDB'
+sc1.skills.create name: 'SQL'
+sc1.skills.create name: 'NoSQL'
 
 sc2.skills.create name: 'Reactjs'
 sc2.skills.create name: 'Angularjs'
@@ -185,6 +227,13 @@ F.create :framework, programming_language: pl11, name: 'Foundation'
 frameworks = Framework.all.to_a
 
 #tools
+# list out database choices
+sc1.tools.create name: 'MySQL'
+sc1.tools.create name: 'Postgres'
+sc1.tools.create name: 'MS SQL'
+sc1.tools.create name: 'Oracle'
+sc1.tools.create name: 'MongoDB'
+
 F.create :tool, skill_category: sc7, name: 'Hardhat'
 F.create :tool, skill_category: sc7, name: 'Truffle'
 F.create :tool, skill_category: sc7, name: 'Ganache'
@@ -268,6 +317,14 @@ end
 projects = Project.all.to_a
 
 projects.each do |p|
+  rand(5).times do
+    p.project_frameworks.create framework: frameworks.sample
+  end
+
+  p.project_tools.create tool: sc1.tools.sample
+  p.project_skills.create skill: skills.sample
+
+  
   (1 + rand(2)).times do
     p.pc_projects << F.create(:pc_project, project: p, project_coordinator: pcs.sample)
   end
@@ -283,4 +340,12 @@ projects.each do |p|
     end
     pmr.save!
   end
+
+  rand(5).times do
+    p.project_resources.create! url: 'https://drive.google.com/file/d/1BzJtHIm8YAvU0Jjl_CPO1WL4Sivg_1gv/view?usp=sharing', name: 'Project Requirements'
+  end
+
+  p.software_category_list = cats.shuffle.take(1 + rand(4)).map(&:name)
+  p.save!
+
 end
