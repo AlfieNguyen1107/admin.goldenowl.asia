@@ -26,7 +26,7 @@ section.section
             .media
             .media-content
               .card-body
-                h4.header-title.mb-2 Universities
+                h4.header-title.mb-2 Programming Languages
                 = form_tag("/programming_language", method: 'get') do
                   - names = []
                   - @programming_languages_all.each do |p|                   
@@ -55,7 +55,8 @@ section.section
   .container.mb-3
     .d-flex.justify-content-center
       - if @programming_languages.size > 0
-        == pagy_bootstrap_nav(@pagy)           
+        .pagination-rounded 
+          == pagy_bootstrap_nav(@pagy)           
 
 
   
