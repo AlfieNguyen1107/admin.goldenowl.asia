@@ -2,14 +2,14 @@
   before_action :set_university, only: %i[show edit destroy update] 
 
   def index
+    @universities_all = University.all
     if params[:code].present?
       @code = params[:code]
       @universities = University.where('code = ?', params[:code])
     else
       @universities = University.all
     end
-    @pagy, @universities = pagy(@universities, items: per_page)
-
+    @pagy, @universities = pagy(@universities.order(id: :ASC), items: per_page)
   end
 
   def create
@@ -38,10 +38,9 @@
 
   def destroy
     if @university.destroy
-       redirect_to university_index_path, notice: 'University was successfully destroyed.' 
+      redirect_to university_index_path, notice: 'University was successfully destroyed.' 
     else
-      redirect_to university_index_path, notice: '' 
-
+      redirect_to university_index_path, notice: 'University was unsuccessfully destroyed.' 
     end
   end
 

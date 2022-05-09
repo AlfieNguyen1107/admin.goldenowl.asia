@@ -29,7 +29,7 @@ section.section
                 h4.header-title.mb-2 Universities
                 = form_tag("/university", method: 'get') do
                   - codes = []
-                  - @universities.each do |u|                   
+                  - @universities_all.each do |u|                   
                     - codes << u.code
 
                   .field.mb-3.float-md-right.mr-2
