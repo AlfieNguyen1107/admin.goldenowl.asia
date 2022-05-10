@@ -1,4 +1,4 @@
-class ProgrammingLanguageController < ApplicationController
+class ProgrammingLanguagesController < ApplicationController
   before_action :set_programming_language, only: %i[show edit update destroy]
 
   def index
@@ -30,6 +30,10 @@ class ProgrammingLanguageController < ApplicationController
 
   def edit; end
 
+  def new
+    @programming_language = ProgrammingLanguage.new
+  end
+
   def update
     respond_to do |format|
       if @programming_language.update(programming_language_params)
@@ -44,9 +48,9 @@ class ProgrammingLanguageController < ApplicationController
 
   def destroy
     if @programming_language.destroy
-      redirect_to programming_language_index_path, notice: 'Programming Language was successfully destroyed.'
+      redirect_to programming_languages_path, notice: 'Programming Language was successfully destroyed.'
     else
-      redirect_to programming_language_index_path, notice: 'Programming Language was unsuccessfully destroyed.'
+      redirect_to programming_languages_path, notice: 'Programming Language was unsuccessfully destroyed.'
     end
   end
 

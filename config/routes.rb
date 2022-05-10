@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :university
-  resources :programming_language
+  resources :programming_languages
   resources :project_member_assignments
   resources :project_member_requests
   resources :contacts
