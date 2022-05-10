@@ -5,7 +5,7 @@ class UniversitiesController < ApplicationController
     @universities_all = University.all
     if params[:code].present?
       @code = params[:code]
-      @universities = University.where('code = ?', params[:code])
+      @universities = University.filter_code_universities(@code)
     else
       @universities = University.all
     end

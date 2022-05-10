@@ -27,7 +27,7 @@ section.section
             .media-content
               .card-body
                 h4.header-title.mb-2 Universities
-                = form_tag("/university", method: 'get') do
+                = form_tag("/universities", method: 'get') do
                   - codes = []
                   - @universities_all.each do |u|                   
                     - codes << u.code
