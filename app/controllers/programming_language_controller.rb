@@ -1,6 +1,6 @@
 class ProgrammingLanguageController < ApplicationController
   before_action :set_programming_language, only: %i[show edit update destroy]
-  
+
   def index
     @programming_languages_all = ProgrammingLanguage.all
 
@@ -27,7 +27,7 @@ class ProgrammingLanguageController < ApplicationController
   end
 
   def show; end
-  
+
   def edit; end
 
   def update
