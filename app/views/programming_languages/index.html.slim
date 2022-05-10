@@ -27,7 +27,7 @@ section.section
             .media-content
               .card-body
                 h4.header-title.mb-2 Programming Languages
-                = form_tag("/programming_language", method: 'get') do
+                = form_tag("/programming_languages", method: 'get') do
                   - names = []
                   - @programming_languages_all.each do |p|                   
                     - names << p.name

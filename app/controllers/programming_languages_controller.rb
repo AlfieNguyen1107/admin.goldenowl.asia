@@ -6,7 +6,7 @@ class ProgrammingLanguagesController < ApplicationController
 
     if params[:name].present?
       @name = params[:name]
-      @programming_languages = ProgrammingLanguage.where('name = ?', params[:name])
+      @programming_languages = ProgrammingLanguage.filter_name_programming_languages(@name)
     else
       @programming_languages = ProgrammingLanguage.all
     end
