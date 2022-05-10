@@ -1,5 +1,5 @@
 .leftside-menu
-  .slimscroll-menu style='height: 100vh !important;'
+  .slimscroll-menu
     = link_to root_path, class: 'logo text-center' do
       span.logo-lg
         = image_pack_tag 'golden_owl_logo.svg', height: '30px'
@@ -61,11 +61,24 @@
           i.dripicons-briefcase
           span Organization
       li.side-nav-item
-        = link_to  universities_path, class: "side-nav-link #{active_items('university')}" do
-          i.dripicons-briefcase
-          span Universities
-      li.side-nav-item
-        = link_to programming_languages_path, class: "side-nav-link #{active_items('programming_language')}" do
-          i.dripicons-briefcase
-          span Programming Languages
+        a.side-nav-link.collapsed[data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
+          i.uil-bright
+          span
+            | Settings
+          span.menu-arrow
+        #sidebarLayouts.collapse
+          ul.side-nav-second-level
+            li
+              = link_to "Universitise"
+            li
+              = link_to "Programming Languages"
+            li
+              = link_to "Frameworks"
+            li
+              = link_to "Tools"
+            li
+              = link_to "Certificates"
+            li 
+              = link_to "Positions"
+
     .clearfix
