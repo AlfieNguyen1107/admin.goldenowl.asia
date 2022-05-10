@@ -1,5 +1,5 @@
- class UniversityController < ApplicationController
-  before_action :set_university, only: %i[show edit destroy update] 
+class UniversityController < ApplicationController
+  before_action :set_university, only: %i[show edit destroy update]
 
   def index
     @universities_all = University.all
@@ -26,15 +26,13 @@
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @university = University.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     if @university.destroy
@@ -57,6 +55,7 @@
   end
 
   private
+
   def set_university
     @university = University.find(params[:id])
   end
