@@ -1,4 +1,4 @@
-class UniversityController < ApplicationController
+class UniversitiesController < ApplicationController
   before_action :set_university, only: %i[show edit destroy update]
 
   def index
@@ -36,7 +36,7 @@ class UniversityController < ApplicationController
 
   def destroy
     if @university.destroy
-      redirect_to university_index_path, notice: 'University was successfully destroyed.'
+      redirect_to universities_path, notice: 'University was successfully destroyed.'
     else
       redirect_to university_index_path, notice: 'University was unsuccessfully destroyed.'
     end
