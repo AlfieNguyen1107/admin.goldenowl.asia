@@ -1,0 +1,24 @@
+- content_for :page_title, @university.name
+section.section
+  .container.mb-4
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        p.level-item.mr-3
+          = link_to "Edit", edit_university_path(@university), class:"button btn btn-primary btn-sm"
+        p.level-item.mr-3
+          = link_to "Delete", university_path(@university), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        p.level-item
+          = link_to "Back", universities_path, class:"button btn btn-dark btn-sm"
+    hr/
+    | code:
+    h4.title
+      = @university.code
+    hr/
+    | Name:
+    h4.title
+      = @university.name
+    
+

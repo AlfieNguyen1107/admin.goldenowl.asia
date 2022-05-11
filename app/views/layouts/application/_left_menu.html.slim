@@ -60,4 +60,12 @@
         = link_to positions_path, class: "side-nav-link #{active_items('positions')}" do
           i.dripicons-briefcase
           span Organization
+      li.side-nav-item
+        = link_to  universities_path, class: "side-nav-link #{active_items('university')}" do
+          i.dripicons-briefcase
+          span Universities
+      li.side-nav-item
+        = link_to programming_languages_path, class: "side-nav-link #{active_items('programming_language')}" do
+          i.dripicons-briefcase
+          span Programming Languages
     .clearfix
