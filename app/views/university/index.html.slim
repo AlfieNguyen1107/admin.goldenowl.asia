@@ -1,0 +1,57 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Universities 
+      h4.page-title
+        | Universities List
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New University", new_university_path, class:"navbar-item"
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Universities
+                = form_tag("/university", method: 'get') do
+                  - codes = []
+                  - @universities_all.each do |u|                   
+                    - codes << u.code
+
+                  .field.mb-3.float-md-right.mr-2
+                    = select_tag(:code, options_for_select(codes.uniq, :selected => @code ), {:prompt => "Select code university",  onchange: "this.form.submit();"})
+                  .field.mb-3.float-md-right
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:  
+                  .table-responsive-sm
+                    table.table.table-centered.mb-0
+                      tr
+                        th scope="col" ID
+                        th scope="col" Code
+                        th scope="col" University name
+                      - @universities.each do |uni|
+                          tr
+                            td = uni.id
+                            td = link_to uni.code, university_path(uni.id)
+                            td = uni.name
+                            section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @universities.size > 0
+        == pagy_bootstrap_nav(@pagy)           
+
+
+  
