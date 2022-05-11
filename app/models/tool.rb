@@ -22,5 +22,5 @@ class Tool < ApplicationRecord
   has_many :employee_tools, dependent: :destroy
   has_many :employees, through: :employee_tools
 
-  scope :filter_name_tool, ->(name) { where(name: name)}
+  scope :filter_name_tool, ->(name) { where(name: name) }
 end

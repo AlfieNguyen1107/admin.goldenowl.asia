@@ -15,9 +15,9 @@ class ToolsController < ApplicationController
   def create
     @tool = Tool.new(tool_params)
     if @tool.save
-      redirect_to tools_path, notice: "Tool was successfully created"
+      redirect_to tools_path, notice: 'Tool was successfully created'
     else
-        redirect_to tools_path, notice: "Tool was unsuccessfully created"
+      redirect_to tools_path, notice: 'Tool was unsuccessfully created'
     end
   end
 
@@ -31,17 +31,17 @@ class ToolsController < ApplicationController
 
   def update
     if @tool.update(tool_params)
-      redirect_to tool_path, notice: "Tool was successfully updated"
+      redirect_to tool_path, notice: 'Tool was successfully updated'
     else
-        redirect_to tool_path, notice: "Tool was unsuccessfully updated"
+      redirect_to tool_path, notice: 'Tool was unsuccessfully updated'
     end
   end
 
   def destroy
     if @tool.destroy
-      redirect_to tools_path, notice: "Tool was successfully destroyed"
+      redirect_to tools_path, notice: 'Tool was successfully destroyed'
     else
-      redirect_to tools_path, notice: "Tool was unsuccessfully destroyed"
+      redirect_to tools_path, notice: 'Tool was unsuccessfully destroyed'
     end
   end
 
