@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_030638) do
+ActiveRecord::Schema.define(version: 2022_05_06_105213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -503,6 +503,15 @@ ActiveRecord::Schema.define(version: 2022_05_06_030638) do
     t.index ["url"], name: "index_project_resources_on_url"
   end
 
+  create_table "project_screenshots", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["image"], name: "index_project_screenshots_on_image"
+    t.index ["project_id"], name: "index_project_screenshots_on_project_id"
+  end
+
   create_table "project_skills", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "skill_id", null: false
@@ -705,6 +714,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_030638) do
   add_foreign_key "project_member_assignments", "project_member_requests"
   add_foreign_key "project_member_requests", "projects"
   add_foreign_key "project_resources", "projects"
+  add_foreign_key "project_screenshots", "projects"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
   add_foreign_key "project_tools", "projects"
