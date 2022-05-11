@@ -10,7 +10,7 @@ class FrameworksController < ApplicationController
     else
       @frameworks = Framework.all
     end
-    @pagy, @frameworks = pagy(@frameworks.order(id: :ASC))
+    @pagy, @frameworks = pagy(@frameworks.order(id: :ASC), items: per_page)
   end
 
   def create
