@@ -4,7 +4,8 @@ class FrameworksController < ApplicationController
   def index
     @frameworks_all = Framework.all
     if params[:programming_language_name].present?
-      @programming_language = ProgrammingLanguage.search_name_programming_language(params[:programming_language_name])
+      @name = params[:programming_language_name]
+      @programming_language = ProgrammingLanguage.filter_name_programming_languages(@name)
       @frameworks = Framework.search_framework(@programming_language.first.id)
     else
       @frameworks = Framework.all

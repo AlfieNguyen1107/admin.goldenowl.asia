@@ -36,7 +36,7 @@ section.section
                   - @names << f.programming_language.name
                 = form_tag("/frameworks", method: 'get') do
                   .field.mb-3.float-md-right.mr-2
-                    = select_tag(:programming_language_name, options_for_select(@names.uniq), {:prompt => "Select name framework",  onchange: "this.form.submit();"})
+                    = select_tag(:programming_language_name, options_for_select(@names.uniq, select: @name), {:prompt => "Select name framework",  onchange: "this.form.submit();"})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:    
                   .table-responsive-sm
