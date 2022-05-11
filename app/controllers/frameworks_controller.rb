@@ -4,11 +4,11 @@ class FrameworksController < ApplicationController
 
   def index
     @frameworks_all = Framework.all
-    if params[:programming_language_name].present?
-      @frameworks = Framework.search_framework(@programming_language.first.id)
-    else
-      @frameworks = Framework.all
-    end
+    @frameworks = if params[:programming_language_name].present?
+                    Framework.search_framework(@programming_language.first.id)
+                  else
+                    Framework.all
+                  end
     @pagy, @frameworks = pagy(@frameworks.order(id: :ASC), items: per_page)
   end
 
