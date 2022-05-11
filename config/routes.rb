@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :university
-  resources :programming_languages
   resources :project_member_assignments
   resources :project_member_requests
   resources :contacts
@@ -12,6 +10,8 @@ Rails.application.routes.draw do
   resources :interns
   resources :projects
   resources :teches
+  resources :universities
+  resources :programming_languages
   resources :careers do
     resources :job_submissions
   end
