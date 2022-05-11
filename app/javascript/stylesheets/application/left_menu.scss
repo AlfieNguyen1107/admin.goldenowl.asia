@@ -1,5 +1,5 @@
 .slimscroll-menu{
-  height: 100vh !important;
+  height: calc(100vh - 70px) !important;
   overflow: hidden scroll;
 }
 
