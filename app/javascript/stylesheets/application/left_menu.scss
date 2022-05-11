@@ -1,0 +1,8 @@
+.slimscroll-menu{
+  height: calc(100vh - 70px) !important;
+  overflow: hidden scroll;
+}
+
+.slimscroll-menu::-webkit-scrollbar{
+  display: none;
+}
