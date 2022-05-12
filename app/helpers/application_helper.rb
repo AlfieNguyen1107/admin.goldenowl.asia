@@ -19,7 +19,7 @@ module ApplicationHelper
     content_tag :ul do
       attributes.each do |attribute|
         name = link_to attribute.name, position_path(attribute.id)
-        concat(content_tag(:li, name.html_safe ))
+        concat(content_tag(:li, name.html_safe))
         concat(nested_attributes(attribute.children)) if attribute.has_children?
       end
     end
