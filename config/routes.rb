@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :teches
   resources :universities
   resources :programming_languages
+  resources :tools
   resources :careers do
     resources :job_submissions
   end
