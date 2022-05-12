@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :frameworks
   resources :project_member_assignments
   resources :project_member_requests
   resources :contacts
