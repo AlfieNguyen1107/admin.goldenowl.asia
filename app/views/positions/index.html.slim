@@ -7,7 +7,15 @@
             = link_to 'Home', root_path
           li.breadcrumb-item Dashboard
       h4.page-title
-        | Dashboard
+        | Positions list
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Position", new_position_path, class:"navbar-item"
 .row
   .col-12
     #orgChart

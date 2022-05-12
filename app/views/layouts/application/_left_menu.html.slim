@@ -57,10 +57,6 @@
           i.dripicons-briefcase
           span Project Coordinators
       li.side-nav-item
-        = link_to positions_path, class: "side-nav-link #{active_items('positions')}" do
-          i.dripicons-briefcase
-          span Organization
-      li.side-nav-item
         a.side-nav-link.collapsed[data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
           i.uil-bright
           span
@@ -79,6 +75,5 @@
             li
               = link_to "Certificates"
             li 
-              = link_to "Positions"
-
+              = link_to "Positions", positions_path 
     .clearfix
