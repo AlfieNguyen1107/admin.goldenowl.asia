@@ -1,0 +1,57 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Certificates 
+      h4.page-title
+        | Certificates List
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Certificate", new_certificate_path, class:"navbar-item"
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Certificates
+                = form_tag("/certificates", method: 'get') do
+                  - @names = []
+                  - @certificate_all.each do |certificate|                   
+                    - @names << certificate.name
+
+                  .field.mb-3.float-md-right.mr-2
+                    = select_tag(:name, options_for_select(@names.uniq, :selected => @name ), {:prompt => "Select name certificate",  onchange: "this.form.submit();"})
+                  .field.mb-3.float-md-right
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:  
+                  .table-responsive-sm
+                    table.table.table-centered.mb-0
+                      tr
+                        th scope="col" ID
+                        th scope="col" Name Certificate
+                        th scope="col" Rating
+                      - @certificates.each do |certificates|
+                          tr
+                            td = certificates.id
+                            td = link_to certificates.name, certificate_path(certificates.id)
+                            td = certificates.rating
+                            section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @certificates.size > 0
+        == pagy_bootstrap_nav(@pagy)           
+
+
+  
