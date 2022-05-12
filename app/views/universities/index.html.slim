@@ -33,7 +33,8 @@ section.section
                     - codes << u.code
 
                   .field.mb-3.float-md-right.mr-2
-                    = select_tag(:code, options_for_select(codes.uniq, :selected => @code ), {:prompt => "Select code university",  onchange: "this.form.submit();"})
+                    lable.form-label
+                      = select_tag(:code, options_for_select(codes.uniq, :selected => @code ), {:prompt => "Select code university",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:  
                   .table-responsive-sm
@@ -42,16 +43,22 @@ section.section
                         th scope="col" ID
                         th scope="col" Code
                         th scope="col" University name
+                        th scope="col" Action
                       - @universities.each do |uni|
                           tr
                             td = uni.id
                             td = link_to uni.code, university_path(uni.id)
                             td = uni.name
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_university_path(uni.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, university_path(uni.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, university_path(uni.id), class: "table-link"
                             section.section
   .container.mb-3
     .d-flex.justify-content-center
       - if @universities.size > 0
-        == pagy_bootstrap_nav(@pagy)           
+        .pagination-rounded
+           == pagy_bootstrap_nav(@pagy)           
 
 
   
