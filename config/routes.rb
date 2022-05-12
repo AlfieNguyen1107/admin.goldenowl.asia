@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :post_categories
   resources :posts
   resources :assignments
-  resources :positions, only: [:index]
+  resources :positions
 
   get 'home', to: 'home#index'
   root 'home#index'
