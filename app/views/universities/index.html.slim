@@ -53,7 +53,7 @@ section.section
                               = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_university_path(uni.id), class: "table-link"
                               = link_to "<i class='mdi mdi-delete'></i>".html_safe, university_path(uni.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
                               = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, university_path(uni.id), class: "table-link"
-                            section.section
+section.section
   .container.mb-3
     .d-flex.justify-content-center
       - if @universities.size > 0
