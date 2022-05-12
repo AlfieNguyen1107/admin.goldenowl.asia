@@ -8,7 +8,7 @@ class CertificatesController < ApplicationController
       @certificates = Certificate.filter_name_certificate(@name)
     else
       @certificates = Certificate.all
-    end 
+    end
     @pagy, @certificates = pagy(@certificates.order(id: :ASC), items: per_page)
   end
 
@@ -24,7 +24,7 @@ class CertificatesController < ApplicationController
   def show; end
 
   def edit; end
-  
+
   def new
     @certificate = Certificate.new
   end
