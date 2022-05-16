@@ -18,8 +18,8 @@ module ApplicationHelper
   def nested_attributes(attributes)
     content_tag :ul do
       attributes.each do |attribute|
-        name = link_to attribute.name, position_path(attribute.id)
-        concat(content_tag(:li, name.html_safe))
+        name_link_tag = content_tag(:a, attribute.name, href: position_path(attribute.id))
+        concat(content_tag(:li, name_link_tag))
         concat(nested_attributes(attribute.children)) if attribute.has_children?
       end
     end

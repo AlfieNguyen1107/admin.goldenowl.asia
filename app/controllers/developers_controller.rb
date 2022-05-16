@@ -5,9 +5,7 @@ class DevelopersController < ApplicationController
 
   def index
     @developers = Developer.all
-    if params[:filter].present?
-      @developers = FilterDeveloperService.call(params).payload
-    end
+    @developers = FilterDeveloperService.call(params).payload if params[:filter].present?
     @pagy, @developers = pagy_array(@developers.uniq, items: per_page)
   end
 

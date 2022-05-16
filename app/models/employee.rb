@@ -35,13 +35,13 @@
 #  fk_rails_...  (position_id => positions.id)
 #
 class Employee < ApplicationRecord
-  has_many :developers, as: :employable
-  has_many :project_coordinators, as: :employable
+  has_many :developers, as: :employable, dependent: :destroy
+  has_many :project_coordinators, as: :employable, dependent: :destroy
   has_many :education_histories, dependent: :destroy
   has_many :employment_histories, dependent: :destroy
   has_many :certificate_employees, dependent: :destroy
   has_many :certificates, through: :certificate_employees
-  has_many :employee_skills
+  has_many :employee_skills, dependent: :destroy
   has_many :skills, through: :employee_skills
   has_many :employee_tools, dependent: :destroy
   has_many :tools, through: :employee_tools

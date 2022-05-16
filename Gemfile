@@ -30,6 +30,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rspec_junit_formatter'
+  gem 'rubocop-rspec', '~> 2.9.0'
 end
 
 group :development do
@@ -39,6 +40,9 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rubocop', '~> 1.26.1'
+  gem 'rubocop-performance', '~> 1.13.3', require: false
+  gem 'rubocop-rails', '~> 2.14.2', require: false
   gem 'web-console', '>= 3.3.0'
 end
 
@@ -50,10 +54,6 @@ group :test do
   gem 'simplecov', '~> 0.17.1', require: false
   gem 'webdrivers'
 end
-
-# Rubocops
-gem 'rubocop', '~> 0.79.0', require: false
-gem 'rubocop-rails', require: false
 
 # Others
 gem 'cloudinary'

@@ -22,7 +22,7 @@ class PostCategory < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   before_destroy :delete_posts
 

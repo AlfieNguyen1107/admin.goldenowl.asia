@@ -30,7 +30,7 @@ class Career < ApplicationRecord
   enum status: STATUSES.zip(STATUSES.map(&:titleize)).to_h
   enum job_type: JOB.zip(JOB.map(&:titleize)).to_h
 
-  has_many :job_submisstion
+  has_many :job_submisstion, dependent: :destroy
 
   friendly_id :title, use: :slugged
   has_rich_text :content
@@ -41,8 +41,8 @@ class Career < ApplicationRecord
 
   validates :content, presence: true
   validates :title, presence: true
-  validates_inclusion_of :job_type, in: JOB
-  validates_inclusion_of :status, in: STATUSES
+  validates :job_type, inclusion: JOB
+  validate :status, inclusion: STATUSES
 
   scope :search, ->(search_string) { where('lower(title) LIKE ?', "%#{search_string.downcase}%") }
 

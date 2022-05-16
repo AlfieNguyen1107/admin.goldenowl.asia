@@ -63,8 +63,8 @@ class Project < ApplicationRecord
   validates :deployment, presence: true
 
   scope :active_projects, -> { where(status: Project.statuses[:ongoing]) }
-  scope :filter_development_type, ->(development_type_ids) { where('development_type_id = ?', development_type_ids) }
-  scope :filter_industry, ->(industry) { where('industry = ?', industry) }
+  scope :filter_development_type, ->(development_type_ids) { where(development_type_id: development_type_ids) }
+  scope :filter_industry, ->(industry) { where(industry: industry) }
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
   def rank_to_s
@@ -80,6 +80,6 @@ class Project < ApplicationRecord
   end
 
   def assign_pc(project_coordinator)
-    pc_projects.create project_coordinator: project_coordinator, join_date: Date.today
+    pc_projects.create project_coordinator: project_coordinator, join_date: Time.zone.today
   end
 end

@@ -20,9 +20,9 @@
 #
 class SkillCategory < ApplicationRecord
   belongs_to :skill_category_group
-  has_many :skills
-  has_many :frameworks
-  has_many :tools
+  has_many :skills, dependent: :destroy
+  has_many :frameworks, dependent: :destroy
+  has_many :tools, dependent: :destroy
 
   delegate :name, to: :skill_category_group, prefix: :skill_category_group, allow_nil: true
 

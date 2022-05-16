@@ -45,8 +45,8 @@ class Developer < ApplicationRecord
   has_many :developer_frameworks, dependent: :destroy
   has_many :programming_languages, through: :developer_programming_languages
   has_many :frameworks, through: :developer_frameworks
-  has_many :interns
-  has_many :assignments, foreign_key: 'assigned_to_id'
+  has_many :interns, dependent: :destroy
+  has_many :assignments, foreign_key: 'assigned_to_id', dependent: :destroy, inverse_of: :developers
   has_many :project_histories, dependent: :destroy
 
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
@@ -58,7 +58,7 @@ class Developer < ApplicationRecord
 
   after_save :set_tech_stack
 
-  scope :with_teches, ->(params) { where('tech_id = ?', params) }
+  scope :with_teches, ->(params) { where(tech_id: params) }
   scope :not_have_current_project, -> { where('developer_projects.current IS NULL') }
   scope :have_current_project, -> { where('developer_projects.current = true') }
 

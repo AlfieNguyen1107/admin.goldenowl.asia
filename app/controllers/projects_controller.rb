@@ -73,9 +73,7 @@ class ProjectsController < ApplicationController
 
   def project_filter
     @projects = @projects.search(params[:search]) if params[:search]
-    if @development_type.present?
-      @projects = @projects.joins(:development_types).filter_development_type(@development_type)
-    end
+    @projects = @projects.joins(:development_types).filter_development_type(@development_type) if @development_type.present?
     @projects = @projects.filter_industry(@industry) if @industry.present?
   end
 
