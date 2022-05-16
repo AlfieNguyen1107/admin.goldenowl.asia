@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 class DevelopmentType < ApplicationRecord
-  has_and_belongs_to_many :projects
+  has_many :projects, through: :development_types_projects
 
   validates :name, uniqueness: true
 end

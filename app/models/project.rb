@@ -37,7 +37,7 @@ class Project < ApplicationRecord
   acts_as_taggable_on :software_categories
 
   has_and_belongs_to_many :teches
-  has_and_belongs_to_many :development_types
+  has_many :development_types_projects, dependent: :destroy
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
   has_many :project_frameworks, dependent: :destroy

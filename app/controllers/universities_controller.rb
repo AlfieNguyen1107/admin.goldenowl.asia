@@ -38,7 +38,7 @@ class UniversitiesController < ApplicationController
     if @university.destroy
       redirect_to universities_path, notice: 'University was successfully destroyed.'
     else
-      redirect_to university_index_path, notice: 'University was unsuccessfully destroyed.'
+      redirect_to universities_path, notice: 'University was unsuccessfully destroyed.'
     end
   end
 
