@@ -33,8 +33,8 @@ section.section
                     - names << p.name
 
                   .field.mb-3.float-md-right.mr-2
-                    lable.form-label 
-                      = select_tag(:name, options_for_select(names.uniq, :selected => @name), {:prompt => "Select name programming language",  onchange: "this.form.submit();",  class: 'form-select form-select-sm ms-1 me-1 '})
+                    lable.form-label
+                      = select_tag(:name, options_for_select(names.uniq, :selected => @name), {:prompt => "Select name programming language",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1 '})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:  
                   .table-responsive-sm
@@ -44,6 +44,7 @@ section.section
                         th scope="col" name
                         th scope="col" year_of_release
                         th scope="col" latest_version
+                        th scope="col" Action
 
                       - @programming_languages.each do |p|
                           tr
@@ -51,11 +52,15 @@ section.section
                             td = link_to p.name, programming_language_path(p.id)
                             td = p.year_of_release
                             td = p.latest_version
-                            section.section
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_programming_language_path(p.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, programming_language_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, programming_language_path(p.id), class: "table-link"
+section.section
   .container.mb-3
     .d-flex.justify-content-center
       - if @programming_languages.size > 0
-        .pagination-rounded 
+        .pagination-rounded
           == pagy_bootstrap_nav(@pagy)           
 
 

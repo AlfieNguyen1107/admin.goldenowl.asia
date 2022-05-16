@@ -33,7 +33,8 @@ section.section
                     - @names << certificate.name
 
                   .field.mb-3.float-md-right.mr-2
-                    = select_tag(:name, options_for_select(@names.uniq, :selected => @name ), {:prompt => "Select name certificate",  onchange: "this.form.submit();"})
+                    lable.form-label
+                    = select_tag(:name, options_for_select(@names.uniq, :selected => @name ), {:prompt => "Select name certificate",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:  
                   .table-responsive-sm
@@ -42,16 +43,22 @@ section.section
                         th scope="col" ID
                         th scope="col" Name Certificate
                         th scope="col" Rating
-                      - @certificates.each do |certificates|
+                        th scope="col" Action
+                      - @certificates.each do |certificate|
                           tr
-                            td = certificates.id
-                            td = link_to certificates.name, certificate_path(certificates.id)
-                            td = certificates.rating
-                            section.section
+                            td = certificate.id
+                            td = link_to certificate.name, certificate_path(certificate.id)
+                            td = certificate.rating
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_certificate_path(certificate.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, certificate_path(certificate.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, certificate_path(certificate.id), class: "table-link"
+section.section
   .container.mb-3
     .d-flex.justify-content-center
       - if @certificates.size > 0
-        == pagy_bootstrap_nav(@pagy)           
+        .pagination-rounded
+          == pagy_bootstrap_nav(@pagy)           
 
 
   

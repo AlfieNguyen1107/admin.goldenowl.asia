@@ -1,0 +1,17 @@
+.table{
+  .table-action{
+    a{
+      color: #767797;
+    }
+  }
+  .table-action a :hover{
+    color: #57a9d8;
+    background-color: white;
+  }
+}
+
+.table-link{
+  color: #98a6ad;
+  font-size: 1.2rem;
+  display: inline-block;
+}
