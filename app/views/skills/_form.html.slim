@@ -1,0 +1,11 @@
+.section
+  = simple_form_for @skill do |f|
+    .field.mt-2.mb-3
+      = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :order, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :skill_category_id, class: 'col-md-12'
+      = f.select :skill_category_id, options_for_select(@skill_categories, @skill.skill_category_id), {}, { class: 'form-select form-select-sm me-1'}
+    = f.button :submit, class: "btn btn-info mb-2"
+    = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"
