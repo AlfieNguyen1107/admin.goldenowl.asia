@@ -30,7 +30,7 @@ class Career < ApplicationRecord
   enum status: STATUSES.zip(STATUSES.map(&:titleize)).to_h
   enum job_type: JOB.zip(JOB.map(&:titleize)).to_h
 
-  has_many :job_submisstion, dependent: :destroy
+  has_many :job_submission, dependent: :destroy
 
   friendly_id :title, use: :slugged
   has_rich_text :content
