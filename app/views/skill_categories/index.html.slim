@@ -1,0 +1,58 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Skill Categories
+      h4.page-title
+        | Skill Categories List
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Skill Category", new_skill_category_path, class:"navbar-item"
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Skill Categories
+                = form_tag("/skill_categories", method: 'get') do
+                  .field.mb-3.float-md-right.mr-2
+                    lable.form-label
+                      = select_tag(:skill_category_group_name, options_for_select(@skill_categories_group_name, :selected => params[:skill_category_group_name] ), {:prompt => "Select skill category group name",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
+                  .field.mb-3.float-md-right
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:
+                  .table-responsive-sm
+                    table.table.table-centered.mb-0
+                      tr
+                        th scope="col" ID
+                        th scope="col" Name
+                        th scope="col" Skill Category Group
+                        th scope="col" Action
+                      - @skill_categories.each do |sc|
+                          tr
+                            td = sc.id
+                            td = link_to sc.name, skill_category_path(sc.id)
+                            td = sc.skill_category_group_name
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_skill_category_path(sc.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, skill_category_path(sc.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, skill_category_path(sc.id), class: "table-link"
+
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @skill_categories.size > 0
+        .pagination-rounded
+           == pagy_bootstrap_nav(@pagy)

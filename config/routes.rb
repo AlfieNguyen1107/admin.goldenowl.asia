@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :assignments
   resources :positions
+  resources :skill_categories
 
   get 'home', to: 'home#index'
   root 'home#index'
