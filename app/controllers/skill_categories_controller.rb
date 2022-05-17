@@ -31,6 +31,8 @@ class SkillCategoriesController < ApplicationController
 
   def show; end
 
+  def edit; end
+
   def update
     respond_to do |format|
       if @skill_category.update(skill_category_params)
