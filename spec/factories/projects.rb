@@ -31,14 +31,14 @@
 #
 FactoryBot.define do
   factory :project do
-    name { Faker::Lorem.words.join(" ").capitalize }
+    name { Faker::Lorem.words.join(' ').capitalize }
     description { Faker::Lorem.paragraph }
     start_date { Faker::Date.in_date_period }
     rank { (1..5).to_a.sample }
-    end_date { Date.today }
-    deployment { "MyString" }
-    website { "MyString" }
-    status { Project.statuses.keys.map(&:to_sym).sample  }
+    end_date { Time.zone.today }
+    deployment { 'MyString' }
+    website { 'MyString' }
+    status { Project.statuses.keys.map(&:to_sym).sample }
     client
   end
 end

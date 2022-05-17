@@ -19,6 +19,6 @@
 #  fk_rails_...  (project_id => projects.id)
 #
 class DevelopmentTypesProject < ApplicationRecord
-  belongs_to :project
   belongs_to :development_type
+  belongs_to :project
 end

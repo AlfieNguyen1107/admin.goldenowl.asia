@@ -38,6 +38,7 @@ class Project < ApplicationRecord
   has_many :project_teches, dependent: :destroy
   has_many :teches, through: :project_teches
   has_many :development_types_projects, dependent: :destroy
+  has_many :development_types, through: :development_types_projects
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
   has_many :project_frameworks, dependent: :destroy

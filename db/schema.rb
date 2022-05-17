@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_17_053633) do
+ActiveRecord::Schema.define(version: 2022_05_17_080354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,6 +226,15 @@ ActiveRecord::Schema.define(version: 2022_05_17_053633) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "development_types_projects", force: :cascade do |t|
+    t.bigint "development_type_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["development_type_id"], name: "index_development_types_projects_on_development_type_id"
+    t.index ["project_id"], name: "index_development_types_projects_on_project_id"
   end
 
   create_table "education_histories", force: :cascade do |t|
@@ -684,6 +693,8 @@ ActiveRecord::Schema.define(version: 2022_05_17_053633) do
   add_foreign_key "developers", "developers", column: "mentor_id"
   add_foreign_key "developers", "positions"
   add_foreign_key "developers", "universities"
+  add_foreign_key "development_types_projects", "development_types"
+  add_foreign_key "development_types_projects", "projects"
   add_foreign_key "education_histories", "employees"
   add_foreign_key "education_histories", "universities"
   add_foreign_key "employee_skills", "employees"

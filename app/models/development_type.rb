@@ -8,6 +8,7 @@
 #  updated_at :datetime         not null
 #
 class DevelopmentType < ApplicationRecord
+  has_many :development_types_projects, dependent: :destroy
   has_many :projects, through: :development_types_projects
 
   validates :name, uniqueness: true
