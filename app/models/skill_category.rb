@@ -23,4 +23,8 @@ class SkillCategory < ApplicationRecord
   has_many :skills
   has_many :frameworks
   has_many :tools
+
+  delegate :name, to: :skill_category_group, prefix: :skill_category_group, allow_nil: true
+
+  validates :name, presence: true
 end
