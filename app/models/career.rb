@@ -41,8 +41,8 @@ class Career < ApplicationRecord
 
   validates :content, presence: true
   validates :title, presence: true
-  validates :job_type, inclusion: JOB
-  validate :status, inclusion: STATUSES
+  validates :job_type, inclusion: { in: JOB }
+  validate :status, inclusion: { in: STATUSES }
 
   scope :search, ->(search_string) { where('lower(title) LIKE ?', "%#{search_string.downcase}%") }
 
