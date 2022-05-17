@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_105252) do
+ActiveRecord::Schema.define(version: 2022_05_17_053633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,15 +226,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_105252) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "development_types_projects", force: :cascade do |t|
-    t.bigint "development_type_id", null: false
-    t.bigint "project_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["development_type_id"], name: "index_development_types_projects_on_development_type_id"
-    t.index ["project_id"], name: "index_development_types_projects_on_project_id"
   end
 
   create_table "education_histories", force: :cascade do |t|
@@ -522,6 +513,15 @@ ActiveRecord::Schema.define(version: 2022_05_16_105252) do
     t.index ["skill_id"], name: "index_project_skills_on_skill_id"
   end
 
+  create_table "project_teches", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "tech_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_teches_on_project_id"
+    t.index ["tech_id"], name: "index_project_teches_on_tech_id"
+  end
+
   create_table "project_tools", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "tool_id", null: false
@@ -551,13 +551,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_105252) do
     t.index ["name"], name: "index_projects_on_name", unique: true
     t.index ["rank"], name: "index_projects_on_rank"
     t.index ["status"], name: "index_projects_on_status"
-  end
-
-  create_table "projects_teches", id: false, force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.bigint "tech_id", null: false
-    t.index ["project_id", "tech_id"], name: "index_projects_teches_on_project_id_and_tech_id"
-    t.index ["tech_id", "project_id"], name: "index_projects_teches_on_tech_id_and_project_id"
   end
 
   create_table "skill_categories", force: :cascade do |t|
@@ -691,8 +684,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_105252) do
   add_foreign_key "developers", "developers", column: "mentor_id"
   add_foreign_key "developers", "positions"
   add_foreign_key "developers", "universities"
-  add_foreign_key "development_types_projects", "development_types"
-  add_foreign_key "development_types_projects", "projects"
   add_foreign_key "education_histories", "employees"
   add_foreign_key "education_histories", "universities"
   add_foreign_key "employee_skills", "employees"
@@ -719,6 +710,8 @@ ActiveRecord::Schema.define(version: 2022_05_16_105252) do
   add_foreign_key "project_screenshots", "projects"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
+  add_foreign_key "project_teches", "projects"
+  add_foreign_key "project_teches", "teches"
   add_foreign_key "project_tools", "projects"
   add_foreign_key "project_tools", "tools"
   add_foreign_key "projects", "clients"

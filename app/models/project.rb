@@ -35,8 +35,8 @@ class Project < ApplicationRecord
   enum status: { planning: 0, ongoing: 1, finished: 2, archived: 3 }
 
   acts_as_taggable_on :software_categories
-
-  has_and_belongs_to_many :teches
+  has_many :project_teches, dependent: :destroy
+  has_many :teches, through: :project_teches
   has_many :development_types_projects, dependent: :destroy
   has_many :developer_projects, dependent: :destroy
   has_many :developers, through: :developer_projects
