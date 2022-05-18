@@ -40,8 +40,10 @@
   .card-body
     h5.card-title
         | Diagram
-    - if @project.image.present?
-      = image_tag @project.image, width: "300px"
+    - if @project.images.present?
+      
+      - @project.images.each do |image|
+        = image_tag image, width: "300px", height: "300px"
   .card-body
     h5.card-title
       | Git repo

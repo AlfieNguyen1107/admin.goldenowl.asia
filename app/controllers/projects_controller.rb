@@ -34,7 +34,20 @@ class ProjectsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @project.update(project_params)
+      if params[:project][:id]
+        params[:project][:id].each do |id|
+          image = @project.images.find_by(id: id)
+          image.purge unless image.nil?
+        end
+      end
+
+      if params[:project][:images].present?
+        params[:project][:images].each do |img|
+          @project.images.attach(img)
+        end
+      end
+
+      if @project.update(project_params_upload)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -79,7 +92,20 @@ class ProjectsController < ApplicationController
       :description,
       :deployment,
       :industry,
-      :git_repo, :task_tracker_url, :website, :image, :start_date, :end_date
+      :git_repo, :task_tracker_url, :website, :start_date, :end_date,
+      { images: [] }
+    )
+  end
+
+  def project_params_upload
+    params.require(:project).permit(
+      { tech_ids: [] },
+      :client_id,
+      :name,
+      :description,
+      :deployment,
+      :industry,
+      :git_repo, :task_tracker_url, :website, :start_date, :end_date
     )
   end
 

@@ -48,7 +48,7 @@ class Project < ApplicationRecord
   has_many :project_member_requests, dependent: :destroy
   has_many :project_resources, dependent: :destroy
   has_many :project_screenshots, dependent: :destroy
-  has_one_attached :image
+  has_many_attached :images
   belongs_to :client
 
   validates :name, presence: true, uniqueness: true
