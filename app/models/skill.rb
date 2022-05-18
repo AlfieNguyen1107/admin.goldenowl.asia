@@ -20,4 +20,8 @@
 #
 class Skill < ApplicationRecord
   belongs_to :skill_category
+
+  delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
+
+  validates :name, presence: true
 end
