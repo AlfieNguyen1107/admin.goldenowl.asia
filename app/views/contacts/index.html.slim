@@ -39,6 +39,7 @@ section.section
                       th scope="col" Company
                       th scope="col" Personal
                       th scope="col" Nationality
+                      th scope="col" Action
                     - @contacts.each do |contact|
                         tr
                           td = contact.id
@@ -67,6 +68,11 @@ section.section
                             = "Based: #{contact.based_nationality}"
                             br
                             = "Living: #{contact.current_living_country}"
+                          td.table-action
+                            = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_contact_path(contact.id), class: "table-link"
+                            = link_to "<i class='mdi mdi-delete'></i>".html_safe, contact_path(contact.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                            = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, contact_path(contact.id), class: "table-link"
+
 section.section
   .container.mb-3
     .d-flex.justify-content-center

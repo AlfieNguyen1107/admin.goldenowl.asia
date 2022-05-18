@@ -1,11 +1,23 @@
 .section
-  = simple_form_for @client do |f|
+  = simple_form_for @contact do |f|
     .field.mt-2.mb-3
       .control
-        = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+        = f.input :full_name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     .field.mt-2.mb-3
-      = f.input :address, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+      = f.input :primary_phone_number, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     .field.mt-2.mb-3
-      = f.input :hq, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+      = f.input :company_homepage_url, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :company_linkedin_url, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_linkedin_url, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_facebook_url, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_twitter_url, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :based_nationality, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :current_living_country, as: :string, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     = f.button :submit, class: "btn btn-info mb-2"
     = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"
