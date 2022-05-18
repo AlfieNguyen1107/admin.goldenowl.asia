@@ -49,18 +49,6 @@ Tech.create([
   },
 ])
 
-DevelopmentType.create([
-  {
-    name: "Mobile IOS"
-  },
-  {
-    name: "Mobile Android"
-  },
-  {
-    name: "Website"
-  },
-])
-
 positions = Position.create([
   {
     name: "Mobile Dev"
@@ -343,6 +331,10 @@ projects.each do |p|
 
   rand(5).times do
     p.project_resources.create! url: 'https://drive.google.com/file/d/1BzJtHIm8YAvU0Jjl_CPO1WL4Sivg_1gv/view?usp=sharing', name: 'Project Requirements'
+  end
+
+  rand(5).times do
+    p.project_screenshots.create! image: 
   end
 
   p.software_category_list = cats.shuffle.take(1 + rand(4)).map(&:name)

@@ -27,9 +27,6 @@
       .field.mt-2.mb-3
         = f.input :website, 'data-provider': :summernote, class: 'form-control'
       .field.mt-2.mb-3
-        = f.label :development_type
-        = f.select :development_type_ids, options_for_select(@development_type_options), { }, { class: "select2 form-control select2-multiple", :multiple => true, :size => 5, id: "development-type-select" }        
-      .field.mt-2.mb-3
         = f.label :Industry
         = f.select :industry, Project.industries.keys, { }, { class: "select2 form-control" }
       .field.mt-2.mb-3

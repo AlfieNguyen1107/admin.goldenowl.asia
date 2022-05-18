@@ -32,8 +32,6 @@ section.section
               .card-body
                 h4.header-title.mb-2 About projects
                 = form_tag("/projects", method: 'get') do               
-                  .field.mb-3.float-md-right.mr-2
-                    = select_tag(:development_type_ids, options_for_select(@development_type_options, :selected => @development_type ), {:prompt => "Development type",  onchange: "this.form.submit();"}) 
                   .field.mb-3.float-md-right.mr-2                    
                     = select_tag(:industry, options_for_select(Project.industries, :selected => @industry ), {:prompt => "Industry",  onchange: "this.form.submit();"}) 
                   .field.mb-3.float-md-right
@@ -65,9 +63,6 @@ section.section
                                 br
                             td = p.deployment
                             td 
-                              - p.development_types_projects.each do |t|
-                                = t.name
-                                br
                             td = p.industry
                             td = p.current_pc&.full_name
                             td = p.status
