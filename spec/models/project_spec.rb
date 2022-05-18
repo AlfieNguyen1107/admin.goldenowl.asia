@@ -43,8 +43,6 @@ RSpec.describe Project, type: :model do
   end
 
   describe 'assocation' do
-    it { is_expected.to have_many(:teches) }
-    it { is_expected.to have_many(:development_types) }
     it { is_expected.to have_many(:developers) }
     it { is_expected.to belong_to(:client) }
   end

@@ -66,12 +66,11 @@ class DevelopersController < ApplicationController
     return unless params[:filter]
 
     @cur_day = params[:day]
-    @cur_tech = params[:filter][:tech_ids]
   end
 
   def developer_params
     params.require(:developer).permit(
-      { project_ids: [], tech_ids: [] },
+      { project_ids: [] },
       :full_name, :company_name, :belong_team, :level,
       developer_projects_attributes: %i[join_date current id]
     )

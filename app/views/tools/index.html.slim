@@ -36,9 +36,6 @@ section.section
                   - @tool_all.each do |tool|
                     - @names << tool.name
 
-                  .field.mb-3.float-md-right.mr-2
-                    lable.form-label
-                      = select_tag(:name, options_for_select(@names.uniq, :selected => @name ), {:prompt => "Select tech type",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:    
                   .table-responsive-sm

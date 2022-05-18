@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   end
   resources :interns
   resources :projects
-  resources :teches
   resources :universities
   resources :programming_languages
   resources :tools

@@ -39,8 +39,6 @@ class Developer < ApplicationRecord
   belongs_to :position
   has_many :developer_projects, dependent: :destroy
   has_many :projects, through: :developer_projects
-  has_many :developer_teches, dependent: :destroy
-  has_many :teches, through: :developer_teches
   has_many :developer_programming_languages, dependent: :destroy
   has_many :developer_frameworks, dependent: :destroy
   has_many :programming_languages, through: :developer_programming_languages
@@ -56,9 +54,6 @@ class Developer < ApplicationRecord
   # validates :belong_team, presence: true
   validates :senority, presence: true
 
-  after_save :set_tech_stack
-
-  scope :with_teches, ->(params) { where(tech_id: params) }
   scope :not_have_current_project, -> { where('developer_projects.current IS NULL') }
   scope :have_current_project, -> { where('developer_projects.current = true') }
 
@@ -68,13 +63,4 @@ class Developer < ApplicationRecord
     where(id: available_developer_ids)
   end
 
-  private
-
-  def set_tech_stack
-    @project_technology = []
-    projects.each do |p|
-      @project_technology += p.teches
-    end
-    self.teches = @project_technology.uniq
-  end
 end
