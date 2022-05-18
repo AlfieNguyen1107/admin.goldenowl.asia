@@ -30,25 +30,6 @@ hrm.children.create name: "C&B"
 hrm.children.create name: "Recruiter"
 hrm.children.create name: "Admin"
 
-Tech.create([
-  {
-    name: "Rails",
-    tech_type: 1
-  },
-  {
-    name: "ReactJS",
-    tech_type: 0
-  },
-  {
-    name: "NodeJS",
-    tech_type: 1
-  },
-  {
-    name: "PHP",
-    tech_type: 1
-  },
-])
-
 positions = Position.create([
   {
     name: "Mobile Dev"
@@ -333,9 +314,9 @@ projects.each do |p|
     p.project_resources.create! url: 'https://drive.google.com/file/d/1BzJtHIm8YAvU0Jjl_CPO1WL4Sivg_1gv/view?usp=sharing', name: 'Project Requirements'
   end
 
-  rand(5).times do
-    p.project_screenshots.create! image: 
-  end
+  # rand(5).times do
+  #   p.project_screenshots.create! image:  
+  # end
 
   p.software_category_list = cats.shuffle.take(1 + rand(4)).map(&:name)
   p.save!

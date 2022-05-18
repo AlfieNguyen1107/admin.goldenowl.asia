@@ -36,8 +36,6 @@ section.section
                 = form_tag("/interns", method: 'get') do
                   .field.mb-3.float-md-right
                     = select_tag(:day, options_for_select(Project::DAYS_FROM_NOW, :selected => @cur_day ), {:prompt => "Select day",  onchange: "this.form.submit();"})
-                  .field.mb-3.float-md-right.mr-2
-                    = collection_select(:filter, :tech_ids, Tech.all, :id, :name, {:prompt => "Select technology", :selected => @cur_tech}, onchange: "this.form.submit();")
                 .field.mb-3.float-md-right
                   span.header-title.mr-3 style=("font-weight: bold;") Filter:
                 .table-responsive-sm
@@ -74,9 +72,6 @@ section.section
                             td
                               = Date.today.year - d.graduation_year
                             td
-                              - d.teches.each do |t|
-                                = t.name  
-                                br
                             td = link_to "Detail", intern_path(d)
   section.section
     .container.mb-3

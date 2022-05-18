@@ -59,9 +59,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_technology_options
-    @frontend_options = Tech.frontend.pluck(:name, :id)
-    @backend_options = Tech.backend.pluck(:name, :id)
-    @db_options = Tech.db.pluck(:name, :id)
     @client_options = Client.pluck(:name, :id)
   end
 
