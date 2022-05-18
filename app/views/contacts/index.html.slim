@@ -36,6 +36,7 @@ section.section
                     tr
                       th scope="col" ID
                       th scope="col" Name
+                      th scope="col" Avatar
                       th scope="col" Company
                       th scope="col" Personal
                       th scope="col" Nationality
@@ -44,6 +45,7 @@ section.section
                         tr
                           td = contact.id
                           td = link_to contact.full_name, contact
+                          td = image_tag contact.image, width: '100px' if contact.image.present?
                           td
                             i.bi-house-door
                             = " "

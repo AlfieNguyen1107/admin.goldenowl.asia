@@ -17,6 +17,11 @@ section.section
     h4.title
       = @contact.full_name
     hr/
+    - if @contact.image.present?
+      | Avatar
+      h4.title
+        = image_tag @contact.image, width: "300px"
+    hr/
     | Primary phone number:
     h4.title
       = @contact.primary_phone_number

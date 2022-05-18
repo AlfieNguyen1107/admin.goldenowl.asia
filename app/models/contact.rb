@@ -23,4 +23,11 @@
 #
 class Contact < ApplicationRecord
   has_one :client, as: :contactable, dependent: :destroy
+  has_one_attached :image
+
+  validates :company_homepage_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { company_homepage_url.present? }
+  validates :company_linkedin_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { company_linkedin_url.present? }
+  validates :personal_linkedin_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_linkedin_url.present? }
+  validates :personal_facebook_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_facebook_url.present? }
+  validates :personal_twitter_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_twitter_url.present? }
 end
