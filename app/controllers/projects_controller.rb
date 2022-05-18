@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_technology_options
   before_action :prepare_projects, only: %i[index]
+
   def index
     filter_params
     project_filter

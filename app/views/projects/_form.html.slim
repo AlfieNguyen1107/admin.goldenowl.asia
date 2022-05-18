@@ -27,7 +27,8 @@
           - @project.images.each do |image|
             br
             = f.check_box :id, {multiple: true}, image.id
-            = image_tag image.variant(resize_to_limit: [100, 100])
+            = image_tag image.  resize(:thumb)
+          p Tick if you want to delete the image!
       .field.mt-2.mb-3
         = f.label :Start_date
         br

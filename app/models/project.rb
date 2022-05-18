@@ -30,6 +30,8 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class Project < ApplicationRecord
+  include ResizeImage
+
   DAYS_FROM_NOW = [10, 30, 60].freeze
   enum industry: { sport: 0, ecommerce: 1, finance: 2, education: 3, manufacturing: 4, medical: 5, health_fitness: 6 }
   enum status: { planning: 0, ongoing: 1, finished: 2, archived: 3 }
@@ -62,6 +64,12 @@ class Project < ApplicationRecord
   scope :active_projects, -> { where(status: Project.statuses[:ongoing]) }
   scope :filter_industry, ->(industry) { where(industry: industry) }
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
+
+  resize_image_config(
+    {
+      thumb: [100, 100]
+    }
+  )
 
   def rank_to_s
     if rank.positive?
