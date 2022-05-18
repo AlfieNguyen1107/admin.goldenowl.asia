@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_105213) do
+ActiveRecord::Schema.define(version: 2022_05_17_080354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -522,6 +522,15 @@ ActiveRecord::Schema.define(version: 2022_05_06_105213) do
     t.index ["skill_id"], name: "index_project_skills_on_skill_id"
   end
 
+  create_table "project_teches", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "tech_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_teches_on_project_id"
+    t.index ["tech_id"], name: "index_project_teches_on_tech_id"
+  end
+
   create_table "project_tools", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "tool_id", null: false
@@ -551,13 +560,6 @@ ActiveRecord::Schema.define(version: 2022_05_06_105213) do
     t.index ["name"], name: "index_projects_on_name", unique: true
     t.index ["rank"], name: "index_projects_on_rank"
     t.index ["status"], name: "index_projects_on_status"
-  end
-
-  create_table "projects_teches", id: false, force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.bigint "tech_id", null: false
-    t.index ["project_id", "tech_id"], name: "index_projects_teches_on_project_id_and_tech_id"
-    t.index ["tech_id", "project_id"], name: "index_projects_teches_on_tech_id_and_project_id"
   end
 
   create_table "skill_categories", force: :cascade do |t|
@@ -668,6 +670,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_105213) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "uid"
+    t.string "provider"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -717,6 +721,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_105213) do
   add_foreign_key "project_screenshots", "projects"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
+  add_foreign_key "project_teches", "projects"
+  add_foreign_key "project_teches", "teches"
   add_foreign_key "project_tools", "projects"
   add_foreign_key "project_tools", "tools"
   add_foreign_key "projects", "clients"

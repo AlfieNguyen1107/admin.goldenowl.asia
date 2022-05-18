@@ -15,6 +15,6 @@ RSpec.describe DevelopmentType, type: :model do
   end
 
   describe 'assocation' do
-    it { is_expected.to have_and_belong_to_many(:projects) }
+    it { is_expected.to have_many(:projects) }
   end
 end

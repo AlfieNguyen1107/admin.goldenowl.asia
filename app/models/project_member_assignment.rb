@@ -24,7 +24,7 @@
 #  fk_rails_...  (shadow_by_id => employees.id)
 #
 class ProjectMemberAssignment < ApplicationRecord
-  belongs_to :employee, foreign_key: 'employee_id'
+  belongs_to :employee, inverse_of: :project_member_assignments
   belongs_to :project_member_request
-  belongs_to :shadow, class_name: 'Employee', foreign_key: 'shadow_by_id', optional: true
+  belongs_to :shadow, class_name: 'Employee', foreign_key: 'shadow_by_id', optional: true, inverse_of: :project_member_assignments
 end

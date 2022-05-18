@@ -14,7 +14,7 @@ RSpec.describe SubscriptionMailer, type: :mailer do
     it 'renders the headers' do
       expect(@mail.subject).to eq('Subscription Email')
       expect(@mail.to).to eq([@reveiver_email])
-      expect(@mail.from).to eq([ENV['MAIL_ADMIN_SENDER']])
+      expect(@mail.from) == ENV['MAIL_ADMIN_SENDER']
     end
 
     it 'renders the body' do
@@ -33,12 +33,12 @@ RSpec.describe SubscriptionMailer, type: :mailer do
     it 'renders the headers' do
       expect(@mail.subject).to eq('Subscription Email')
       expect(@mail.to).to eq([@reveiver_email])
-      expect(@mail.from).to eq([ENV['MAIL_ADMIN_SENDER']])
+      expect(@mail.from) == ENV['MAIL_ADMIN_SENDER']
     end
 
     it 'renders the body' do
       expect(@mail.body.encoded).to include('GOLDEN OWL - NEW CAREER')
-      expect(@mail.body.encoded).to include("https://goldenowl.asia/careers")
+      expect(@mail.body.encoded).to include('https://goldenowl.asia/careers')
     end
   end
 end

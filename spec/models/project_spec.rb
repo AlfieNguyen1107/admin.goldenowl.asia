@@ -43,13 +43,13 @@ RSpec.describe Project, type: :model do
   end
 
   describe 'assocation' do
-    it { is_expected.to have_and_belong_to_many(:teches) }
-    it { is_expected.to have_and_belong_to_many(:development_types) }
+    it { is_expected.to have_many(:teches) }
+    it { is_expected.to have_many(:development_types) }
     it { is_expected.to have_many(:developers) }
     it { is_expected.to belong_to(:client) }
   end
 
-  context "rank_to_s" do
+  context 'rank_to_s' do
     it 'convert rank to string' do
       project = FactoryBot.create(:project, rank: 1)
       expect(project.rank_to_s).to eq 'A'

@@ -5,9 +5,7 @@ class InternsController < ApplicationController
 
   def index
     @interns = Intern.all
-    if params[:filter].present?
-      @interns = FilterInternService.call(params).payload
-    end
+    @interns = FilterInternService.call(params).payload if params[:filter].present?
     @pagy, @interns = pagy_array(@interns.uniq, items: per_page)
   end
 

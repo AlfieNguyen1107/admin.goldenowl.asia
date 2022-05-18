@@ -18,7 +18,7 @@ class ProjectCoordinator < ApplicationRecord
   belongs_to :employable, polymorphic: true
   delegate_missing_to :employable
 
-  has_many :pc_projects, foreign_key: :project_coordinator_id, dependent: :destroy
+  has_many :pc_projects, dependent: :destroy
   has_many :projects, through: :pc_projects
 
   def current_project

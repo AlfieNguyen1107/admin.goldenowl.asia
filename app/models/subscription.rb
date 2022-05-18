@@ -12,7 +12,7 @@
 class Subscription < ApplicationRecord
   after_create_commit :send_mail
 
-  has_many :job_submisstions
+  has_many :job_submisstions, dependent: :destroy
 
   SUBSCRIPTION_TYPE = %w[both post career].freeze
 

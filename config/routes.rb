@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :careers do
     resources :job_submissions
   end
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :post_categories
   resources :posts
   resources :assignments

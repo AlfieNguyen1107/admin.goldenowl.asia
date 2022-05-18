@@ -22,5 +22,5 @@
 #  index_contacts_on_full_name               (full_name)
 #
 class Contact < ApplicationRecord
-  has_one :client, as: :contactable
+  has_one :client, as: :contactable, dependent: :destroy
 end

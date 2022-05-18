@@ -14,6 +14,6 @@
 #  index_companies_on_registration_number  (registration_number)
 #
 class Company < ApplicationRecord
-  has_many :project_histories
-  has_many :employment_histories
+  has_many :project_histories, dependent: :destroy
+  has_many :employment_histories, dependent: :destroy
 end

@@ -30,10 +30,10 @@ class CareerSerializer
   attributes  :content, &:serializable_rich_content
 
   attributes :status do |object|
-    object.status.gsub('_', ' ').titleize
+    object.status.tr('_', ' ').titleize
   end
 
   attributes :job_type do |object|
-    object.job_type.gsub('_', ' ').titleize
+    object.job_type.tr('_', ' ').titleize
   end
 end
