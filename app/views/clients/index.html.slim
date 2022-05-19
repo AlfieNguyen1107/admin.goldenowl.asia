@@ -39,13 +39,19 @@ section.section
                       th scope="col" Address
                       th scope="col" HQ
                       th scope="col" Nationality
+                      th scope="col" Action
                     - @clients.each do |client|
                         tr
                           td = client.id
                           td = link_to client.name, client
-                          td = client.address 
+                          td = client.address
                           td = client.hq
                           td = client.nationality
+                          td.table-action
+                            = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_client_path(client.id), class: "table-link"
+                            = link_to "<i class='mdi mdi-delete'></i>".html_safe, client_path(client.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                            = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, client_path(client.id), class: "table-link"
+
 section.section
   .container.mb-3
     .d-flex.justify-content-center

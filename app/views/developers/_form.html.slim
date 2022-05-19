@@ -1,29 +1,20 @@
 .section
   = simple_form_for @developer do |f|
     .field.mt-2.mb-3
-      .field.mt-2.mb-3
-          = f.input :full_name, class: 'form-control'
-      .field.mt-2.mb-3
-          = f.input :company_name, class: 'form-control' 
-      .field.mt-2.mb-3
-          = f.input :belong_team, class: 'form-control'       
-      .field.mt-2.mb-3
-        = f.label :Project
-        = f.select :project_ids, options_for_select(@project_options), { }, { class: "select2 form-control select2-multiple", :multiple => true, :size => 5, id: 'project-select' }
-      .field.mt-2.mb-3
-        h5.list Check current project
-        = f.simple_fields_for :developer_projects do |ff|
-          - project = ff.object.project 
-          = project.name 
-          p
-            = ff.check_box :current
-          = ff.label :join_date 
-          br
-          = ff.date_field :join_date
-          br
-      .field.mt-2.mb-3
-        = f.input :level, 'data-provider': :summernote, class: 'form-control'
-      = f.button :submit, class: "btn btn-info mb-2"
-      = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"
-javascript:
-  $('#project-select').select2();
+      = f.label :employable_id, class: 'col-md-12'
+      = f.select :employable_id, options_for_select(@employable, @developer.employable_id), { }, { class: 'form-select form-select-sm me-1' }
+    .field.mt-2.mb-3
+        = f.input :senority, class: 'form-control'
+    .field.mt-2.mb-3
+        = f.input :belong_team, class: 'form-control'
+    .field.mt-2.mb-3
+      = f.label :university_id, class: 'col-md-12'
+      = f.select :university_id, options_for_select(@universities, @developer.university_id), { }, { class: 'form-select form-select-sm me-1' }
+    .field.mt-2.mb-3
+        = f.label :graduation_year, class: 'col-md-12'
+        = f.select :graduation_year, options_for_select(@years, @developer.graduation_year), { }, { class: 'form-select form-select-sm me-1' }
+    .field.mt-2.mb-3
+      = f.label :position_id, class: 'col-md-12'
+      = f.select :position_id, options_for_select(@positions, @developer.position_id), { }, { class: 'form-select form-select-sm me-1' }
+    = f.button :submit, class: "btn btn-info mb-2"
+    = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"

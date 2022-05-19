@@ -31,25 +31,26 @@ section.section
             .media-content
               .card-body
                 h4.header-title.mb-2 About projects
-                = form_tag("/projects", method: 'get') do               
-                  .field.mb-3.float-md-right.mr-2                    
+                = form_tag("/projects", method: 'get') do
+                  .field.mb-3.float-md-right.mr-2
                     = select_tag(:industry, options_for_select(Project.industries, :selected => @industry ), {:prompt => "Industry",  onchange: "this.form.submit();"}) 
                   .field.mb-3.float-md-right
-                    span.header-title.mr-3 style=("font-weight: bold;") Filter:                
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:
                 .table-responsive-sm
                     table.table.table-centered.mb-0
                       tr
                         th scope="col" ID
                         th scope="col" Name
                         th scope="col" Rank
-                        th scope="col" Start Date
-                        th scope="col" End Date
+                        th scope="col" class="w-date" Start Date
+                        th scope="col" class="w-date" End Date
                         th scope="col" Technology
                         th scope="col" Deployment
                         th scope="col" Developement
                         th scope="col" Industry
                         th scope="col" PC in charge
                         th scope="col" Status
+                        th scope="col" class="mw-action" Action
                       - @projects.each do |p|
                           tr
                             td = p.id
@@ -59,10 +60,14 @@ section.section
                             td = p.end_date
                             td
                             td = p.deployment
-                            td 
+                            td
                             td = p.industry
                             td = p.current_pc&.full_name
                             td = p.status
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_project_path(p.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, project_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, project_path(p.id), class: "table-link"
 
 section.section
   .container.mb-3

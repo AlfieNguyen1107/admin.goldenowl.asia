@@ -20,27 +20,35 @@ section.hero.is-primary.is-medium
     .container.has-text-centered
       h1.title
         = yield :page_title
-
 section.section
   .container
-    - @careers.each do |career|
-      .card
-        .card-content
-          .container
-            .media
-            .media-content
-              h5.title.is-4
-                = link_to career.title, career
-            .content.mb-1
-              / = raw career.content
-            hr/
-            .content.mb-1
-              = career.job_type
-            hr/
-            .content.mb-1
-              = career.status
-        .container.mt-2.mb-3
-          / = image_tag career.image.url(:medium)
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              h4.header-title.mb-2 Careers
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope="col" ID
+                    th scope="col" Title
+                    th scope="col" Content
+                    th scope="col" Job type
+                    th scope="col" Status
+                    th scope="col" Action
+                    - @careers.each do |career|
+                        tr
+                          td = career.id
+                          td = link_to career.title, career
+                          td = sanitize raw(career.content)
+                          td = career.job_type
+                          td = career.status
+                          td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_career_path(career.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, career_path(career.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, career_path(career.id), class: "table-link"
 section.section
   .container.mb-3
     .d-flex.justify-content-center

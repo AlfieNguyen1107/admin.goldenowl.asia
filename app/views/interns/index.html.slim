@@ -52,6 +52,7 @@ section.section
                       th scope="col" Exp
                       th scope="col" TechStack
                       th scope="col" Detail
+                      th scope="col" Action
                       - @interns.each do |d|
                           tr
                             td = d.id
@@ -73,6 +74,10 @@ section.section
                               = Date.today.year - d.graduation_year
                             td
                             td = link_to "Detail", intern_path(d)
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_intern_path(d.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, intern_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, intern_path(d.id), class: "table-link"
   section.section
     .container.mb-3
       .d-flex.justify-content-center
