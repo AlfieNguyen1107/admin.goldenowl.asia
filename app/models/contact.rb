@@ -22,6 +22,8 @@
 #  index_contacts_on_full_name               (full_name)
 #
 class Contact < ApplicationRecord
+  include ResizeImage
+
   has_one :client, as: :contactable, dependent: :destroy
   has_one_attached :image
 
@@ -30,4 +32,8 @@ class Contact < ApplicationRecord
   validates :personal_linkedin_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_linkedin_url.present? }
   validates :personal_facebook_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_facebook_url.present? }
   validates :personal_twitter_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), if: -> { personal_twitter_url.present? }
+
+  resize_image_config(
+    thumb: [128, 128]
+  )
 end

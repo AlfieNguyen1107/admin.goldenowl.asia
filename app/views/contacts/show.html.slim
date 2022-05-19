@@ -20,7 +20,7 @@ section.section
     - if @contact.image.present?
       | Avatar
       h4.title
-        = image_tag @contact.image, width: "300px"
+        = image_tag @contact.image.resize(:thumb)
     hr/
     | Primary phone number:
     h4.title

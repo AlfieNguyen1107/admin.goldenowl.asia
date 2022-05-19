@@ -45,7 +45,7 @@ section.section
                         tr
                           td = contact.id
                           td = link_to contact.full_name, contact
-                          td = image_tag contact.image, width: '100px' if contact.image.present?
+                          td = image_tag contact.image.resize(:thumb) if contact.image.present?
                           td
                             i.bi-house-door
                             = " "
