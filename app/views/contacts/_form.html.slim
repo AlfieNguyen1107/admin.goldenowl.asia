@@ -1,11 +1,26 @@
 .section
-  = simple_form_for @client do |f|
+  = simple_form_for @contact do |f|
     .field.mt-2.mb-3
       .control
-        = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+        = f.input :full_name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     .field.mt-2.mb-3
-      = f.input :address, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+      = f.label :Avatar
+      = f.input :image, required: true, direct_upload: true, as: :file
     .field.mt-2.mb-3
-      = f.input :hq, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+      = f.input :primary_phone_number, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :company_homepage_url, input_html: { class: 'input', type: 'url', pattern:"https?://.+" }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :company_linkedin_url, input_html: { class: 'input', type: 'url'}, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_linkedin_url, input_html: { class: 'input', type: 'url'}, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_facebook_url, input_html: { class: 'input', type: 'url'}, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :personal_twitter_url, input_html: { class: 'input', type: 'url'}, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.select :based_nationality, @nationalities, {}, { class: 'form-select form-select-sm me-1'}
+    .field.mt-2.mb-3
+      = f.select :current_living_country, @countries, {}, { class: 'form-select form-select-sm me-1'}
     = f.button :submit, class: "btn btn-info mb-2"
     = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"

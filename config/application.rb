@@ -18,6 +18,18 @@ module AdminGoldenowlAsia
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    Rails.configuration.to_prepare do
+      # magic code
+      # don't remove this one
+      ActiveStorage::Attachment.class_eval do
+        def resize(size)
+          variant(
+            resize_to_limit: record.respond_to?(:image_config) ? record.image_config[size] : nil
+          )
+        end
+      end
+    end
+
     config.paperclip_defaults = if Rails.env.test? || Rails.env.development?
                                   {
                                     storage: :fog,
