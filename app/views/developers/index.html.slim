@@ -32,7 +32,7 @@ section.section
               .card-body
                 h4.header-title.mb-2 Developers
                 .field.mb-3.float-md-right.ml-3
-                  = link_to "Clear", developers_path 
+                  = link_to "Clear", developers_path
                 = form_tag("/developers", method: 'get') do
                   .field.mb-3.float-md-right
                     = select_tag(:day, options_for_select(Project::DAYS_FROM_NOW, :selected => @cur_day ), {:prompt => "Select day",  onchange: "this.form.submit();"})
@@ -45,13 +45,14 @@ section.section
                       th scope="col" Full name
                       th scope="col" Position
                       th scope="col" University
-                      th scope="col" Belong to team                    
+                      th scope="col" Belong to team
                       th scope="col" Level
                       th scope="col" Project
                       th scope="col" Current Project
                       th scope="col" Exp
                       th scope="col" TechStack
                       th scope="col" Detail
+                      th scope="col" class="mw-action" Action
                       - @developers.each do |d|
                           tr
                             td = d.id
@@ -73,6 +74,10 @@ section.section
                               = Date.today.year - d.graduation_year
                             td
                             td = link_to "Detail", detail_developer_path(d)
+                            td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_developer_path(d.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, developer_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, developer_path(d.id), class: "table-link"
   section.section
     .container.mb-3
       .d-flex.justify-content-center

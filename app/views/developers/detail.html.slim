@@ -7,7 +7,7 @@
       h4.mt-1.mb-1
         = @developer.full_name
       p.font-13
-        = @developer.level
+        = @developer.senority
       div[style="display:flex"]
         .list-inline-item.mr-3
           h5.mb-1
@@ -22,7 +22,7 @@
           p.mb-0.font-13
             - @temp = []
             - @developer.developer_programming_languages.each do |t|
-              = t.programming_langauge.name
+              = t.programming_language.name
               = " - "
               = t.level
               br
@@ -37,6 +37,3 @@
               = " - "
               = t.level
               br
- 
-
- 

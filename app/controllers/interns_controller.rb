@@ -2,6 +2,8 @@ class InternsController < ApplicationController
   before_action :set_intern, only: %i[show edit update destroy detail]
   before_action :set_project_options, only: %i[new edit]
   before_action :filter_params, only: %i[index]
+  before_action :set_data_association, only: %i[new edit create]
+  before_action :set_date_year, only: %i[new edit create]
 
   def index
     @interns = Intern.all
@@ -22,6 +24,7 @@ class InternsController < ApplicationController
 
   def create
     @intern = Intern.new(intern_params)
+
     respond_to do |format|
       if @intern.save
         format.html { redirect_to @intern, notice: 'Intern was successfully created.' }
@@ -69,10 +72,16 @@ class InternsController < ApplicationController
   end
 
   def intern_params
-    params.require(:intern).permit(
-      { project_ids: [] },
-      :full_name, :company_name, :belong_team, :level,
-      intern_projects_attributes: %i[join_date current id]
-    )
+    params.require(:intern).permit(:employable_id, :senority, :belong_team, :university_id, :graduation_year, :position_id).merge(employable_type: 'Employee')
+  end
+
+  def set_data_association
+    @universities = University.all.map { |u| [u.name, u.id] }
+    @positions = Position.all.uniq.map { |p| [p.name, p.id] }
+    @employable = Employee.all.map { |e| [e.full_name, e.id] }
+  end
+
+  def set_date_year
+    @years = ((Date.current.year - 30)..Date.current.year).to_a
   end
 end

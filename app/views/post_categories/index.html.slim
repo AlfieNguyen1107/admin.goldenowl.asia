@@ -24,15 +24,26 @@ section.hero.is-primary.is-medium
 
 section.section
   .container
-    - @post_categories.each do |post_category|
-      .card
-        .card-content
-          .container
-            .media
-            .media-content
-              h5.title.is-4
-                = link_to post_category.title, post_category
-
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope="col" ID
+                    th scope="col" Title
+                    th scope="col" Action
+                    - @post_categories.each do |post_category|
+                        tr
+                          td = post_category.id
+                          td = link_to post_category.title, post_category
+                          td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_post_category_path(post_category.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, post_category_path(post_category.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, post_category_path(post_category.id), class: "table-link"
 section.section
   .container.mb-3
     .d-flex.justify-content-center

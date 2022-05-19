@@ -23,44 +23,40 @@ section.hero.is-primary.is-medium
 
 section.section
   .container
-    - @posts.each do |post|
-      .card
-        .card-content
-          .container
-            .media
-            .media-content
-              h5.title.is-4
-                = link_to post.title, post
-            .media-content
-              h5 Blog Category:
-              h6.title.is-4
-                = post.post_category&.title
-            .media-content
-              h5 Meta Title:
-              h6.title.is-4
-                = post.meta_title
-            .media-content
-              h5 Meta Keyword:
-              h6.title.is-4
-                = post.meta_keyword
-            .media-content
-              h5 Meta Description:
-              h6.title.is-4
-                = post.meta_description
-            .media-content
-              h5 Source:
-              h6.title.is-4
-                = post.source
-            .media-content
-              h5 Type:
-              h6.title.is-4
-                = post.post_type
-            .content.mb-1
-              / = raw post.content
-        .container.mt-2.mb-4
-          - if post.image.present?
-              = image_tag post.image_url(:medium)
-
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              h4.header-title.mb-2 Blogs
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope="col" ID
+                    th scope="col" Title
+                    th scope="col" Image
+                    th scope="col" Meta Title
+                    th scope="col" Meta Keyword
+                    th scope="col" Meta Description
+                    th scope="col" Source
+                    th scope="col" Type
+                    th scope="col" Action
+                    - @posts.each do |post|
+                        tr
+                          td = post.id
+                          td = link_to post.title, post
+                          - if post.image.present?
+                              td = image_tag post.image_url(:medium)
+                          td = post.meta_title
+                          td = post.meta_keyword
+                          td = post.meta_description
+                          td = post.source
+                          td = post.post_type
+                          td.table-action
+                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_post_path(post.id), class: "table-link"
+                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, post_path(post.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, post_path(post.id), class: "table-link"
 section.section
   .container.mb-3
     .d-flex.justify-content-center

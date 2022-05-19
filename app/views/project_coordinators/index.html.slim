@@ -38,12 +38,17 @@ section.section
                       th scope="col" Full Name
                       th scope="col" Current Project
                       th scope="col" Level
+                      th scope="col" Action
                     - @project_coordinators.each do |pc|
                         tr
                           td = pc.id
                           td = link_to pc.full_name, pc
                           td = pc.current_project&.name
                           td = pc.level
+                          td.table-action
+                            = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_project_coordinator_path(pc.id), class: "table-link"
+                            = link_to "<i class='mdi mdi-delete'></i>".html_safe, project_coordinator_path(pc.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                            = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, project_coordinator_path(pc.id), class: "table-link"
 section.section
   .container.mb-3
     .d-flex.justify-content-center
