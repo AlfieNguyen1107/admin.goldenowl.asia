@@ -24,11 +24,13 @@
         = f.label :Project_Diagram
         = f.file_field :images, required: true, direct_upload: true, as: :file, multiple: true
         - if @project.images.attached?
-          - @project.images.each do |image|
-            br
-            = f.check_box :id, {multiple: true}, image.id
-            = image_tag image.  resize(:thumb)
           p Tick if you want to delete the image!
+        .box-image
+          - @project.images.each do |image|
+            .image-item
+              .btn-delete
+                = f.check_box :id, {multiple: true}, image.id
+              = image_tag image.resize(:thumb), class: 'img-fluid rounded'
       .field.mt-2.mb-3
         = f.label :Start_date
         br

@@ -40,9 +40,10 @@
     h5.card-title
         | Diagram
     - if @project.images.present?
+    .box-image
       - @project.images.each do |image|
-        .image_box
-        = image_tag image.resize(:thumb)
+        .image-item
+          = image_tag image.resize(:thumb), class: 'img-fluid rounded'
   .card-body
     h5.card-title
       | Git repo
