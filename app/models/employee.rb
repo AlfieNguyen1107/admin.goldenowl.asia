@@ -47,9 +47,18 @@ class Employee < ApplicationRecord
   has_many :tools, through: :employee_tools
   belongs_to :position
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
   enum employment_status: { active: 0, retired: 1 }
   enum contract_status: { probation: 0, fulltime: 1, parttime: 2 }
   enum working_arrangement: { inoffice: 0, remote: 1, freelancer: 2 }
+
+  delegate :name, to: :position, prefix: :position, allow_nil: true
+
+  validates :full_name, presence: true
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
+
+  before_save { email.downcase }
 
   def self.active_employees_count
     where(employment_status: Employee.employment_statuses[:active]).count

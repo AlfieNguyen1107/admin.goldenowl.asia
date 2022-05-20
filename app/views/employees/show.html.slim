@@ -1,0 +1,57 @@
+- content_for :page_title, @employee.full_name
+section.section
+  .container.mb-4
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        p.level-item.mr-3
+          = link_to "Edit", edit_employee_path(@employee), class:"button btn btn-primary btn-sm"
+        p.level-item.mr-3
+          = link_to "Delete", employee_path(@employee), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        p.level-item
+          = link_to "Back", employees_path, class:"button btn btn-dark btn-sm"
+    hr/
+    | Full name:
+    h4.title
+      = @employee.full_name
+    hr/
+    | Email:
+    h4.title
+      = @employee.email
+    hr/
+    | Current address:
+    h4.title
+      = @employee.current_address
+    hr/
+    | Emp number:
+    h4.title
+      = @employee.emp_number
+    hr/
+    | Phone number:
+    h4.title
+      = @employee.phone_number
+    hr/
+    | Registered address:
+    h4.title
+      = @employee.registered_address
+    hr/
+    | Registered address:
+    h4.title
+      = @employee.registered_address
+    | Position:
+    h4.title
+      = @employee.position_name
+    hr/
+    | Employment status:
+    h4.title
+      = @employee.employment_status
+    hr/
+    | Contract status:
+    h4.title
+      = @employee.contract_status
+    hr/
+    | Woring arrangement:
+    h4.title
+      = @employee.working_arrangement
