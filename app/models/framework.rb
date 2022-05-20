@@ -27,4 +27,7 @@ class Framework < ApplicationRecord
   belongs_to :programming_language
   belongs_to :skill_category, optional: true
   scope :search_framework, ->(id) { where(programming_language_id: id) }
+
+  delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
+  delegate :name, to: :programming_language, prefix: :programming_language, allow_nil: true
 end

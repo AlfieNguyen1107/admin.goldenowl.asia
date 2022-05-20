@@ -1,18 +1,6 @@
 - content_for :page_title, @skill.name
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_skill_path(@skill), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", skill_path(@skill), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to "Back", skills_path, class:"button btn btn-dark btn-sm"
-    hr/
     | Name:
     h4.title
       = @skill.name
@@ -25,3 +13,15 @@ section.section
     | Skill Category Name
     h4.skill_category_id
       = @skill.skill_category_name
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item 
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_skill_path(@skill), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", skill_path(@skill), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to "Back", skills_path, class:"button btn btn-dark btn-sm"

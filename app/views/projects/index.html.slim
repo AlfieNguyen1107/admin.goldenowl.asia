@@ -65,9 +65,13 @@ section.section
                             td = p.current_pc&.full_name
                             td = p.status
                             td.table-action
-                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_project_path(p.id), class: "table-link"
-                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, project_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
-                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, project_path(p.id), class: "table-link"
+                              = link_to edit_project_path(p.id), class: "table-link" do 
+                                i.mdi.mdi-pencil 
+                              = link_to project_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                                i.mdi.mdi-delete
+                              = link_to project_path(p.id), class: "table-link" do
+                                i.mdi.mdi-bookmark-box-multiple
+
 
 section.section
   .container.mb-3

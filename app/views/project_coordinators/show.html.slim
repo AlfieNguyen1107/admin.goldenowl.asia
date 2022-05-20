@@ -1,22 +1,23 @@
 - content_for :page_title, @project_coordinator.full_name
 section.section
   .container.mb-4
+    | Full Name:
+    h4.title
+      = @project_coordinator.full_name
+    hr
+    | Company Name:
+    | Level:
+    h4.title
+      = @project_coordinator.level
+    hr
     nav.level
       .level-left.mt-2
         p.level-item
           strong Actions
       .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_project_coordinator_path(@project_coordinator), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", project_coordinator_path(@project_coordinator), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
         p.level-item
+          = link_to "Edit", edit_project_coordinator_path(@project_coordinator), class:"button btn btn-primary btn-sm"
+        p.level-item.ms-1
+          = link_to "Delete", project_coordinator_path(@project_coordinator), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        p.level-item.ms-1
           = link_to  "Back", project_coordinators_path(page: @page), class:"button btn btn-dark btn-sm"
-    hr/
-    | Full Name:
-    h4.title
-      = @project_coordinator.full_name
-    | Company Name:
-    | Level:
-    h4.title
-      = @project_coordinator.level

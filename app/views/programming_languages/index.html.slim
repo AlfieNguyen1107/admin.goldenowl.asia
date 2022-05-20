@@ -53,9 +53,12 @@ section.section
                             td = p.year_of_release
                             td = p.latest_version
                             td.table-action
-                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_programming_language_path(p.id), class: "table-link"
-                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, programming_language_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
-                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, programming_language_path(p.id), class: "table-link"
+                              = link_to edit_programming_language_path(p.id), class: "table-link" do 
+                                i.mdi.mdi-pencil
+                              = link_to programming_language_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                                i.mdi.mdi-delete
+                              = link_to programming_language_path(p.id), class: "table-link" do 
+                                i.mdi.mdi-bookmark-box-multiple
 section.section
   .container.mb-3
     .d-flex.justify-content-center

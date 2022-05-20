@@ -75,7 +75,7 @@ section.section
                             td
                             td = link_to "Detail", intern_path(d)
                             td.table-action
-                              = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_intern_path(d.id), class: "table-link"
+                              = link_to "<i class=''></i>".html_safe, edit_intern_path(d.id), class: "table-link"
                               = link_to "<i class='mdi mdi-delete'></i>".html_safe, intern_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
                               = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, intern_path(d.id), class: "table-link"
   section.section

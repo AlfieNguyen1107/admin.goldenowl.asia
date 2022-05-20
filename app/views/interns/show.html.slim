@@ -1,17 +1,5 @@
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_intern_path(@intern), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", intern_path(@intern), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to  "Back", interns_path(page: @page), class:"button btn btn-dark btn-sm"
-    hr/
     | Full name:
     h4.title
       = @intern.full_name
@@ -40,4 +28,16 @@ section.section
           = as.score
           br
         = "Average: #{t.average_score}"
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item 
+          strong Actions
+      .level-right.d-flex
+        p.level-item 
+          = link_to "Edit", edit_intern_path(@intern), class:"button btn btn-primary btn-sm"
+        p.level-item.ms-1
+          = link_to "Delete", intern_path(@intern), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        p.level-item.ms-1
+          = link_to  "Back", interns_path(page: @page), class:"button btn btn-dark btn-sm"
     

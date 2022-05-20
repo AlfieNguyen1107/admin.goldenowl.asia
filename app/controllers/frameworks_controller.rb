@@ -1,6 +1,7 @@
 class FrameworksController < ApplicationController
   before_action :set_framework, only: %i[edit show update destroy]
   before_action :filter_name_programming_language, only: :index
+  before_action :set_skill_categories_and_programming_languages, only: %i[new create edit]
 
   def index
     @frameworks_all = Framework.all
@@ -58,5 +59,10 @@ class FrameworksController < ApplicationController
 
   def framework_params
     params.require(:framework).permit(:name, :programming_language_id, :year_of_release, :latest_version, :skill_category_id)
+  end
+
+  def set_skill_categories_and_programming_languages
+    @skill_categories = SkillCategory.all.map { |sc| [sc.name, sc.id] }
+    @programming_languages = ProgrammingLanguage.all.map { |p| [p.name, p.id] }
   end
 end
