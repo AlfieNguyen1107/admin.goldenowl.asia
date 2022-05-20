@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_technology_options
-  before_action :prepare_projects, only: %i[index]
+  before_action :prepare_projects, only: :index
+  before_action :upload_image, only: :update
 
   def index
     filter_params
@@ -35,25 +36,26 @@ class ProjectsController < ApplicationController
 
   def update
     respond_to do |format|
-      if params[:project][:id]
-        params[:project][:id].each do |id|
-          image = @project.images.find_by(id: id)
-          image.purge unless image.nil?
-        end
-      end
-
-      if params[:project][:images].present?
-        params[:project][:images].each do |img|
-          @project.images.attach(img)
-        end
-      end
-
       if @project.update(project_params_upload)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def upload_image
+    if params[:project][:id]
+      params[:project][:id].each do |id|
+        image = @project.images.find_by(id: id)
+        image.purge if image.present?
+      end
+    end
+    if params[:project][:images].present?
+      params[:project][:images].each do |img|
+        @project.images.attach(img)
       end
     end
   end

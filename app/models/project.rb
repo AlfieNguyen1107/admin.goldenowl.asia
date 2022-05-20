@@ -66,9 +66,7 @@ class Project < ApplicationRecord
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
   resize_image_config(
-    {
-      thumb: [100, 100]
-    }
+    thumb: [200, 200]
   )
 
   def rank_to_s
