@@ -47,16 +47,12 @@ class ProjectsController < ApplicationController
   end
 
   def upload_image
-    if params[:project][:id]
-      params[:project][:id].each do |id|
-        image = @project.images.find_by(id: id)
-        image.purge if image.present?
-      end
+    params[:project][:id]&.each do |id|
+      image = @project.images.find_by(id: id)
+      image.purge if image.present?
     end
-    if params[:project][:images].present?
-      params[:project][:images].each do |img|
-        @project.images.attach(img)
-      end
+    params[:project][:images]&.each do |img|
+      @project.images.attach(img)
     end
   end
 
@@ -96,7 +92,7 @@ class ProjectsController < ApplicationController
       :deployment,
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date,
-      { images: [] }
+      {images: []}
     )
   end
 
