@@ -86,13 +86,13 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(
       { tech_ids: [] },
+      { images: [] },
       :client_id,
       :name,
       :description,
       :deployment,
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date,
-      { images: [] }
     )
   end
 
