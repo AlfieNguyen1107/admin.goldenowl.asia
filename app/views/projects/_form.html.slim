@@ -30,7 +30,7 @@
             .image-item
               .btn-delete
                 = f.check_box :id, {multiple: true}, image.id
-              = image_tag image.resize(:thumb), class: 'img-fluid rounded'
+              = image_tag image, class: 'img-fluid rounded'
       .field.mt-2.mb-3
         = f.label :Start_date
         br

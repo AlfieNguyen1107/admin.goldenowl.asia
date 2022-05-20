@@ -43,7 +43,7 @@
     .box-image
       - @project.images.each do |image|
         .image-item
-          = image_tag image.resize(:thumb), class: 'img-fluid rounded'
+          = image_tag image, class: 'img-fluid rounded'
   .card-body
     h5.card-title
       | Git repo
