@@ -92,7 +92,7 @@ class ProjectsController < ApplicationController
       :deployment,
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date,
-      {images: []}
+      { images: [] }
     )
   end
 
