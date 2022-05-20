@@ -35,6 +35,8 @@
 #  fk_rails_...  (position_id => positions.id)
 #
 class Employee < ApplicationRecord
+  include ResizeImage
+
   has_many :developers, as: :employable, dependent: :destroy
   has_many :project_coordinators, as: :employable, dependent: :destroy
   has_many :education_histories, dependent: :destroy
@@ -46,6 +48,7 @@ class Employee < ApplicationRecord
   has_many :employee_tools, dependent: :destroy
   has_many :tools, through: :employee_tools
   belongs_to :position
+  has_one_attached :image
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -59,6 +62,11 @@ class Employee < ApplicationRecord
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
   before_save { email.downcase }
+
+
+  resize_image_config(
+    thumb: [128, 128]
+  )
 
   def self.active_employees_count
     where(employment_status: Employee.employment_statuses[:active]).count

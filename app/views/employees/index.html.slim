@@ -42,7 +42,7 @@ section.section
                     - @employees.each do |e|
                         tr
                           td = e.id
-                          td = e.full_name
+                          td = link_to e.full_name, e
                           td = e.email
                           td = e.current_address
                           td = e.emp_number

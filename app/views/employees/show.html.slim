@@ -16,6 +16,11 @@ section.section
     | Full name:
     h4.title
       = @employee.full_name
+    - if @employee.image.present?
+      hr/
+      | Avatar
+      h4.title
+        = image_tag @employee.image.resize(:thumb)
     hr/
     | Email:
     h4.title
