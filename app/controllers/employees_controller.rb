@@ -43,6 +43,21 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def show_address
+    @address = Geocoder.search(params[:position])
+    render json: { html: @address }
+  end
+
+  def search_address
+    @list_address = Geocoder.search(params[:address])
+    render json: { html: render_to_string(partial: 'search') }
+  end
+
+  def handler_address
+    @address = Geocoder.search(params[:address])
+    render json: { html: @address }
+  end
+
   private
 
   def set_employee
