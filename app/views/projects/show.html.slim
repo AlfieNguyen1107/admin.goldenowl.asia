@@ -5,8 +5,7 @@
     h5.card-title
       | Description
     p.card-text
-      = @project.description
-  
+      = @project.description  
   .card-body
     p.card-text
       - @project.software_category_list.each do |t|
@@ -40,8 +39,11 @@
   .card-body
     h5.card-title
         | Diagram
-    - if @project.image.present?
-      = image_tag @project.image, width: "300px"
+    - if @project.images.present?
+    .box-image
+      - @project.images.each do |image|
+        .image-item
+          = image_tag image, class: 'img-fluid rounded'
   .card-body
     h5.card-title
       | Git repo
