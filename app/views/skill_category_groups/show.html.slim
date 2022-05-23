@@ -14,9 +14,9 @@ section.section
         p.level-item
           strong Actions
       .level-right.d-flex
-        p.level-item.mr-3
+        .level-item
           = link_to "Edit", edit_skill_category_group_path(@skill_category_group), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
+        .level-item.ms-1
           = link_to "Delete", skill_category_group_path(@skill_category_group), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
+        .level-item.ms-1
           = link_to "Back", skill_category_groups_path, class:"button btn btn-dark btn-sm"

@@ -57,7 +57,7 @@
           i.dripicons-briefcase
           span Project Coordinators
       li.side-nav-item
-        - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills]
+        - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills skill_category_groups]
         - is_in_setting = setting_paths.include?(controller_name)     
         a.side-nav-link[class="#{is_in_setting ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
           i.uil-bright
