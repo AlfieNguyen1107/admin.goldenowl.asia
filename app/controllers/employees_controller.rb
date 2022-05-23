@@ -22,7 +22,9 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @location_address = Geocoder.search(@employee.current_address)
+  end
 
   def edit; end
 

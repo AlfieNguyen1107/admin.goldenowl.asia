@@ -29,6 +29,9 @@ section.section
     | Current address:
     h4.title
       = @employee.current_address
+    - if @location_address.present?
+      .row.pe-none
+        #map-show[style='width: 100%; height: 400px;']
     hr/
     | Emp number:
     h4.title
@@ -60,3 +63,6 @@ section.section
     | Woring arrangement:
     h4.title
       = @employee.working_arrangement
+  - if @location_address.present?
+    script[type="text/javascript"]
+      |  handler = Gmaps.build('Google'); handler.buildMap({ provider: {}, internal: {id: 'map-show'}}, function(){ markers = handler.addMarkers([ { "lat": #{@location_address.first.data['lat']}, "lng": #{@location_address.first.data['lon']}, "picture": { "width": 32, "height": 32 }, "infowindow": "SJSU" } ]); handler.bounds.extendWith(markers); handler.fitMapToBounds(); handler.getMap().setZoom(12);});
