@@ -1,6 +1,6 @@
 class ProjectCoordinatorsController < ApplicationController
   before_action :set_project_coordinator, only: %i[show edit update destroy]
-  before_action :set_project_options, only: %i[new edit]
+  before_action :set_employable, only: %i[new edit create]
   def index
     @project_coordinators = ProjectCoordinator.all
     @pagy, @project_coordinators = pagy_array(@project_coordinators, items: per_page)
@@ -54,11 +54,11 @@ class ProjectCoordinatorsController < ApplicationController
     @project_coordinator = ProjectCoordinator.find(params[:id])
   end
 
-  def set_project_options
-    @project_options = Project.pluck(:name, :id)
+  def set_employable
+    @employable = Employee.pluck(:full_name, :id)
   end
 
   def project_coordinator_params
-    params.require(:project_coordinator).permit({ project_ids: [] }, :full_name, :company_name, :level, project_coordinator_projects_attributes: %i[join_date id])
+    params.require(:project_coordinator).permit(:employable_id, :level).merge(employable_type: 'Employee')
   end
 end
