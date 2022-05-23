@@ -3,7 +3,7 @@
     .field.mt-2.mb-3
       .tilte
         | Name
-      = f.select :employable_id,  options_for_select(@employable), {}, class: 'form-select form-select-sm me-1'
+      = f.select :employable_id,  options_for_select(@employables), {}, class: 'form-select form-select-sm me-1'
     .field.mt-2.mb-3
       = f.input :level, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     .field.mt-2.mb-3

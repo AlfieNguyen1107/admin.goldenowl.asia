@@ -55,7 +55,7 @@ class ProjectCoordinatorsController < ApplicationController
   end
 
   def set_employable
-    @employable = Employee.pluck(:full_name, :id)
+    @employables = Employee.pluck(:full_name, :id)
   end
 
   def project_coordinator_params
