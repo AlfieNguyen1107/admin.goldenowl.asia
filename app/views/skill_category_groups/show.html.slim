@@ -1,0 +1,22 @@
+- content_for :page_title, @skill_category_group.name
+section.section
+  .container.mb-4
+    | Name:
+    h4.title
+      = @skill_category_group.name
+    hr/
+    | Order
+    h4.title
+      = @skill_category_group.order
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_skill_category_group_path(@skill_category_group), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", skill_category_group_path(@skill_category_group), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to "Back", skill_category_groups_path, class:"button btn btn-dark btn-sm"
