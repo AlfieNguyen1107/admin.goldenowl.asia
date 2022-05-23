@@ -1,20 +1,6 @@
 - content_for :page_title, @post.title
 section.section
   .container.mb-4
-    nav.level
-      /! Left side
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      /! Right side
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_post_path(@post), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to  "Back", posts_path(page: @page), class:"button btn btn-dark btn-sm"
-    hr/
     | Title:
     h4.title
       = @post.title
@@ -42,3 +28,15 @@ section.section
 
   - if @post.image.present?
     = image_tag @post.image_url(:medium)
+  hr
+  nav.level
+    .level-left.mt-2
+      p.level-item 
+        strong Actions
+    .level-right.d-flex
+      .level-item
+        = link_to "Edit", edit_post_path(@post), class:"button btn btn-primary btn-sm"
+      .level-item.ms-1
+        = link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+      .level-item.ms-1
+        = link_to  "Back", posts_path(page: @page), class:"button btn btn-dark btn-sm"

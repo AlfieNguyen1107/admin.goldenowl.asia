@@ -1,20 +1,6 @@
 section.section
   .container.mb-4
     .row
-      .col-12
-        nav.level
-          .level-left.mt-2
-            p.level-item
-              strong Actions
-          .level-right.d-flex
-            p.level-item.mr-3
-              = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"
-            p.level-item.mr-3
-              = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-            p.level-item
-              = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
-        hr/
-    .row
       .col-xl-5.col-lg-6
         | Full name:
         h4.title
@@ -121,7 +107,19 @@ section.section
             .col-4
               = eh.year
           br
-
+    .row 
+      .col-12
+        nav.level
+          .level-left.mt-2
+            p.level-item
+              strong Actions
+          .level-right.d-flex
+            p.level-item
+              = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"
+            p.level-item.ms-1
+              = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+            p.level-item.ms-1
+              = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
           
 
           

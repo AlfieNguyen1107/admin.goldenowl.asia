@@ -1,23 +1,11 @@
 - content_for :page_title, @contact.full_name
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_contact_path(@contact), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", contact_path(@contact), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to  "Back", contacts_path(page: @page), class:"button btn btn-dark btn-sm"
-    hr/
     | Fullname:
     h4.title
       = @contact.full_name
-    hr/
     - if @contact.image.present?
+      hr
       | Avatar
       h4.title
         = image_tag @contact.image.resize(:thumb)
@@ -53,3 +41,17 @@ section.section
     | Current living country:
     h4.title
       = @contact.current_living_country
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions  
+      .level-right.d-flex.mb-1
+        .level-item
+          = link_to "Edit", edit_contact_path(@contact), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", contact_path(@contact), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to  "Back", contacts_path(page: @page), class:"button btn btn-dark btn-sm"
+
+  

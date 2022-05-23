@@ -2,23 +2,23 @@
 section.section
   .container.mb-4
     nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_tool_path(@tool), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", tool_path(@tool), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to "Back", tools_path, class:"button btn btn-dark btn-sm"
-    hr/
     | Name:
     h4.title
       = @tool.name
-    hr/
-    | Skill category id
+    hr
+    | Skill category
     h4.title
-      = @tool.skill_category_id
+      = @tool.skill_category_name
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item 
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_tool_path(@tool), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", tool_path(@tool), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to "Back", tools_path, class:"button btn btn-dark btn-sm"
     
-

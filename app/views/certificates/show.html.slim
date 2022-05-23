@@ -1,18 +1,6 @@
 - content_for :page_title, @certificate.name
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_certificate_path(@certificate), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", certificate_path(@certificate), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to "Back", certificates_path, class:"button btn btn-dark btn-sm"
-    hr/
     | Name:
     h4.title
       = @certificate.name
@@ -20,5 +8,16 @@ section.section
     | Rating:
     h4.title
       = @certificate.rating
+    hr/
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_certificate_path(@certificate), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", certificate_path(@certificate), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to "Back", certificates_path, class:"button btn btn-dark btn-sm"
     
-

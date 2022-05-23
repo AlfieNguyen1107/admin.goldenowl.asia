@@ -57,27 +57,29 @@
           i.dripicons-briefcase
           span Project Coordinators
       li.side-nav-item
-        a.side-nav-link.collapsed[data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
+        - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills]
+        - is_in_setting = setting_paths.include?(controller_name)     
+        a.side-nav-link[class="#{is_in_setting ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
           i.uil-bright
           span
             | Settings
           span.menu-arrow
-        #sidebarLayouts.collapse
+        #sidebarLayouts.collapse[class="#{is_in_setting ? 'show' : ''}"]
           ul.side-nav-second-level
             li
-              = link_to "Universities", universities_path
+              = link_to "Universities", universities_path, class: "#{active_items('universities')}"
             li
-              = link_to "Programming Languages", programming_languages_path
+              = link_to "Programming Languages", programming_languages_path, class: "#{active_items('programming_languages')}"
             li
-              = link_to "Frameworks", frameworks_path
+              = link_to "Frameworks", frameworks_path, class: "#{active_items('frameworks')}"
             li
-              = link_to "Tools", tools_path
+              = link_to "Tools", tools_path, class: "#{active_items('tools')}"
             li
-              = link_to "Certificates", certificates_path
+              = link_to "Certificates", certificates_path, class: "#{active_items('certificates')}"
             li
-              = link_to "Positions", positions_path
+              = link_to "Positions", positions_path, class: "#{active_items('positions')}"
             li
-              = link_to 'Skill Categories', skill_categories_path
+              = link_to 'Skill Categories', skill_categories_path, class: "#{active_items('skill_categories')}"
             li
-              = link_to 'Skills', skills_path
+              = link_to 'Skills', skills_path, class: "#{active_items('skills')}"
     .clearfix
