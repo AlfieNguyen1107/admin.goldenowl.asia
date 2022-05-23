@@ -1,5 +1,6 @@
 class ToolsController < ApplicationController
   before_action :set_tool, only: %i[show edit update destroy]
+  before_action :load_skill_categories, only: %i[new edit]
 
   def index
     @tool_all = Tool.all
@@ -49,6 +50,10 @@ class ToolsController < ApplicationController
 
   def set_tool
     @tool = Tool.find(params[:id])
+  end
+
+  def load_skill_categories
+    @load_skill_categories = SkillCategory.all.map { |sk| [sk.name, sk.id] }
   end
 
   def tool_params

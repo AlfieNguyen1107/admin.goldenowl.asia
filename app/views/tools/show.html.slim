@@ -21,4 +21,12 @@ section.section
           = link_to "Delete", tool_path(@tool), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
         .level-item.ms-1
           = link_to "Back", tools_path, class:"button btn btn-dark btn-sm"
+    hr/
+    | Name:
+    h4.title
+      = @tool.name
+    hr/
+    | Skill category
+    h4.title
+      = @tool.skill_category_name
     
