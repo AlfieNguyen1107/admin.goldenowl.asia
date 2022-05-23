@@ -1,0 +1,62 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Employee
+      h4.page-title
+        | Employee List
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Employee", new_employee_path, class:"navbar-item"
+
+section.section
+  .container
+      .card
+        .card-content
+          .container
+            .media
+            .media-content
+              .card-body
+                h4.header-title.mb-2 Employee
+                .table-responsive-sm
+                  table.table.table-centered.mb-0
+                    tr
+                      th scope="col" ID
+                      th scope="col" Full Name
+                      th scope="col" Email
+                      th scope="col" Current Address
+                      th scope="col" Emp Number
+                      th scope="col" Phone Number
+                      th scope="col" Registered Address
+                      th scope="col" Position
+                      th scope="col" Active
+                    - @employees.each do |e|
+                        tr
+                          td = e.id
+                          td = link_to e.full_name, e
+                          td = e.email
+                          td = e.current_address
+                          td = e.emp_number
+                          td = e.phone_number
+                          td = e.registered_address
+                          td = e.position_name
+                          td.table-action
+                            = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_employee_path(e.id), class: "table-link"
+                            = link_to "<i class='mdi mdi-delete'></i>".html_safe, employee_path(e.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
+                            = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, employee_path(e.id), class: "table-link"
+
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @employees.size > 0
+        .pagination-rounded
+           == pagy_bootstrap_nav(@pagy)

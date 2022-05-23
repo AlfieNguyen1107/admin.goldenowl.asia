@@ -24,8 +24,13 @@ Rails.application.routes.draw do
   resources :positions
   resources :skill_categories
   resources :skills
+  resources :employees
 
   get 'home', to: 'home#index'
+  post 'show-address', to: 'employees#show_address'
+  post 'search-address', to: 'employees#search_address'
+  post 'handler-address', to: 'employees#handler_address'
+
   root 'home#index'
 
   namespace :api do

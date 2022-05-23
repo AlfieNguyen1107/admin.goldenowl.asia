@@ -41,6 +41,10 @@
           i.dripicons-briefcase
           span Subscriptions
       li.side-nav-item
+        = link_to employees_path, class: "side-nav-link #{active_items('employees')}" do
+          i.dripicons-user-group
+          span Employees
+      li.side-nav-item
         = link_to developers_path, class: "side-nav-link #{active_items('developers')}" do
           i.dripicons-briefcase
           span Developers

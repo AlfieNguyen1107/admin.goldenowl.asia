@@ -1,0 +1,5 @@
+ul#myList.list-group
+  - if @list_address.present?
+    - @list_address[0..6].each do |addr|
+      li#field-address.list-group-item
+        = addr.display_name

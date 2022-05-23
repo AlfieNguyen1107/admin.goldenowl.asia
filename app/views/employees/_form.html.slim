@@ -1,0 +1,37 @@
+.section
+  = simple_form_for @employee do |f|
+    .field.mt-2.mb-3
+      = f.input :full_name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :Avatar
+      = f.input :image, required: true, direct_upload: true, as: :file
+    .field.mt-2.mb-3
+      = f.input :email, input_html: { class: 'input', type: 'email' }, wrapper: false, label_html: { class: 'label' }
+    #search-map.row
+      .field
+        = f.input :current_address, input_html: { class: 'input' }, label_html: { class: 'label fw-b' }
+        i[id='show-location' class='btn btn-info'] Show location
+    .row
+      #map[style='width: 100%; height: 500px;']
+    .field.mt-2.mb-3
+      = f.input :emp_number, input_html: { class: 'input', type: 'number' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :phone_number, input_html: { class: 'input', type: 'number' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :registered_address, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :employment_status, class: 'col-md-12'
+      = f.select :employment_status, options_for_select(Employee::employment_statuses.keys, @employee.employment_status), {}, { class: 'form-select form-select-sm me-1'}
+    .field.mt-2.mb-3
+      = f.label :contract_status, class: 'col-md-12'
+      = f.select :contract_status, options_for_select(Employee::contract_statuses.keys, @employee.contract_status), {}, { class: 'form-select form-select-sm me-1'}
+    .field.mt-2.mb-3
+      = f.label :working_arrangement, class: 'col-md-12'
+      = f.select :working_arrangement, options_for_select(Employee::working_arrangements.keys, @employee.working_arrangement), {}, { class: 'form-select form-select-sm me-1'}
+    .field.mt-2.mb-3
+      = f.input :career_objectives, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :position_id, class: 'col-md-12'
+      = f.select :position_id, options_for_select(@positions, @employee.position_id), {}, { class: 'form-select form-select-sm me-1'}
+    = f.button :submit, class: 'btn btn-info mb-2'
+    = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'
