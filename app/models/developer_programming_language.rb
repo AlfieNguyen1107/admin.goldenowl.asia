@@ -23,6 +23,6 @@
 #  fk_rails_...  (programming_language_id => programming_languages.id)
 #
 class DeveloperProgrammingLanguage < ApplicationRecord
-  belongs_to :developer
-  belongs_to :programming_language
+  belongs_to :developer, dependent: :destroy
+  belongs_to :programming_language, dependent: :destroy
 end

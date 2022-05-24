@@ -34,4 +34,5 @@
 #
 class Intern < Developer
   belongs_to :mentor, class_name: 'Developer', optional: true
+  belongs_to :developer,dependent: :destroy
 end
