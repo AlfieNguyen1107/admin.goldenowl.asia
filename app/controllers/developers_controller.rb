@@ -45,6 +45,7 @@ class DevelopersController < ApplicationController
   end
 
   def destroy
+    @developer.interns.update(mentor_id: nil)
     @developer.destroy
     respond_to do |format|
       format.html { redirect_to developers_url, notice: 'Developer was successfully destroyed.' }

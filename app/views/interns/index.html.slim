@@ -35,7 +35,7 @@ section.section
                   = link_to "Clear", interns_path 
                 = form_tag("/interns", method: 'get') do
                   .field.mb-3.float-md-right
-                    = select_tag(:day, options_for_select(Project::DAYS_FROM_NOW, :selected => @cur_day ), {:prompt => "Select day",  onchange: "this.form.submit();"})
+                    = select_tag(:day, options_for_select(Project::DAYS_FROM_NOW, :selected => @cur_day ), {:prompt => "Select day",  onchange: "this.form.submit();",  class: 'form-select form-select-sm me-1'})
                 .field.mb-3.float-md-right
                   span.header-title.mr-3 style=("font-weight: bold;") Filter:
                 .table-responsive-sm
@@ -73,11 +73,15 @@ section.section
                             td
                               = Date.today.year - d.graduation_year
                             td
+                              
                             td = link_to "Detail", intern_path(d)
                             td.table-action
-                              = link_to "<i class=''></i>".html_safe, edit_intern_path(d.id), class: "table-link"
-                              = link_to "<i class='mdi mdi-delete'></i>".html_safe, intern_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link"
-                              = link_to "<i class='mdi mdi-bookmark-box-multiple'></i>".html_safe, intern_path(d.id), class: "table-link"
+                              = link_to  edit_intern_path(d.id), class: "table-link" do 
+                                i.mdi.mdi-pencil
+                              = link_to intern_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do
+                                i.mdi.mdi-delete
+                              = link_to intern_path(d.id), class: "table-link" do 
+                                i.mdi.mdi-bookmark-box-multiple
   section.section
     .container.mb-3
       .d-flex.justify-content-center

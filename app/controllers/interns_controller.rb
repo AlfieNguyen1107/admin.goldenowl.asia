@@ -4,6 +4,7 @@ class InternsController < ApplicationController
   before_action :filter_params, only: %i[index]
   before_action :set_data_association, only: %i[new edit create]
   before_action :set_date_year, only: %i[new edit create]
+  before_action :set_mentor, only: %i[create edit]
 
   def index
     @interns = Intern.all
@@ -71,8 +72,12 @@ class InternsController < ApplicationController
     @cur_day = params[:day]
   end
 
+  def set_mentor
+    @mentors = Developer.all.map{ |d| [d.full_name, d.id]}
+  end
+
   def intern_params
-    params.require(:intern).permit(:employable_id, :senority, :belong_team, :university_id, :graduation_year, :position_id).merge(employable_type: 'Employee')
+    params.require(:intern).permit(:employable_id, :senority, :belong_team, :university_id, :graduation_year, :position_id, :mentor_id).merge(employable_type: 'Employee')
   end
 
   def set_data_association
