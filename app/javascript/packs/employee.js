@@ -1,16 +1,16 @@
-$(document).on('turbolinks:load', function () {
+$(document).ready(function () {
   let mapOptions = {
     zoom: 10,
     center: new google.maps.LatLng(10.820303, 106.597862),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  function mapMarkers(mapOptions, address) {
+  function map_markers(mapOptions, address) {
     let map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    litsener(map, address)
+    map_add_listener(map, address);
   };
 
-  function litsener(map, address) {
+  function map_add_listener(map, address) {
     google.maps.event.addListener(map, 'click', function (event) {
       let marker = new google.maps.Marker({
         position: event.latLng,
@@ -34,26 +34,25 @@ $(document).on('turbolinks:load', function () {
         },
       });
     });
-  }
+  };
 
   let addressEmployee = $('#employee_current_address');
   let clientAddress = $('#client_address');
-  mapMarkers(mapOptions, addressEmployee);
-  mapMarkers(mapOptions, clientAddress);
+  if (addressEmployee[0] === undefined) {
+    map_markers(mapOptions, clientAddress);
+  } else {
+    map_markers(mapOptions, addressEmployee);
+  }
 
   $(document).on('click', '#show-location-emp, #show-location-client', function () {
-    let address = '';
-    let url = '';
-    let addrListener = '';
     if (this.id == 'show-location-emp') {
-      address = $('#employee_current_address').val();
-      url = '/handler-address-emp';
-      addrListener = $('#employee_current_address');
+      handler_address('/handler-address-emp', $('#employee_current_address').val(), $('#employee_current_address'));
     } else {
-      address = $('#client_address').val();
-      url = '/handler-address-client';
-      addrListener = $('#client_address');
+      handler_address('/handler-address-client', $('#client_address').val(), $('#client_address'));
     }
+  });
+
+  function handler_address(url, address, addressListener) {
     $.ajax({
       url: url,
       type: 'POST',
@@ -61,16 +60,23 @@ $(document).on('turbolinks:load', function () {
       data: { address: address },
       success: function (data) {
         let handler = Gmaps.build('Google');
-        let map = handler.buildMap({ provider: {}, internal: { id: 'map' } }, function () {
-          markers = handler.addMarkers([{ "lat": data.html[0].data.lat, "lng": data.html[0].data.lon, "infowindow": "Your Address" }]);
+        let map = handler.buildMap({
+          provider: {},
+          internal: { id: 'map' }
+        }, function () {
+          markers = handler.addMarkers([{
+            "lat": data.html[0].data.lat,
+            "lng": data.html[0].data.lon,
+            "infowindow": "Your Address"
+          }]);
           handler.bounds.extendWith(markers);
           handler.fitMapToBounds();
           handler.getMap().setZoom(12);
         });
-        map = map.serviceObject
-        litsener(map, addrListener);
+        map = map.serviceObject;
+        map_add_listener(map, addressListener);
         return true;
       },
     });
-  });
+  }
 });

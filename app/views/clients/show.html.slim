@@ -47,4 +47,17 @@ section.section
 
 - if @location_address.present?
   script[type="text/javascript"]
-    |  handler = Gmaps.build('Google'); handler.buildMap({ provider: {}, internal: {id: 'map-show'}}, function(){ markers = handler.addMarkers([ { "lat": #{@location_address.first.data['lat']}, "lng": #{@location_address.first.data['lon']}, "picture": { "width": 32, "height": 32 }, "infowindow": "SJSU" } ]); handler.bounds.extendWith(markers); handler.fitMapToBounds(); handler.getMap().setZoom(12);});
+    | handler = Gmaps.build('Google');
+    | handler.buildMap({
+    |  provider: {},
+    |  internal: {id: 'map-show'
+    | }},
+    | function(){ markers = handler.addMarkers([ {
+    |  "lat": #{@location_address.first.data['lat']},
+    |  "lng": #{@location_address.first.data['lon']},
+    |  "picture": { "width": 32, "height": 32 },
+    |  "infowindow": "Your address" }
+    | ]);
+    | handler.bounds.extendWith(markers);
+    | handler.fitMapToBounds();
+    | handler.getMap().setZoom(12);});
