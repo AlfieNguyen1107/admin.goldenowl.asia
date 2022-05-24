@@ -27,9 +27,10 @@ Rails.application.routes.draw do
   resources :employees
 
   get 'home', to: 'home#index'
-  post 'show-address', to: 'employees#show_address'
-  post 'search-address', to: 'employees#search_address'
-  post 'handler-address', to: 'employees#handler_address'
+  post 'show-address-emp', to: 'employees#show_address'
+  post 'handler-address-emp', to: 'employees#handler_address'
+  post 'show-address-client', to: 'clients#show_address'
+  post 'handler-address-client', to: 'clients#handler_address'
 
   root 'home#index'
 

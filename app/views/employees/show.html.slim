@@ -1,17 +1,6 @@
 - content_for :page_title, @employee.full_name
 section.section
   .container.mb-4
-    nav.level
-      .level-left.mt-2
-        p.level-item
-          strong Actions
-      .level-right.d-flex
-        p.level-item.mr-3
-          = link_to "Edit", edit_employee_path(@employee), class:"button btn btn-primary btn-sm"
-        p.level-item.mr-3
-          = link_to "Delete", employee_path(@employee), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
-        p.level-item
-          = link_to "Back", employees_path, class:"button btn btn-dark btn-sm"
     hr/
     | Full name:
     h4.title
@@ -63,6 +52,20 @@ section.section
     | Woring arrangement:
     h4.title
       = @employee.working_arrangement
+
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_employee_path(@employee), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", employee_path(@employee), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to  "Back", employees_path(page: @page), class:"button btn btn-dark btn-sm"
+
   - if @location_address.present?
     script[type="text/javascript"]
       |  handler = Gmaps.build('Google'); handler.buildMap({ provider: {}, internal: {id: 'map-show'}}, function(){ markers = handler.addMarkers([ { "lat": #{@location_address.first.data['lat']}, "lng": #{@location_address.first.data['lon']}, "picture": { "width": 32, "height": 32 }, "infowindow": "SJSU" } ]); handler.bounds.extendWith(markers); handler.fitMapToBounds(); handler.getMap().setZoom(12);});

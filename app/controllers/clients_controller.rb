@@ -1,10 +1,13 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
+  before_action :set_contact, only: %i[new edit create]
+
   def index
     @pagy, @clients = pagy(extract_client, items: per_page)
   end
 
   def show
+    @location_address = Geocoder.search(@client.address)
     @pagy, @projects = pagy(@client.projects, items: per_page)
   end
 
@@ -48,6 +51,16 @@ class ClientsController < ApplicationController
     end
   end
 
+  def show_address
+    @address = Geocoder.search(params[:position])
+    render json: { html: @address }
+  end
+
+  def handler_address
+    @address = Geocoder.search(params[:address])
+    render json: { html: @address }
+  end
+
   private
 
   def set_client
@@ -55,12 +68,16 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).permit(:name, :address, :hq)
+    params.require(:client).permit(:name, :address, :hq, :contactable_id).merge(contactable_type: 'Contact')
   end
 
   def extract_client
     return Client.search(params[:search]) if params[:search]
 
     Client.order(id: :desc)
+  end
+
+  def set_contact
+    @contact = Contact.all.map { |e| [e.full_name, e.id] }
   end
 end
