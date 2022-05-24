@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DevelopersController < ApplicationController
   before_action :set_developer, only: %i[show edit update destroy detail]
   before_action :set_project_options, only: %i[new edit]
@@ -6,9 +8,10 @@ class DevelopersController < ApplicationController
   before_action :set_date_year, only: %i[new edit create]
 
   def index
-    @developers = Developer.all
-    @developers = FilterDeveloperService.call(params).payload if params[:filter].present?
-    @pagy, @developers = pagy_array(@developers.order(id: :asc), items: per_page)
+    @senority = Developer.pluck(:senority).uniq
+    @developers = FilterDeveloperService.new(senority: params[:senority]).call.order(:id)
+
+    @pagy, @developers = pagy_array(@developers, items: per_page)
   end
 
   def show
