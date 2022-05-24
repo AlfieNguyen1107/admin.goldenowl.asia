@@ -8,7 +8,7 @@ class DevelopersController < ApplicationController
   before_action :set_date_year, only: %i[new edit create]
 
   def index
-    @senority = Developer.pluck(:senority).uniq
+    @senority = Developer.pluck(:senority)
     @developers = FilterDeveloperService.new(senority: params[:senority]).call.order(:id)
 
     @pagy, @developers = pagy_array(@developers, items: per_page)

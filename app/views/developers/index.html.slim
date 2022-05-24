@@ -35,7 +35,7 @@ section.section
                   = link_to "Clear", developers_path
                 = form_tag("/developers", method: 'get') do
                   .field.mb-3.float-md-right
-                    = select_tag(:senority, options_for_select(@senority), { prompt: 'Select senority',  onchange: 'this.form.submit();', class: 'form-select form-select-sm me-1'})
+                    = select_tag(:senority, options_for_select(@senority.uniq), { prompt: 'Select senority',  onchange: 'this.form.submit();', class: 'form-select form-select-sm me-1'})
                 .field.mb-3.float-md-right
                   span.header-title.mr-3 style=("font-weight: bold;") Filter:
                 .table-responsive-sm

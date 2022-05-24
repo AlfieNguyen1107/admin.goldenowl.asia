@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InternsController < ApplicationController
   before_action :set_intern, only: %i[show edit update destroy detail]
   before_action :set_project_options, only: %i[new edit]
@@ -73,7 +75,7 @@ class InternsController < ApplicationController
   end
 
   def set_mentor
-    @mentors = Developer.all.map{ |d| [d.full_name, d.id]}
+    @mentors = Developer.all.map { |d| [d.full_name, d.id] }
   end
 
   def intern_params
