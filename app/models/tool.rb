@@ -22,6 +22,6 @@ class Tool < ApplicationRecord
   has_many :employee_tools, dependent: :destroy
   has_many :employees, through: :employee_tools
 
-  scope :filter_name_tool, ->(name) { where(name: name) }
+  scope :filter_skill_category_tool, ->(id) { where(skill_category_id: id) }
   delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
 end
