@@ -36,14 +36,12 @@ section.section
                     tr
                       th scope="col" ID
                       th scope="col" Full Name
-                      th scope="col" Current Project
                       th scope="col" Level
                       th scope="col" Action
                     - @project_coordinators.each do |pc|
                         tr
                           td = pc.id
                           td = link_to pc.full_name, pc
-                          td = pc.current_project&.name
                           td = pc.level
                           td.table-action
                             = link_to edit_project_coordinator_path(pc.id), class: "table-link" do 
