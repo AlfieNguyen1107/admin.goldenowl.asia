@@ -6,7 +6,7 @@ class InternsController < ApplicationController
   before_action :filter_params, only: %i[index]
   before_action :set_data_association, only: %i[new edit create]
   before_action :set_date_year, only: %i[new edit create]
-  before_action :set_mentor, only: %i[create edit]
+  before_action :set_mentor, only: %i[new edit]
 
   def index
     @interns = Intern.all

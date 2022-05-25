@@ -4,8 +4,6 @@
       = f.label :employable_id, class: 'col-md-12'
       = f.select :employable_id, options_for_select(@employable, @intern.employable_id), { }, { class: 'form-select form-select-sm me-1' }
     .field.mt-2.mb-3
-      = f.input :senority, class: 'form-control'
-    .field.mt-2.mb-3
       = f.input :belong_team, class: 'form-control'
     .field.mt-2.mb-3
       = f.label :university_id, class: 'col-md-12'

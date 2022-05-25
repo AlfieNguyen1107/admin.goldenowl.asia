@@ -46,7 +46,6 @@ section.section
                       th scope="col" Position
                       th scope="col" University
                       th scope="col" Mentor
-                      th scope="col" Level
                       th scope="col" Assignments
                       th scope="col" Score
                       th scope="col" Exp
@@ -62,7 +61,6 @@ section.section
                             td
                               - if d.mentor.present?
                                 = link_to d.mentor.full_name, developer_path(d.mentor.id)
-                            td = d.senority
                             td
                               - d.assignments.each do |p|
                                 = link_to p.name, p
