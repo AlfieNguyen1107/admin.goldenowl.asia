@@ -39,11 +39,11 @@ class Developer < ApplicationRecord
   belongs_to :position
   has_many :developer_projects, dependent: :destroy
   has_many :projects, through: :developer_projects
-  has_many :developer_programming_languages, dependent: :destroy
+  has_many :developer_programming_languages, dependent: :restrict_with_exception
   has_many :developer_frameworks, dependent: :destroy
   has_many :programming_languages, through: :developer_programming_languages
   has_many :frameworks, through: :developer_frameworks
-  has_many :interns, class_name: 'Developer', foreign_key: 'mentor_id', inverse_of: :Developer, dependent: :nullify
+  has_many :interns, class_name: 'Developer', foreign_key: 'mentor_id', dependent: :nullify
   has_many :assignments, foreign_key: 'assigned_to_id', dependent: :destroy, inverse_of: :assigned_to
   has_many :project_histories, dependent: :destroy
   accepts_nested_attributes_for :developer_projects, allow_destroy: true
