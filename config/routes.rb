@@ -5,10 +5,18 @@ Rails.application.routes.draw do
   resources :contacts
   resources :project_coordinators
   resources :clients
-  resources :developers do 
-    get 'detail', on: :member
+  resources :developers do
+    member do
+      get 'detail'
+      put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
+    end
   end
-  resources :interns
+  resources :interns do
+    member do
+      put 'update_type/:id', to: 'interns#update_type', as: 'update_type'
+    end
+  end
+
   resources :projects
   resources :universities
   resources :programming_languages
@@ -26,13 +34,9 @@ Rails.application.routes.draw do
   resources :skills
   resources :skill_category_groups
   resources :employees
-
-  get 'home', to: 'home#index'
-  post 'show-address-emp', to: 'employees#show_address'
-  post 'handler-address-emp', to: 'employees#handler_address'
-  post 'show-address-client', to: 'clients#show_address'
-  post 'handler-address-client', to: 'clients#handler_address'
-
+  post 'show-address', to: 'employees#show_address'
+  post 'search-address', to: 'employees#search_address'
+  post 'handler-address', to: 'employees#handler_address'
   root 'home#index'
 
   namespace :api do

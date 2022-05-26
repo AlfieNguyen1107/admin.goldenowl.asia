@@ -51,7 +51,7 @@ class Developer < ApplicationRecord
   # validates :full_name, presence: true, uniqueness: true
   # validates :company_name, presence: true, uniqueness: true
   # validates :belong_team, presence: true
-  validates :senority, presence: true
+  # validates :senority, presence: true
 
   scope :not_have_current_project, -> { where(developer_projects: { current: nil }) }
   scope :have_current_project, -> { where('developer_projects.current = true') }

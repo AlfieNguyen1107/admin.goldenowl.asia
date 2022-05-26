@@ -107,6 +107,11 @@ section.section
             .col-4
               = eh.year
           br
+        hr
+        = link_to reset_type_path(@developer), method: :put, class: 'btn btn-outline-success' do 
+          i.uil-cog.me-1
+          | Reset intern 
+          
     .row 
       .col-12
         nav.level

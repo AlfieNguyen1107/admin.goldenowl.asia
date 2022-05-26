@@ -28,6 +28,10 @@ section.section
           = as.score
           br
         = "Average: #{t.average_score}"
+    br
+    = link_to update_type_intern_path(@intern.id), method: :put, class: 'btn btn-outline-success' do
+      i.uil-cog.me-1
+      | Commplete intern 
     hr
     nav.level
       .level-left.mt-2
