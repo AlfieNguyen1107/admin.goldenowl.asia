@@ -3,9 +3,16 @@
     .field.mt-2.mb-3
       .control
         = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
-    .field.mt-2.mb-3
-      = f.input :address, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    #search-map.row
+      .field
+        = f.input :address, input_html: { class: 'input' }, label_html: { class: 'label fw-b' }
+        i[id='show-location-client' class='btn btn-info'] Show location
+    .row
+      #map[style='width: 100%; height: 400px;']
     .field.mt-2.mb-3
       = f.input :hq, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :contactable_id, class: 'col-md-12'
+      = f.select :contactable_id, options_for_select(@contact, @client.contactable_id), { }, { class: 'form-select form-select-sm me-1' }
     = f.button :submit, class: "btn btn-info mb-2"
     = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"

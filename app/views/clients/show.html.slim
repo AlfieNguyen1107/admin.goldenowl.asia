@@ -6,7 +6,11 @@ section.section
       = @client.name
     | Address:
     h4.title
-      = @client.address 
+      = @client.address
+    - if @location_address.present?
+      .row.pe-none
+        #map-show[style='width: 100%; height: 400px;']
+    hr/
     | HQ:
     h4.title
       = @client.hq
@@ -25,6 +29,9 @@ section.section
                   .media-content
                     h5.title.is-4
                       = link_to project.name, project
+    | Contactable type:
+    h4.title
+      = @client.contactable_type
     hr
     nav.level
       .level-left.mt-2
@@ -38,8 +45,19 @@ section.section
         .level-item.ms-1
           = link_to  "Back", clients_path(page: @page), class:"button btn btn-dark btn-sm"
 
-.container.mb-4
-  div[style="width: 500px;"]
-    #map[style="width: 800px; height: 400px;"]
+- if @location_address.present?
   script[type="text/javascript"]
-    |  handler = Gmaps.build('Google'); handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){ markers = handler.addMarkers([ { "lat": 37.3333945, "lng": -121.8806499, "picture": { "width": 32, "height": 32 }, "infowindow": "SJSU" } ]); handler.bounds.extendWith(markers); handler.fitMapToBounds(); }); 
+    | handler = Gmaps.build('Google');
+    | handler.buildMap({
+    |  provider: {},
+    |  internal: {id: 'map-show'
+    | }},
+    | function(){ markers = handler.addMarkers([ {
+    |  "lat": #{@location_address.first.data['lat']},
+    |  "lng": #{@location_address.first.data['lon']},
+    |  "picture": { "width": 32, "height": 32 },
+    |  "infowindow": "Your address" }
+    | ]);
+    | handler.bounds.extendWith(markers);
+    | handler.fitMapToBounds();
+    | handler.getMap().setZoom(12);});
