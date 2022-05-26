@@ -11,9 +11,7 @@ class ProjectsController < ApplicationController
     @year_groups = @projects.group_by { |project| project.end_date.year }
   end
 
-  def show
-    @pagy, @projects = pagy(@projects, items: per_page)
-  end
+  def show; end
 
   def new
     @project = Project.new

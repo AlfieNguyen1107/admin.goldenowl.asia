@@ -50,8 +50,8 @@ section.section
                           tr
                             td rowspan="#{@size}" = year
                             td = @year_groups[year].first.client.hq
-                            td = @year_groups[year].first.client.name
-                            td = link_to @year_groups[year].first.name
+                            td = link_to @year_groups[year].first.client.name, client_path(@year_groups[year].first.client.id)
+                            td = link_to @year_groups[year].first.name, project_path(@year_groups[year].first.id)
                             td = @year_groups[year].first.id
                             td.table-action
                               = link_to edit_project_path(@year_groups[year].first.id), class: "table-link" do 
