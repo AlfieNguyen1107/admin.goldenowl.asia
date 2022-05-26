@@ -39,39 +39,40 @@ section.section
                 .table-responsive-sm
                     table.table.table-centered.mb-0
                       tr
+                        th scope="col" Year
+                        th scope="col" Country
+                        th scope="col" Client
+                        th scope="col" Project
                         th scope="col" ID
-                        th scope="col" Name
-                        th scope="col" Rank
-                        th scope="col" class="w-date" Start Date
-                        th scope="col" class="w-date" End Date
-                        th scope="col" Technology
-                        th scope="col" Deployment
-                        th scope="col" Developement
-                        th scope="col" Industry
-                        th scope="col" PC in charge
-                        th scope="col" Status
                         th scope="col" class="mw-action" Action
-                      - @projects.each do |p|
+                        - @year_groups.keys.each do |year|
+                          - @size = @year_groups[year].size
                           tr
-                            td = p.id
-                            td = link_to p.name, p
-                            td = p.rank_to_s
-                            td = p.start_date
-                            td = p.end_date
-                            td
-                            td = p.deployment
-                            td
-                            td = p.industry
-                            td = p.current_pc&.full_name
-                            td = p.status
+                            td rowspan="#{@size}" = year
+                            td = @year_groups[year].first.client.hq
+                            td = @year_groups[year].first.client.name
+                            td = link_to @year_groups[year].first.name
+                            td = @year_groups[year].first.id
                             td.table-action
-                              = link_to edit_project_path(p.id), class: "table-link" do 
+                              = link_to edit_project_path(@year_groups[year].first.id), class: "table-link" do 
                                 i.mdi.mdi-pencil 
-                              = link_to project_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                              = link_to project_path(@year_groups[year].first.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
                                 i.mdi.mdi-delete
-                              = link_to project_path(p.id), class: "table-link" do
+                              = link_to project_path(@year_groups[year].first.id), class: "table-link" do
                                 i.mdi.mdi-bookmark-box-multiple
-
+                          - @year_groups[year][1..@size].each do |p|
+                            tr 
+                              td = p.client.hq
+                              td = p.client.name
+                              td = link_to p.name, p
+                              td = p.id
+                              td.table-action
+                                = link_to edit_project_path(p.id), class: "table-link" do 
+                                  i.mdi.mdi-pencil 
+                                = link_to project_path(p.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                                  i.mdi.mdi-delete
+                                = link_to project_path(p.id), class: "table-link" do
+                                  i.mdi.mdi-bookmark-box-multiple
 
 section.section
   .container.mb-3
