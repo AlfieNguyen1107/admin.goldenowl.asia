@@ -32,10 +32,7 @@ section.section
               .card-body
                 h4.header-title.mb-2 Tools
                 = form_tag("/tools", method: 'get') do
-                  - @names = []
-                  - @tool_all.each do |tool|
-                    - @names << tool.name
-
+                  = select_tag(:skill_category_id, options_for_select(@skill_categories, :selected => params[:skill_category_id] ), {:prompt => "Select skill category name",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
                     span.header-title.mr-3 style=("font-weight: bold;") Filter:    
                   .table-responsive-sm

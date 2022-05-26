@@ -3,13 +3,12 @@ class ToolsController < ApplicationController
   before_action :load_skill_categories, only: %i[new edit]
 
   def index
-    @tool_all = Tool.all
-    if params[:name].present?
-      @name = params[:name]
-      @tools = Tool.filter_name_tool(@name)
-    else
-      @tools = Tool.all
-    end
+    @skill_categories = SkillCategory.pluck(:name, :id)
+    @tools = if params[:skill_category_id].present?
+               Tool.filter_skill_category_tool(params[:skill_category_id])
+             else
+               Tool.all
+             end
     @pagy, @tools = pagy(@tools.order(id: :ASC), item: per_page)
   end
 
