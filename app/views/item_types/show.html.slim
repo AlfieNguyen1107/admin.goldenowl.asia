@@ -1,0 +1,19 @@
+- content_for :page_title, @item_type.name
+section.section
+  .container.mb-4
+    hr/
+    | Name:
+    h4.title
+      = @item_type.name
+  hr
+  nav.level
+    .level-left.mt-2
+      p.level-item
+        strong Actions
+    .level-right.d-flex
+      .level-item
+        = link_to "Edit", edit_item_type_path(@item_type), class:"button btn btn-primary btn-sm"
+      .level-item.ms-1
+        = link_to "Delete", item_type_path(@item_type), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+      .level-item.ms-1
+        = link_to  "Back", item_types_path(page: @page), class:"button btn btn-dark btn-sm"

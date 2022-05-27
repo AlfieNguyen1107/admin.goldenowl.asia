@@ -4,8 +4,18 @@ Rails.application.routes.draw do
   resources :project_member_requests
   resources :contacts
   resources :project_coordinators
-  resources :clients
-  resources :developers do 
+  resources :clients do
+    collection do
+      get 'show-address-client', to: 'clients#show_address'
+      get 'handler-address-client', to: 'clients#handler_address'
+    end
+
+    member do
+      get 'show-address-client', to: 'clients#show_address'
+      get 'handler-address-client', to: 'clients#handler_address'
+    end
+  end
+  resources :developers do
     get 'detail', on: :member
   end
   resources :interns
@@ -25,13 +35,21 @@ Rails.application.routes.draw do
   resources :skill_categories
   resources :skills
   resources :skill_category_groups
-  resources :employees
+  resources :employees do
+    collection do
+      get 'show-address-emp', to: 'employees#show_address'
+      get 'handler-address-emp', to: 'employees#handler_address'
+    end
+
+    member do
+      get 'show-address-emp', to: 'employees#show_address'
+      get 'handler-address-emp', to: 'employees#handler_address'
+    end
+  end
+  resources :item_types
+  resources :items
 
   get 'home', to: 'home#index'
-  post 'show-address-emp', to: 'employees#show_address'
-  post 'handler-address-emp', to: 'employees#handler_address'
-  post 'show-address-client', to: 'clients#show_address'
-  post 'handler-address-client', to: 'clients#handler_address'
 
   root 'home#index'
 

@@ -1,0 +1,65 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Item
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Item", new_item_path, class:"navbar-item"
+  .hero-body
+    .container.has-text-centered
+      h1.title
+        = yield :page_title
+
+section.section
+  .container
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              h4.header-title.mb-2 Items
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope="col" ID
+                    th scope="col" Name
+                    th scope="col" Image
+                    th scope="col" Description
+                    th scope="col" Code
+                    th scope="col" Assignee
+                    th scope="col" Type
+                    th scope="col" Status
+                    th scope="col" class="mw-action" Action
+                    - @items.each do |item|
+                        tr
+                          td = item.id
+                          td = link_to item.name, item
+                          td = image_tag item.image.resize(:thumb), class: 'w-100' if item.image.present?
+                          td = item.description.split(' ')[0..10].join(' ') + '...'
+                          td = item.code
+                          td = link_to item.employee_full_name, employee_path(item.employee_id) if item.employee_id.present?
+                          td = item.item_type_name
+                          td = item.employee_id ? 'Unavailable' : 'Available'
+                          td.table-action
+                              = link_to edit_item_path(item.id), class: "table-link" do
+                                i.mdi.mdi-pencil
+                              = link_to item_path(item.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                                i.mdi.mdi-delete
+                              = link_to item_path(item.id), class: "table-link" do
+                                i.mdi.mdi-bookmark-box-multiple
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @items.size > 0
+          == pagy_bootstrap_nav(@pagy)

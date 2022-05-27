@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function() {
   let mapOptions = {
     zoom: 10,
     center: new google.maps.LatLng(10.820303, 106.597862),
@@ -25,7 +25,7 @@ $(document).ready(function () {
       }
       $.ajax({
         url: url,
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         data: { position: position },
         success: function (data) {
@@ -55,7 +55,7 @@ $(document).ready(function () {
   function handler_address(url, address, addressListener) {
     $.ajax({
       url: url,
-      type: 'POST',
+      type: 'GET',
       dataType: 'json',
       data: { address: address },
       success: function (data) {

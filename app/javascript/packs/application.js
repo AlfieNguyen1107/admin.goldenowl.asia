@@ -20,3 +20,4 @@ import '../application';
 
 
 require("./employee")
+require("./item")
