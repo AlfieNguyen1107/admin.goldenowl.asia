@@ -16,9 +16,17 @@ Rails.application.routes.draw do
     end
   end
   resources :developers do
-    get 'detail', on: :member
+    member do
+      get 'detail'
+      put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
+    end
   end
-  resources :interns
+  resources :interns do
+    member do
+      put 'update_type/:id', to: 'interns#update_type', as: 'update_type'
+    end
+  end
+
   resources :projects
   resources :universities
   resources :programming_languages

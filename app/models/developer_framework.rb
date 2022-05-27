@@ -23,6 +23,6 @@
 #  fk_rails_...  (framework_id => frameworks.id)
 #
 class DeveloperFramework < ApplicationRecord
-  belongs_to :developer
-  belongs_to :framework
+  belongs_to :developer, dependent: :destroy
+  belongs_to :framework, dependent: :destroy
 end

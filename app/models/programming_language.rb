@@ -16,4 +16,5 @@
 #
 class ProgrammingLanguage < ApplicationRecord
   scope :filter_name_programming_languages, ->(name) { where(name: name) }
+  has_many :developers, through: :developer_programming_languages
 end

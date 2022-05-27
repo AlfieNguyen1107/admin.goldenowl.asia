@@ -72,13 +72,14 @@
               = link_to "Items", items_path, class: "#{active_items('items')}"
       li.side-nav-item
         - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills skill_category_groups]
-        - is_in_setting = setting_paths.include?(controller_name)     
-        a.side-nav-link[class="#{is_in_setting ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
+        - is_in_setting = setting_paths.include?(controller_name)
+        - side_nav_class, sidebar_layouts_class = is_in_setting ? ['', 'show'] : ['collapsed', '']
+        a.side-nav-link[class="#{side_nav_class}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
           i.uil-bright
           span
             | Settings
           span.menu-arrow
-        #sidebarLayouts.collapse[class="#{is_in_setting ? 'show' : ''}"]
+        #sidebarLayouts.collapse[class="#{sidebar_layouts_class}"]
           ul.side-nav-second-level
             li
               = link_to "Universities", universities_path, class: "#{active_items('universities')}"
