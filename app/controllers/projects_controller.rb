@@ -7,8 +7,8 @@ class ProjectsController < ApplicationController
 
   def index
     project_filter
-    @pagy, @projects = pagy(@projects, items: per_page) if @projects.present?
-    @year_groups = @projects.group_by { |project| project.end_date.year }
+    @pagy, @projects = pagy(@projects.order(start_date: :desc), items: per_page) if @projects.present?
+    @year_groups = @projects.group_by { |project| project.start_date.year }
   end
 
   def show; end

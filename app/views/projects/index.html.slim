@@ -40,18 +40,18 @@ section.section
                     table.table.table-centered.mb-0
                       tr
                         th scope="col" Year
-                        th scope="col" Country
-                        th scope="col" Client
                         th scope="col" Project
+                        th scope="col" Client
+                        th scope="col" Country
                         th scope="col" ID
                         th scope="col" class="mw-action" Action
                         - @year_groups.keys.each do |year|
                           - @size = @year_groups[year].size
                           tr
                             td rowspan="#{@size}" = year
-                            td = @year_groups[year].first.client.hq
-                            td = link_to @year_groups[year].first.client.name, client_path(@year_groups[year].first.client.id)
                             td = link_to @year_groups[year].first.name, project_path(@year_groups[year].first.id)
+                            td = link_to @year_groups[year].first.client.name, client_path(@year_groups[year].first.client.id)
+                            td = @year_groups[year].first.client.hq
                             td = @year_groups[year].first.id
                             td.table-action
                               = link_to edit_project_path(@year_groups[year].first.id), class: "table-link" do 
@@ -62,9 +62,9 @@ section.section
                                 i.mdi.mdi-bookmark-box-multiple
                           - @year_groups[year][1..@size].each do |p|
                             tr 
-                              td = p.client.hq
-                              td = p.client.name
                               td = link_to p.name, p
+                              td = p.client.name
+                              td = p.client.hq
                               td = p.id
                               td.table-action
                                 = link_to edit_project_path(p.id), class: "table-link" do 
