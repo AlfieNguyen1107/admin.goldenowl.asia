@@ -52,10 +52,12 @@ class Developer < ApplicationRecord
   # validates :company_name, presence: true, uniqueness: true
   # validates :belong_team, presence: true
   # validates :senority, presence: true
+  # validates :employable_id, uniqueness: true
 
   scope :not_have_current_project, -> { where(developer_projects: { current: nil }) }
   scope :have_current_project, -> { where('developer_projects.current = true') }
   scope :filter_senority, ->(senority) { where(senority: senority) }
+  scope :filter_developer_type, ->(type) { where(type: type) }
   def self.free_after_x_days(params)
     available_developer_ids = Developer.joins(:projects).where('current = true').group(:id).having('max(projects.end_date) <= ?', Time.zone.today + params).pluck(:id)
 
