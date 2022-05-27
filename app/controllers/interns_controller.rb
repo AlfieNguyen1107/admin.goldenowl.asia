@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class InternsController < ApplicationController
-  before_action :set_intern, only: %i[show edit update destroy detail]
+  before_action :set_intern, only: %i[show edit update destroy detail update_type]
   before_action :set_project_options, only: %i[new edit]
   before_action :filter_params, only: %i[index]
   before_action :set_data_association, only: %i[new edit create]
   before_action :set_date_year, only: %i[new edit create]
+  before_action :set_mentor, only: %i[new edit]
 
   def index
     @interns = Intern.all
@@ -55,6 +58,14 @@ class InternsController < ApplicationController
     @pagy, @interns = pagy(Intern, items: per_page)
   end
 
+  def update_type
+    if @intern.update(type: Developer)
+      redirect_to developer_path(@intern), notice: 'Update successfully'
+    else
+      redirect_to developer_path(@intern), notice: 'Update unsuccessfully'
+    end
+  end
+
   private
 
   def set_intern
@@ -71,8 +82,12 @@ class InternsController < ApplicationController
     @cur_day = params[:day]
   end
 
+  def set_mentor
+    @mentors = Developer.all.map { |d| [d.full_name, d.id] }
+  end
+
   def intern_params
-    params.require(:intern).permit(:employable_id, :senority, :belong_team, :university_id, :graduation_year, :position_id).merge(employable_type: 'Employee')
+    params.require(:intern).permit(:employable_id, :belong_team, :university_id, :graduation_year, :position_id, :mentor_id).merge(employable_type: 'Employee')
   end
 
   def set_data_association

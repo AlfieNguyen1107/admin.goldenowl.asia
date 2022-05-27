@@ -4,14 +4,16 @@
       = f.label :employable_id, class: 'col-md-12'
       = f.select :employable_id, options_for_select(@employable, @intern.employable_id), { }, { class: 'form-select form-select-sm me-1' }
     .field.mt-2.mb-3
-        = f.input :senority, class: 'form-control'
-    .field.mt-2.mb-3
-        = f.input :belong_team, class: 'form-control'
+      = f.input :belong_team, class: 'form-control'
     .field.mt-2.mb-3
       = f.label :university_id, class: 'col-md-12'
       = f.select :university_id, options_for_select(@universities, @intern.university_id), { }, { class: 'form-select form-select-sm me-1' }
     .field.mt-2.mb-3
-        = f.select :graduation_year, options_for_select(@years, @intern.graduation_year), { }, { class: 'form-select form-select-sm me-1' }
+      | Mentor
+      = f.select :mentor_id,  options_for_select(@mentors), {}, { class: 'form-select form-select-sm me-1' }
+    .field.mt-2.mb-3
+      | Graduation year
+      = f.select :graduation_year, options_for_select(@years, @intern.graduation_year), { }, { class: 'form-select form-select-sm me-1' }
     .field.mt-2.mb-3
       = f.label :position_id, class: 'col-md-12'
       = f.select :position_id, options_for_select(@positions, @intern.position_id), { }, { class: 'form-select form-select-sm me-1' }
