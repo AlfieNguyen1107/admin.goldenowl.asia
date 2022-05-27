@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :frameworks
   resources :project_member_assignments
@@ -38,7 +40,6 @@ Rails.application.routes.draw do
   post 'search-address', to: 'employees#search_address'
   post 'handler-address', to: 'employees#handler_address'
   root 'home#index'
-
   namespace :api do
     namespace :v1 do
       resources :post_categories, path: 'post-categories' do
