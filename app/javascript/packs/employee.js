@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
   let mapOptions = {
     zoom: 10,
     center: new google.maps.LatLng(10.820303, 106.597862),
@@ -17,14 +17,8 @@ $(document).on('turbolinks:load', function() {
         map: map
       });
       let position = [event.latLng.lat(), event.latLng.lng()];
-      let url = '';
-      if (address[0].id == 'client_address') {
-        url = '/show-address-client';
-      } else {
-        url = '/show-address-emp';
-      }
       $.ajax({
-        url: url,
+        url: 'show_address',
         type: 'GET',
         dataType: 'json',
         data: { position: position },
@@ -46,9 +40,9 @@ $(document).on('turbolinks:load', function() {
 
   $(document).on('click', '#show-location-emp, #show-location-client', function () {
     if (this.id == 'show-location-emp') {
-      handler_address('/handler-address-emp', $('#employee_current_address').val(), $('#employee_current_address'));
+      handler_address('handler_address', $('#employee_current_address').val(), $('#employee_current_address'));
     } else {
-      handler_address('/handler-address-client', $('#client_address').val(), $('#client_address'));
+      handler_address('handler_address', $('#client_address').val(), $('#client_address'));
     }
   });
 

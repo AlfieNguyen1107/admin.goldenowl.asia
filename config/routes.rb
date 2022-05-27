@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   resources :project_coordinators
   resources :clients do
     collection do
-      get 'show-address-client', to: 'clients#show_address'
-      get 'handler-address-client', to: 'clients#handler_address'
+      get 'show_address', as: 'show_address'
+      get 'handler_address', as: 'handler_address'
     end
 
     member do
-      get 'show-address-client', to: 'clients#show_address'
-      get 'handler-address-client', to: 'clients#handler_address'
+      get 'show_address', as: 'show_address'
+      get 'handler_address', as: 'handler_address'
     end
   end
   resources :developers do
@@ -45,13 +45,13 @@ Rails.application.routes.draw do
   resources :skill_category_groups
   resources :employees do
     collection do
-      get 'show-address-emp', to: 'employees#show_address'
-      get 'handler-address-emp', to: 'employees#handler_address'
+      get 'show_address', as: 'show_address'
+      get 'handler_address', as: 'handler_address'
     end
 
     member do
-      get 'show-address-emp', to: 'employees#show_address'
-      get 'handler-address-emp', to: 'employees#handler_address'
+      get 'show_address', as: 'show_address'
+      get 'handler_address', as: 'handler_address'
     end
   end
   resources :item_types
