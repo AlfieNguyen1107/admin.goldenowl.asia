@@ -4,17 +4,7 @@ Rails.application.routes.draw do
   resources :project_member_requests
   resources :contacts
   resources :project_coordinators
-  resources :clients do
-    collection do
-      get 'show_address', as: 'show_address'
-      get 'handler_address', as: 'handler_address'
-    end
-
-    member do
-      get 'show_address', as: 'show_address'
-      get 'handler_address', as: 'handler_address'
-    end
-  end
+  resources :clients
   resources :developers do
     member do
       get 'detail'
@@ -43,20 +33,13 @@ Rails.application.routes.draw do
   resources :skill_categories
   resources :skills
   resources :skill_category_groups
-  resources :employees do
-    collection do
-      get 'show_address', as: 'show_address'
-      get 'handler_address', as: 'handler_address'
-    end
-
-    member do
-      get 'show_address', as: 'show_address'
-      get 'handler_address', as: 'handler_address'
-    end
-  end
+  resources :employees
   resources :item_types
   resources :items
-
+  resource  :geocoders do
+    get 'show-address', as: 'show_address'
+    get 'handler-address', as: 'handler_address'
+  end
   get 'home', to: 'home#index'
 
   root 'home#index'
