@@ -1,18 +1,17 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_technology_options
-  before_action :prepare_projects, only: :index
   before_action :upload_image, only: :update
 
   def index
-    filter_params
     project_filter
-    @pagy, @projects = pagy(@projects, items: per_page)
+    @pagy, @projects = pagy(@projects.order(start_date: :desc), items: per_page) if @projects.present?
+    @year_groups = @projects.group_by { |project| project.start_date.year }
   end
 
-  def show
-    @pagy, @projects = pagy(Project, items: per_page)
-  end
+  def show; end
 
   def new
     @project = Project.new
@@ -74,11 +73,9 @@ class ProjectsController < ApplicationController
     @client_options = Client.pluck(:name, :id)
   end
 
-  def filter_params
-    @industry = params[:industry]
-  end
-
   def project_filter
+    @projects = Project.all
+    @industry = params[:industry]
     @projects = @projects.search(params[:search]) if params[:search]
     @projects = @projects.filter_industry(@industry) if @industry.present?
   end
@@ -110,9 +107,5 @@ class ProjectsController < ApplicationController
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date
     )
-  end
-
-  def prepare_projects
-    @projects = Project.order(rank: :asc)
   end
 end
