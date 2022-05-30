@@ -83,7 +83,7 @@ class InternsController < ApplicationController
   end
 
   def set_mentor
-    @mentors = Developer.all.map { |d| [d.full_name, d.id] }
+    @mentors = Developer.filter_developer_type('Developer').map { |d| [d.full_name, d.id] }
   end
 
   def intern_params
@@ -93,7 +93,8 @@ class InternsController < ApplicationController
   def set_data_association
     @universities = University.all.map { |u| [u.name, u.id] }
     @positions = Position.all.uniq.map { |p| [p.name, p.id] }
-    @employable = Employee.all.map { |e| [e.full_name, e.id] }
+    @employee_id = Developer.all.map(&:employable_id)
+    @employable = Employee.except_item(@employee_id).map { |e| [e.full_name, e.id] }
   end
 
   def set_date_year

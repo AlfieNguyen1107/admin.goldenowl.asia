@@ -90,7 +90,8 @@ class DevelopersController < ApplicationController
   def set_data_association
     @universities = University.all.map { |u| [u.name, u.id] }
     @positions = Position.all.uniq.map { |p| [p.name, p.id] }
-    @employable = Employee.all.map { |e| [e.full_name, e.id] }
+    @employee_id = Developer.all.map(&:employable_id)
+    @employable = Employee.except_item(@employee_id).map { |e| [e.full_name, e.id] }
   end
 
   def set_date_year

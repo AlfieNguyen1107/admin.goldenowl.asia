@@ -57,12 +57,12 @@ class Employee < ApplicationRecord
   enum working_arrangement: { inoffice: 0, remote: 1, freelancer: 2 }
 
   delegate :name, to: :position, prefix: :position, allow_nil: true
+  scope :except_item, ->(id) { where.not(id: id) }
 
   validates :full_name, presence: true
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
   before_save { email.downcase }
-
 
   resize_image_config(
     thumb: [128, 128]
