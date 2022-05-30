@@ -37,9 +37,7 @@ section.section
                     th scope="col" Image
                     th scope="col" Description
                     th scope="col" Code
-                    th scope="col" Assignee
                     th scope="col" Type
-                    th scope="col" Status
                     th scope="col" class="mw-action" Action
                     - @items.each do |item|
                         tr
@@ -48,9 +46,7 @@ section.section
                           td = image_tag item.image.resize(:thumb), class: 'w-100' if item.image.present?
                           td = item.description.split(' ')[0..10].join(' ') + '...'
                           td = item.code
-                          td = link_to item.employee_full_name, employee_path(item.employee_id) if item.employee_id.present?
                           td = item.item_type_name
-                          td = item.employee_id ? 'Unavailable' : 'Available'
                           td.table-action
                               = link_to edit_item_path(item.id), class: "table-link" do
                                 i.mdi.mdi-pencil

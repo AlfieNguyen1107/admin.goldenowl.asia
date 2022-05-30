@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_26_061846) do
+ActiveRecord::Schema.define(version: 2022_05_30_065842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,6 +320,18 @@ ActiveRecord::Schema.define(version: 2022_05_26_061846) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "item_histories", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "item_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_item_histories_on_employee_id"
+    t.index ["item_id"], name: "index_item_histories_on_item_id"
+  end
+
   create_table "item_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -328,7 +340,6 @@ ActiveRecord::Schema.define(version: 2022_05_26_061846) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.bigint "employee_id"
     t.bigint "item_type_id", null: false
     t.string "name"
     t.string "description"
@@ -336,7 +347,6 @@ ActiveRecord::Schema.define(version: 2022_05_26_061846) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["employee_id"], name: "index_items_on_employee_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["name"], name: "index_items_on_name"
   end
@@ -674,7 +684,8 @@ ActiveRecord::Schema.define(version: 2022_05_26_061846) do
   add_foreign_key "employment_histories", "employees"
   add_foreign_key "frameworks", "programming_languages"
   add_foreign_key "frameworks", "skill_categories"
-  add_foreign_key "items", "employees"
+  add_foreign_key "item_histories", "employees"
+  add_foreign_key "item_histories", "items"
   add_foreign_key "items", "item_types"
   add_foreign_key "job_submissions", "careers"
   add_foreign_key "pc_projects", "project_coordinators"

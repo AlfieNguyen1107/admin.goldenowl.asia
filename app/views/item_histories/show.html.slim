@@ -1,0 +1,41 @@
+section.section
+  .container.mb-4
+    hr/
+    | Item:
+    h4.title
+      = @item_history.item_name
+    hr/
+    | Item code:
+    h4.title
+      = @item_history.item_code
+    hr/
+    | Item image:
+    h4.title
+      = image_tag @item_history.item_image.resize(:thumb) if @item_history.item_image.present?
+    hr/
+    | Assignee:
+    h4.title
+      = @item_history.employee_full_name
+    hr/
+    | Start date:
+    h4.title
+      = @item_history.start_date
+    hr/
+    | End date:
+    h4.title
+      = @item_history.end_date
+    hr/
+    | Description:
+    h4.title
+      = @item_history.description
+  nav.level
+    .level-left.mt-2
+      p.level-item
+        strong Actions
+    .level-right.d-flex
+      .level-item
+        = link_to "Edit", edit_item_history_path(@item_history), class:"button btn btn-primary btn-sm"
+      .level-item.ms-1
+        = link_to "Delete", item_history_path(@item_history), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+      .level-item.ms-1
+        = link_to  "Back", item_histories_path(page: @page), class:"button btn btn-dark btn-sm"

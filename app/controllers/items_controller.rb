@@ -51,9 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    item_params = params.require(:item).permit(:name, :description, :image, :code, :item_type_id)
-    item_params[:employee_id] = (params[:item][:employee_id] if params[:check_status_item] == '1')
-    item_params
+    params.require(:item).permit(:name, :description, :image, :code, :item_type_id)
   end
 
   def set_item_types

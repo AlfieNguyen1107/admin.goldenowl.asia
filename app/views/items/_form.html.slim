@@ -7,10 +7,6 @@
       = f.label :item_type_id
       = f.select :item_type_id, options_for_select(@item_types, @item.item_type_id), { }, { class: 'form-select form-select-sm me-1' }
     .field.mt-2.mb-3
-      = check_box_tag :check_status_item, '', @item.employee_id.present? ? 'checked' : nil
-      label Employee Management
-      = f.select :employee_id, options_for_select(@employees, @item.employee_id), { }, { class: 'form-select form-select-sm me-1' }
-    .field.mt-2.mb-3
       = f.input :image, required: true, direct_upload: true, as: :file
       - if @item.image.present?
         = image_tag @item.image.resize(:thumb), class: "mt-1"

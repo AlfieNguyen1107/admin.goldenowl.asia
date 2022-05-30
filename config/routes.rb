@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :employees
   resources :item_types
   resources :items
+  resources :item_histories
   resource  :geocoders do
     get 'show-address', as: 'show_address'
     get 'handler-address', as: 'handler_address'

@@ -49,7 +49,7 @@ class Employee < ApplicationRecord
   has_many :tools, through: :employee_tools
   belongs_to :position
   has_one_attached :image
-  has_many :items, dependent: :destroy
+  has_many :items, through: :item_histories
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
