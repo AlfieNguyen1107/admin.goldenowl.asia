@@ -58,9 +58,9 @@ class ItemHistoriesController < ApplicationController
   end
 
   def set_items
-    item_ids = Item.where(status: 1).pluck(:id)
-    item_ids -= [@item_history.item_id] if @item_history.present?
-    @items = Item.where.not(id: item_ids).map { |it| [it.name, it.id] }
+    return @items = Item.where(status: 0).map { |it| [it.name, it.id] } if @item_history.blank?
+
+    @items = Item.where(status: 0).or(Item.where(id: @item_history.item_id)).map { |it| [it.name, it.id] }
   end
 
   def set_employees
