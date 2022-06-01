@@ -38,8 +38,9 @@ section.section
                     th scope="col" Assignee
                     th scope="col" Start date
                     th scope="col" End date
+                    th scope="col" Status
                     th scope="col" Description
-                    th scope="col" class="mw-action" Action
+                    th scope="col" Action
                     - @item_histories.each do |ih|
                         tr
                           td = ih.id
@@ -48,6 +49,7 @@ section.section
                           td = link_to ih.employee_full_name, employee_path(ih.employee_id)
                           td = ih.start_date
                           td = ih.end_date
+                          td = ih.status.zero? ? 'In progress' : 'Completed'
                           td = ih.description
                           td.table-action
                               = link_to edit_item_history_path(ih.id), class: "table-link" do

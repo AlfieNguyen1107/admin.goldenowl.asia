@@ -5,6 +5,7 @@ class ItemHistoriesController < ApplicationController
 
   def index
     @item_histories = ItemHistory.all
+    @item_histories = ItemHistory.joins(:item).search_code(params[:search]) if params[:search].present?
     @pagy, @item_histories = pagy(@item_histories.order(id: :ASC), items: per_page)
   end
 
@@ -28,6 +29,8 @@ class ItemHistoriesController < ApplicationController
   def edit; end
 
   def update
+    return redirect_to root_path unless @item_history.status.zero?
+
     respond_to do |format|
       if @item_history.update(item_history_params)
         format.html { redirect_to @item_history, notice: 'Item history was successfully updated.' }
@@ -51,11 +54,11 @@ class ItemHistoriesController < ApplicationController
   end
 
   def item_history_params
-    params.require(:item_history).permit(:item_id, :employee_id, :start_date, :end_date, :description)
+    params.require(:item_history).permit(:item_id, :employee_id, :start_date, :end_date, :description, :status)
   end
 
   def set_items
-    item_ids = ItemHistory.where('end_date >= ? ', Date.current).pluck(:item_id) + ItemHistory.where(end_date: nil).pluck(:item_id)
+    item_ids = Item.where(status: 1).pluck(:id)
     item_ids -= [@item_history.item_id] if @item_history.present?
     @items = Item.where.not(id: item_ids).map { |it| [it.name, it.id] }
   end

@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.date "start_date"
     t.date "end_date"
     t.string "description"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_item_histories_on_employee_id"
@@ -345,6 +346,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.string "description"
     t.string "image"
     t.string "code"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_type_id"], name: "index_items_on_item_type_id"

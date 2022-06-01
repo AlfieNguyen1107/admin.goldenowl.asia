@@ -12,7 +12,7 @@
     min-width: 100px !important;
   }
   .mw-action {
-    min-width: 100px !important;
+    min-width: 110px !important;
   }
 }
 
@@ -60,4 +60,9 @@
       margin-top: 5px;
     }
   }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.8;
 }

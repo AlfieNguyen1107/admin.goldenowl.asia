@@ -7,6 +7,7 @@
 #  description  :string
 #  image        :string
 #  name         :string
+#  status       :integer          default(0)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  item_type_id :bigint           not null
@@ -24,6 +25,7 @@ class Item < ApplicationRecord
   include ResizeImage
 
   belongs_to :item_type
+  has_many :item_histories, dependent: :destroy
   has_many :employees, through: :item_histories
   has_one_attached :image
 

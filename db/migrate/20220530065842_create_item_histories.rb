@@ -6,6 +6,7 @@ class CreateItemHistories < ActiveRecord::Migration[6.0]
       t.date       :start_date
       t.date       :end_date
       t.string     :description
+      t.integer    :status, default: 0
 
       t.timestamps
     end

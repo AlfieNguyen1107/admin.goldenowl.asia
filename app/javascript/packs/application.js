@@ -19,4 +19,4 @@ const imagePath = (name) => images(name, true)
 import '../application';
 
 require("./geocoder")
-require("./item")
+require("./item_history")
