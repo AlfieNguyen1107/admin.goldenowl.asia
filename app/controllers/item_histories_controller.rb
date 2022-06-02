@@ -3,7 +3,7 @@ class ItemHistoriesController < ApplicationController
   before_action :set_form_selections, only: %i[new edit create]
 
   def index
-    @item_histories = ItemHistory.includes(:item).all
+    @item_histories = ItemHistory.includes(:item).includes(:employee)
     @item_histories = @item_histories.where(item_id: params[:item_id]) if params[:item_id].present?
     @pagy, @item_histories = pagy(@item_histories.order(id: :asc), items: per_page)
   end
