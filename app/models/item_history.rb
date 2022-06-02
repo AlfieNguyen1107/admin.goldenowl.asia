@@ -23,27 +23,21 @@
 #  fk_rails_...  (item_id => items.id)
 #
 class ItemHistory < ApplicationRecord
+  enum status: { in_progress: 0, completed: 1 }
+
   belongs_to  :item, optional: true
   belongs_to  :employee, optional: true
 
   delegate :name, :code, :image, to: :item, prefix: :item, allow_nil: true
   delegate :full_name, to: :employee, prefix: :employee, allow_nil: true
-  scope :search_code, ->(code) { where('lower(code) LIKE ?', "%#{code.downcase}%") }
-  after_create_commit :create_status_item
-  after_update_commit :update_status_item
-  after_destroy_commit :destroy_status_item
+
+  after_commit :update_status_item
 
   private
 
-  def create_status_item
-    item.update(status: 1)
-  end
-
   def update_status_item
-    item.update(status: 0) unless status.zero?
-  end
+    return item.update(status: 0) if ItemHistory.where(item_id: item, status: 0).count.zero?
 
-  def destroy_status_item
-    item.update(status: 0) if status.zero?
+    item.update(status: 1)
   end
 end

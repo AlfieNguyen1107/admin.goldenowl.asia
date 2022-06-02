@@ -24,6 +24,8 @@
 class Item < ApplicationRecord
   include ResizeImage
 
+  enum status: { available: 0, unavailable: 1 }
+
   belongs_to :item_type
   has_many :item_histories, dependent: :destroy
   has_many :employees, through: :item_histories

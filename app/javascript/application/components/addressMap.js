@@ -1,13 +1,13 @@
-$( document ).on('turbolinks:load', function () {
+$(document).on('turbolinks:load', function () {
   let mapOptions = {
     zoom: 10,
     center: new google.maps.LatLng(10.820303, 106.597862),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   let map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  map_add_listener(map);
+  mapAddListener(map);
 
-  function map_add_listener(map) {
+  function mapAddListener(map) {
     google.maps.event.addListener(map, 'click', function (event) {
       let marker = new google.maps.Marker({
         position: event.latLng,
@@ -50,7 +50,7 @@ $( document ).on('turbolinks:load', function () {
           handler.getMap().setZoom(12);
         });
         map = map.serviceObject;
-        map_add_listener(map);
+        mapAddListener(map);
         return true;
       },
     });

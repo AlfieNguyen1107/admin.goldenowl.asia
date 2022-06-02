@@ -1,12 +1,11 @@
 class ItemHistoriesController < ApplicationController
   before_action :set_item_history, only: %i[show edit destroy update]
-  before_action :set_items, only: %i[new edit create]
-  before_action :set_employees, only: %i[new edit create]
+  before_action :set_form_selections, only: %i[new edit create]
 
   def index
-    @item_histories = ItemHistory.all
-    @item_histories = ItemHistory.joins(:item).search_code(params[:search]) if params[:search].present?
-    @pagy, @item_histories = pagy(@item_histories.order(id: :ASC), items: per_page)
+    @item_histories = ItemHistory.includes(:item).all
+    @item_histories = @item_histories.where(item_id: params[:item_id]) if params[:item_id].present?
+    @pagy, @item_histories = pagy(@item_histories.order(id: :asc), items: per_page)
   end
 
   def new
@@ -15,12 +14,10 @@ class ItemHistoriesController < ApplicationController
 
   def create
     @item_history = ItemHistory.new(item_history_params)
-    respond_to do |format|
-      if @item_history.save
-        format.html { redirect_to @item_history, notice: 'Item history was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @item_history.save
+      redirect_to @item_history, notice: 'Item history was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -29,22 +26,18 @@ class ItemHistoriesController < ApplicationController
   def edit; end
 
   def update
-    return redirect_to root_path unless @item_history.status.zero?
+    return redirect_to root_path if @item_history.completed?
 
-    respond_to do |format|
-      if @item_history.update(item_history_params)
-        format.html { redirect_to @item_history, notice: 'Item history was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @item_history.update(item_history_params)
+      redirect_to @item_history, notice: 'Item history was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @item_history.destroy
-    respond_to do |format|
-      format.html { redirect_to item_histories_path, notice: 'Item history was successfully destroyed.' }
-    end
+    redirect_to item_histories_path, notice: 'Item history was successfully destroyed.'
   end
 
   private
@@ -54,16 +47,25 @@ class ItemHistoriesController < ApplicationController
   end
 
   def item_history_params
-    params.require(:item_history).permit(:item_id, :employee_id, :start_date, :end_date, :description, :status)
+    check_status
+    params.require(:item_history).permit(
+      :item_id,
+      :employee_id,
+      :start_date,
+      :end_date,
+      :description,
+      :status
+    )
   end
 
-  def set_items
-    return @items = Item.where(status: 0).map { |it| [it.name, it.id] } if @item_history.blank?
-
-    @items = Item.where(status: 0).or(Item.where(id: @item_history.item_id)).map { |it| [it.name, it.id] }
+  def set_form_selections
+    @items = Item.available.or(Item.where(id: @item_history&.item_id)).map { |it| [it.name, it.id] }
+    @employees = Employee.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
   end
 
-  def set_employees
-    @employees = Employee.all.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
+  def check_status
+    return params[:item_history][:status] = 'completed' if params[:item_history][:status] == '1'
+
+    params[:item_history][:status] = 'in_progress'
   end
 end

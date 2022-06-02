@@ -47,7 +47,7 @@ section.section
                           td = image_tag item.image.resize(:thumb), class: 'w-100' if item.image.present?
                           td = item.description.split(' ')[0..10].join(' ')
                           td = item.code
-                          td = item.status.zero? ? 'Available' : 'Unavailable'
+                          td = item.status
                           td = item.item_type_name
                           td.table-action
                               = link_to edit_item_path(item.id), class: "table-link" do
@@ -56,7 +56,7 @@ section.section
                                 i.mdi.mdi-delete
                               = link_to item_path(item.id), class: "table-link" do
                                 i.mdi.mdi-bookmark-box-multiple
-                              = link_to item_histories_path(search: item.code), class: "table-link" do
+                              = link_to item_histories_path(item_id: item.id), class: "table-link" do
                                 i.mdi.mdi-history
 
 section.section

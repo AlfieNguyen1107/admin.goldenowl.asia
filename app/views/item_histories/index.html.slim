@@ -45,11 +45,11 @@ section.section
                         tr
                           td = ih.id
                           td = link_to ih.item_name, item_path(ih.item_id)
-                          td = link_to ih.item_code, item_path(ih.item_id)
+                          td = ih.item_code
                           td = link_to ih.employee_full_name, employee_path(ih.employee_id)
                           td = ih.start_date
                           td = ih.end_date
-                          td = ih.status.zero? ? 'In progress' : 'Completed'
+                          td = ih.status
                           td = ih.description
                           td.table-action
                               = link_to edit_item_history_path(ih.id), class: "table-link" do

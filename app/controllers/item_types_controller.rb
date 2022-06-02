@@ -2,8 +2,7 @@ class ItemTypesController < ApplicationController
   before_action :set_item_type, only: %i[show edit destroy update]
 
   def index
-    @item_types = ItemType.all
-    @pagy, @item_types = pagy(@item_types.order(id: :ASC), items: per_page)
+    @pagy, @item_types = pagy(ItemType.order(id: :asc), items: per_page)
   end
 
   def new
@@ -12,13 +11,10 @@ class ItemTypesController < ApplicationController
 
   def create
     @item_type = ItemType.new(item_type_params)
-
-    respond_to do |format|
-      if @item_type.save
-        format.html { redirect_to @item_type, notice: 'Item type was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @item_type.save
+      redirect_to @item_type, notice: 'Item type was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -27,20 +23,16 @@ class ItemTypesController < ApplicationController
   def edit; end
 
   def update
-    respond_to do |format|
-      if @item_type.update(item_type_params)
-        format.html { redirect_to @item_type, notice: 'Item type was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @item_type.update(item_type_params)
+      redirect_to @item_type, notice: 'Item type was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @item_type.destroy
-    respond_to do |format|
-      format.html { redirect_to item_types_path, notice: 'Item type was successfully destroyed.' }
-    end
+    redirect_to item_types_path, notice: 'Item type was successfully destroyed.'
   end
 
   private

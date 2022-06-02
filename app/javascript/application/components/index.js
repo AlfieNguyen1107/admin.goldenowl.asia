@@ -1,2 +1,3 @@
 import './fileInput';
-import './activestorage'
+import './activestorage';
+import './addressMap'

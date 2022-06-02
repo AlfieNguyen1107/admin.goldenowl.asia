@@ -1,11 +1,9 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit destroy update]
-  before_action :set_item_types, only: %i[new edit create]
-  before_action :set_employees, only: %i[new edit create]
+  before_action :set_form_selections, only: %i[new edit create]
 
   def index
-    @items = Item.all
-    @pagy, @items = pagy(@items.order(id: :ASC), items: per_page)
+    @pagy, @items = pagy(Item.order(id: :asc), items: per_page)
   end
 
   def new
@@ -14,12 +12,10 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @item.save
+      redirect_to @item, notice: 'Item was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -28,20 +24,16 @@ class ItemsController < ApplicationController
   def edit; end
 
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @item.update(item_params)
+      redirect_to @item, notice: 'Item was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @item.destroy
-    respond_to do |format|
-      format.html { redirect_to items_path, notice: 'Item was successfully destroyed.' }
-    end
+    redirect_to items_path, notice: 'Item was successfully destroyed.'
   end
 
   private
@@ -51,14 +43,17 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:name, :description, :image, :code, :item_type_id)
+    params.require(:item).permit(
+      :name,
+      :description,
+      :image,
+      :code,
+      :item_type_id
+    )
   end
 
-  def set_item_types
+  def set_form_selections
     @item_types = ItemType.all.map { |it| [it.name, it.id] }
-  end
-
-  def set_employees
-    @employees = Employee.all.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
+    @employees = Employee.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
   end
 end
