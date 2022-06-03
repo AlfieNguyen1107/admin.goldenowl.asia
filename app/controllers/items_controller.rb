@@ -1,20 +1,18 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy]
   before_action :set_form_selections, only: %i[new create edit]
+  before_action :set_authorize, only: %i[index new create]
 
   def index
     @pagy, @items = pagy(Item.order(id: :asc), items: per_page)
-    authorize @items
   end
 
   def new
     @item = Item.new
-    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
-    authorize @item
 
     if @item.save
       redirect_to @item, notice: 'Item was successfully created.'
@@ -23,17 +21,11 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show
-    authorize @item
-  end
+  def show; end
 
-  def edit
-    authorize @item
-  end
+  def edit; end
 
   def update
-    authorize @item
-
     if @item.update(item_params)
       redirect_to @item, notice: 'Item was successfully updated.'
     else
@@ -42,8 +34,6 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    authorize @item
-
     @item.destroy
     redirect_to items_path, notice: 'Item was successfully destroyed.'
   end
@@ -67,5 +57,9 @@ class ItemsController < ApplicationController
   def set_form_selections
     @item_types = ItemType.all.map { |it| [it.name, it.id] }
     @employees = Employee.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
+  end
+
+  def set_authorize
+    authorize Item
   end
 end

@@ -1,14 +1,9 @@
 .section
   = simple_form_for @client do |f|
     .field.mt-2.mb-3
-      .control
-        = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
-    #search-map.row
-      .field
-        = f.input :address, input_html: { class: 'input', id: 'google-address-input' }, label_html: { class: 'label fw-b' }
-        i[id='show-location' class='btn btn-info'] Show location
-    .row
-      #map[style='width: 100%; height: 400px;']
+      = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.input :address, input_html: { class: 'input', id: 'google-address-input' }, label_html: { class: 'label fw-b' }
     .field.mt-2.mb-3
       = f.input :hq, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
     .field.mt-2.mb-3

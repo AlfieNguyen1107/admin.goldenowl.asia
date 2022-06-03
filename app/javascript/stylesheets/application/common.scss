@@ -22,23 +22,6 @@
   display: inline-block;
 }
 
-#search-map {
-  position: absolute;
-  z-index: 1;
-  width: 30%;
-  float: left;
-  #field-address {
-    cursor: pointer;
-    &:hover {
-      background-color: rgb(188, 227, 255);
-    }
-  }
-  label {
-    color: #000;
-    font-weight: bold;
-  }
-}
-
 .box-image{
   display: flex;
   flex-direction: row;

@@ -37,9 +37,6 @@ Rails.application.routes.draw do
   resources :item_types
   resources :items
   resources :item_histories
-  resource  :geocoders do
-    get 'search-address', as: 'search_address'
-  end
   get 'home', to: 'home#index'
 
   root 'home#index'

@@ -1,4 +1,4 @@
-.section[class="#{ @item_history.in_progress? ? '' : 'disabled'}"]
+.section[class="#{ @item_history.hold? ? '' : 'disabled'}"]
   = simple_form_for @item_history do |f|
     hr/
     .field.mt-2.mb-3
@@ -30,7 +30,7 @@
     - if request.path != new_item_history_path
       .form-check
         = f.input :status, as: :hidden, id: 'item_history_status'
-        = check_box_tag 'status', 'yes', @item_history.completed?, id: 'status_completed', class: 'form-check-input'
-        = f.label 'Completed', class: 'form-check-labe', for: 'flexCheckChecked'
+        = check_box_tag 'status', 'yes', @item_history.release?, id: 'status_release', class: 'form-check-input'
+        = f.label 'Release', class: 'form-check-labe', for: 'flexCheckChecked'
     = f.button :submit, class: 'btn btn-info mb-2 mt-2'
 = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'

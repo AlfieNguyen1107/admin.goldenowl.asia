@@ -23,7 +23,7 @@
 #  fk_rails_...  (item_id => items.id)
 #
 class ItemHistory < ApplicationRecord
-  enum status: { in_progress: 0, completed: 1 }
+  enum status: { hold: 0, release: 1 }
 
   belongs_to  :item, optional: true
   belongs_to  :employee, optional: true

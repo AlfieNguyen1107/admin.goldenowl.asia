@@ -16,11 +16,11 @@ class ItemHistoryPolicy < ApplicationPolicy
   end
 
   def update?
-    @record.in_progress?
+    @record.hold?
   end
 
   def edit?
-    update?
+    true
   end
 
   def destroy?
