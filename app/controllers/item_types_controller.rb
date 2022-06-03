@@ -3,14 +3,17 @@ class ItemTypesController < ApplicationController
 
   def index
     @pagy, @item_types = pagy(ItemType.order(id: :asc), items: per_page)
+    authorize @item_types
   end
 
   def new
     @item_type = ItemType.new
+    authorize @item_type
   end
 
   def create
     @item_type = ItemType.new(item_type_params)
+    authorize @item_type
 
     if @item_type.save
       redirect_to @item_type, notice: 'Item type was successfully created.'
@@ -19,11 +22,17 @@ class ItemTypesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize @item_type
+  end
 
-  def edit; end
+  def edit
+    authorize @item_type
+  end
 
   def update
+    authorize @item_type
+
     if @item_type.update(item_type_params)
       redirect_to @item_type, notice: 'Item type was successfully updated.'
     else
@@ -32,6 +41,8 @@ class ItemTypesController < ApplicationController
   end
 
   def destroy
+    authorize @item_type
+
     @item_type.destroy
     redirect_to item_types_path, notice: 'Item type was successfully destroyed.'
   end

@@ -4,14 +4,17 @@ class ItemsController < ApplicationController
 
   def index
     @pagy, @items = pagy(Item.order(id: :asc), items: per_page)
+    authorize @items
   end
 
   def new
     @item = Item.new
+    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
+    authorize @item
 
     if @item.save
       redirect_to @item, notice: 'Item was successfully created.'
@@ -20,11 +23,17 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize @item
+  end
 
-  def edit; end
+  def edit
+    authorize @item
+  end
 
   def update
+    authorize @item
+
     if @item.update(item_params)
       redirect_to @item, notice: 'Item was successfully updated.'
     else
@@ -33,6 +42,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    authorize @item
+
     @item.destroy
     redirect_to items_path, notice: 'Item was successfully destroyed.'
   end

@@ -15,10 +15,10 @@ $(document).on('turbolinks:load', function () {
       });
       let position = [event.latLng.lat(), event.latLng.lng()];
       $.ajax({
-        url: '/geocoders/display-name-address',
+        url: '/geocoders/search-address',
         type: 'GET',
         dataType: 'json',
-        data: { position: position },
+        data: { address: position },
         success: function (data) {
           $('#google-address-input').val(data[0].data.display_name);
           return true;
@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '#show-location', function () {
     let address = $('#google-address-input').val()
     $.ajax({
-      url: '/geocoders/show-location-address',
+      url: '/geocoders/search-address',
       type: 'GET',
       dataType: 'json',
       data: { address: address },

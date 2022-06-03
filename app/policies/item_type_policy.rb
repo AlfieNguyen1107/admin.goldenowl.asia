@@ -1,4 +1,4 @@
-class ItemHistoryPolicy < ApplicationPolicy
+class ItemTypePolicy < ApplicationPolicy
   def index?
     true
   end
@@ -16,7 +16,7 @@ class ItemHistoryPolicy < ApplicationPolicy
   end
 
   def update?
-    @record.in_progress?
+    true
   end
 
   def edit?

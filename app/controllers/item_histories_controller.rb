@@ -5,15 +5,19 @@ class ItemHistoriesController < ApplicationController
   def index
     @item_histories = ItemHistory.includes(:item, :employee).order(id: :asc)
     @item_histories = @item_histories.where(item_id: params[:item_id]) if params[:item_id].present?
+    authorize @item_histories
+
     @pagy, @item_histories = pagy(@item_histories, items: per_page)
   end
 
   def new
     @item_history = ItemHistory.new
+    authorize @item_history
   end
 
   def create
     @item_history = ItemHistory.new(item_history_params)
+    authorize @item_history
 
     if @item_history.save
       redirect_to @item_history, notice: 'Item history was successfully created.'
@@ -22,9 +26,13 @@ class ItemHistoriesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize @item_history
+  end
 
-  def edit; end
+  def edit
+    authorize @item_history
+  end
 
   def update
     authorize @item_history
@@ -37,6 +45,8 @@ class ItemHistoriesController < ApplicationController
   end
 
   def destroy
+    authorize @item_history
+
     @item_history.destroy
     redirect_to item_histories_path, notice: 'Item history was successfully destroyed.'
   end
