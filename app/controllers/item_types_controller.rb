@@ -1,5 +1,5 @@
 class ItemTypesController < ApplicationController
-  before_action :set_item_type, only: %i[show edit update destroy ]
+  before_action :set_item_type, only: %i[show edit update destroy]
 
   def index
     @pagy, @item_types = pagy(ItemType.order(id: :asc), items: per_page)
