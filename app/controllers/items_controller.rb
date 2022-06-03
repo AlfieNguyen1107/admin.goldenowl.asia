@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[show edit destroy update]
-  before_action :set_form_selections, only: %i[new edit create]
+  before_action :set_item, only: %i[show edit update destroy]
+  before_action :set_form_selections, only: %i[new create edit]
 
   def index
     @pagy, @items = pagy(Item.order(id: :asc), items: per_page)
@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+
     if @item.save
       redirect_to @item, notice: 'Item was successfully created.'
     else

@@ -480,6 +480,8 @@ GEM
     public_suffix (4.0.7)
     puma (4.3.8)
       nio4r (~> 2.0)
+    pundit (2.2.0)
+      activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-protection (2.2.0)
@@ -730,6 +732,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry-rails
   puma (~> 4.1)
+  pundit
   rails (~> 6.0.2, >= 6.0.2.2)
   rails-controller-testing
   rails_12factor
@@ -761,4 +764,4 @@ RUBY VERSION
    ruby 2.6.8p146
 
 BUNDLED WITH
-   2.3.12
+   2.3.14

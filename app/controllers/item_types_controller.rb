@@ -1,5 +1,5 @@
 class ItemTypesController < ApplicationController
-  before_action :set_item_type, only: %i[show edit destroy update]
+  before_action :set_item_type, only: %i[show edit update destroy ]
 
   def index
     @pagy, @item_types = pagy(ItemType.order(id: :asc), items: per_page)
@@ -11,6 +11,7 @@ class ItemTypesController < ApplicationController
 
   def create
     @item_type = ItemType.new(item_type_params)
+
     if @item_type.save
       redirect_to @item_type, notice: 'Item type was successfully created.'
     else

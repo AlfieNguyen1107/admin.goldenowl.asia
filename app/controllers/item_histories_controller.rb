@@ -1,11 +1,11 @@
 class ItemHistoriesController < ApplicationController
-  before_action :set_item_history, only: %i[show edit destroy update]
-  before_action :set_form_selections, only: %i[new edit create]
+  before_action :set_item_history, only: %i[show edit update destroy]
+  before_action :set_form_selections, only: %i[new create edit]
 
   def index
-    @item_histories = ItemHistory.includes(:item).includes(:employee)
+    @item_histories = ItemHistory.includes(:item, :employee).order(id: :asc)
     @item_histories = @item_histories.where(item_id: params[:item_id]) if params[:item_id].present?
-    @pagy, @item_histories = pagy(@item_histories.order(id: :asc), items: per_page)
+    @pagy, @item_histories = pagy(@item_histories, items: per_page)
   end
 
   def new
@@ -14,6 +14,7 @@ class ItemHistoriesController < ApplicationController
 
   def create
     @item_history = ItemHistory.new(item_history_params)
+
     if @item_history.save
       redirect_to @item_history, notice: 'Item history was successfully created.'
     else
@@ -26,7 +27,7 @@ class ItemHistoriesController < ApplicationController
   def edit; end
 
   def update
-    return redirect_to root_path if @item_history.completed?
+    authorize @item_history
 
     if @item_history.update(item_history_params)
       redirect_to @item_history, notice: 'Item history was successfully updated.'
@@ -47,7 +48,6 @@ class ItemHistoriesController < ApplicationController
   end
 
   def item_history_params
-    check_status
     params.require(:item_history).permit(
       :item_id,
       :employee_id,
@@ -61,11 +61,5 @@ class ItemHistoriesController < ApplicationController
   def set_form_selections
     @items = Item.available.or(Item.where(id: @item_history&.item_id)).map { |it| [it.name, it.id] }
     @employees = Employee.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
-  end
-
-  def check_status
-    return params[:item_history][:status] = 'completed' if params[:item_history][:status] == '1'
-
-    params[:item_history][:status] = 'in_progress'
   end
 end

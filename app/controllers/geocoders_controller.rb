@@ -1,11 +1,11 @@
 class GeocodersController < ApplicationController
-  def show_address
+  def display_name_address
     @address = Geocoder.search(params[:position])
-    render json: { html: @address }
+    render json: @address
   end
 
-  def handler_address
+  def show_location_address
     @address = Geocoder.search(params[:address])
-    render json: { html: @address }
+    render json: @address
   end
 end

@@ -15,12 +15,12 @@ $(document).on('turbolinks:load', function () {
       });
       let position = [event.latLng.lat(), event.latLng.lng()];
       $.ajax({
-        url: '/geocoders/show-address',
+        url: '/geocoders/display-name-address',
         type: 'GET',
         dataType: 'json',
         data: { position: position },
         success: function (data) {
-          $('#google-address-input').val(data.html[0].data.display_name);
+          $('#google-address-input').val(data[0].data.display_name);
           return true;
         },
       });
@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '#show-location', function () {
     let address = $('#google-address-input').val()
     $.ajax({
-      url: '/geocoders/handler-address',
+      url: '/geocoders/show-location-address',
       type: 'GET',
       dataType: 'json',
       data: { address: address },
@@ -41,8 +41,8 @@ $(document).on('turbolinks:load', function () {
           internal: { id: 'map' }
         }, function () {
           markers = handler.addMarkers([{
-            "lat": data.html[0].data.lat,
-            "lng": data.html[0].data.lon,
+            "lat": data[0].data.lat,
+            "lng": data[0].data.lon,
             "infowindow": "Your Address"
           }]);
           handler.bounds.extendWith(markers);

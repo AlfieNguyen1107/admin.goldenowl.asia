@@ -1,11 +1,23 @@
 document.addEventListener('turbolinks:load', () => {
-  $(document).on('click', '#status_completed', function () {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
+  $('#status_completed').on('click', (event) => {
+    let d = new Date();
+    let month = (d.getMonth() + 1).toString();
+    let day = d.getDate().toString();
+    let year = d.getFullYear();
 
-    today = yyyy + '-' + mm + '-' + dd;
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    today = [year, month, day].join('-');
     $('#item_history_end_date').val(today);
-  });
+    if(event.target.checked) {
+      $('#item_history_status').val('completed')
+    } else {
+      $('#item_history_status').val('in_progress')
+    }
+  })
 });

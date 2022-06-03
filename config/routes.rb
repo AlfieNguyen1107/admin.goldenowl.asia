@@ -38,8 +38,8 @@ Rails.application.routes.draw do
   resources :items
   resources :item_histories
   resource  :geocoders do
-    get 'show-address', as: 'show_address'
-    get 'handler-address', as: 'handler_address'
+    get 'display-name-address', as: 'display_name_address'
+    get 'show-location-address', as: 'show_location_address'
   end
   get 'home', to: 'home#index'
 
