@@ -1,14 +1,12 @@
-const dayjs = require('dayjs');
+import dayjs from 'dayjs'
 
 document.addEventListener('turbolinks:load', () => {
-  $('#status_release').on('click', (event) => {
-    let d = new Date();
-    today = dayjs(d).format('YYYY-MM-DD')
-    $('#item_history_end_date').val(today);
-    if(event.target.checked) {
-      $('#item_history_status').val('release')
-    } else {
-      $('#item_history_status').val('hold')
-    }
+  const $statusReleaseCheckBox = $('#status_release');
+  const $itemHistoryEndDateInput = $('#item_history_end_date');
+  const $itemHistoryStatusInput = $('#item_history_status')
+
+  $statusReleaseCheckBox.on('change', (event) => {
+    $itemHistoryEndDateInput.val( dayjs().format('YYYY-MM-DD'));
+    $itemHistoryStatusInput.val(event.target.checked ? 'release' : 'hold');
   })
 });

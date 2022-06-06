@@ -1,19 +1,16 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy]
+  before_action :set_new_item, only: %i[new create]
+  before_action :set_item_collection, only: %i[index]
   before_action :set_form_selections, only: %i[new create edit]
-  before_action :set_authorize, only: %i[index new create]
 
   def index
-    @pagy, @items = pagy(Item.order(id: :asc), items: per_page)
+    @pagy, @items = pagy(@items, items: per_page)
   end
 
-  def new
-    @item = Item.new
-  end
+  def new; end
 
   def create
-    @item = Item.new(item_params)
-
     if @item.save
       redirect_to @item, notice: 'Item was successfully created.'
     else
@@ -42,6 +39,17 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+    authorize(@item)
+  end
+
+  def set_new_item
+    @item = Item.new((request.post? && item_params) || nil)
+    authorize(@item)
+  end
+
+  def set_item_collection
+    @items = Item.order(id: :asc)
+    authorize(@items)
   end
 
   def item_params
@@ -57,9 +65,5 @@ class ItemsController < ApplicationController
   def set_form_selections
     @item_types = ItemType.all.map { |it| [it.name, it.id] }
     @employees = Employee.order(full_name: :asc).map { |emp| [emp.full_name, emp.id] }
-  end
-
-  def set_authorize
-    authorize Item
   end
 end

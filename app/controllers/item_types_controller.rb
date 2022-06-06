@@ -1,18 +1,15 @@
 class ItemTypesController < ApplicationController
   before_action :set_item_type, only: %i[show edit update destroy]
-  before_action :set_authorize, only: %i[index new create]
+  before_action :set_new_item_type, only: %i[new create]
+  before_action :set_item_type_collection, only: %i[index]
 
   def index
-    @pagy, @item_types = pagy(ItemType.order(id: :asc), items: per_page)
+    @pagy, @item_types = pagy(@item_types, items: per_page)
   end
 
-  def new
-    @item_type = ItemType.new
-  end
+  def new; end
 
   def create
-    @item_type = ItemType.new(item_type_params)
-
     if @item_type.save
       redirect_to @item_type, notice: 'Item type was successfully created.'
     else
@@ -41,14 +38,20 @@ class ItemTypesController < ApplicationController
 
   def set_item_type
     @item_type = ItemType.find(params[:id])
-    authorize @item_types
+    authorize(@item_type)
+  end
+
+  def set_new_item_type
+    @item_type = ItemType.new((request.post? && item_type_params) || nil)
+    authorize(@item_type)
+  end
+
+  def set_item_type_collection
+    @item_types = ItemType.order(id: :asc)
+    authorize(@item_types)
   end
 
   def item_type_params
     params.require(:item_type).permit(:name)
-  end
-
-  def set_authorize
-    authorize ItemType
   end
 end
