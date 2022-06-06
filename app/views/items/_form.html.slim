@@ -1,0 +1,21 @@
+.section
+  = simple_form_for @item do |f|
+    hr/
+    .field.mt-2.mb-3
+      = f.input :name, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      = f.label :item_type_id
+      = f.select :item_type_id, options_for_select(@item_types, @item.item_type_id), { }, { class: 'form-select form-select-sm me-1' }
+    .field.mt-2.mb-3
+      = f.input :image, required: true, direct_upload: true, as: :file
+      - if @item.image.present?
+        = image_tag @item.image.resize(:thumb), class: "mt-1"
+    .field.mt-2.mb-3
+      .control
+        = f.input :description, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-3
+      .control
+        = f.input :code, input_html: { class: 'input' }, wrapper: false, label_html: { class: 'label' }
+    .field.mt-2.mb-2
+    = f.button :submit, class: "btn btn-info mb-2"
+    = link_to  "Back", :back, class:"btn btn-secondary mb-2 ml-4"

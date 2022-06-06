@@ -57,6 +57,22 @@
           i.dripicons-briefcase
           span Project Coordinators
       li.side-nav-item
+        - inventory_paths = %w[items item_types item_histories]
+        - is_in_inventory = inventory_paths.include?(controller_name)
+        a.side-nav-link[class="#{is_in_inventory ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarInventories" aria-expanded="false" aria-controls="sidebarInventories"]
+          i.uil-bright
+          span
+            | Inventories
+          span.menu-arrow
+        #sidebarInventories.collapse[class="#{is_in_inventory ? 'show' : ''}"]
+          ul.side-nav-second-level
+            li
+              = link_to "Item Types",item_types_path, class: "#{active_items('item_types')}"
+            li
+              = link_to "Items", items_path, class: "#{active_items('items')}"
+            li
+              = link_to "Item Histories", item_histories_path, class: "#{active_items('item_hitories')}"
+      li.side-nav-item
         - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills skill_category_groups]
         - is_in_setting = setting_paths.include?(controller_name)
         - side_nav_class, sidebar_layouts_class = is_in_setting ? ['', 'show'] : ['collapsed', '']

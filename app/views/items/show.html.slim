@@ -1,0 +1,35 @@
+- content_for :page_title, @item.name
+section.section
+  .container.mb-4
+    hr/
+    | Name:
+    h4.title
+      = @item.name
+    hr/
+    | Type:
+    h4.title
+      = @item.item_type_name
+    - if @item.image.present?
+      hr
+      | Image
+      h4.title
+        = image_tag @item.image.resize(:thumb)
+    hr/
+    | Description:
+    h4.title
+      = @item.description
+    hr/
+    | Code:
+    h4.title
+      = @item.code
+  nav.level
+    .level-left.mt-2
+      p.level-item
+        strong Actions
+    .level-right.d-flex
+      .level-item
+        = link_to "Edit", edit_item_path(@item), class:"button btn btn-primary btn-sm"
+      .level-item.ms-1
+        = link_to "Delete", item_path(@item), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+      .level-item.ms-1
+        = link_to  "Back", items_path(page: @page), class:"button btn btn-dark btn-sm"

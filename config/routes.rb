@@ -36,9 +36,11 @@ Rails.application.routes.draw do
   resources :skills
   resources :skill_category_groups
   resources :employees
-  post 'show-address', to: 'employees#show_address'
-  post 'search-address', to: 'employees#search_address'
-  post 'handler-address', to: 'employees#handler_address'
+  resources :item_types
+  resources :items
+  resources :item_histories
+  get 'home', to: 'home#index'
+
   root 'home#index'
   namespace :api do
     namespace :v1 do

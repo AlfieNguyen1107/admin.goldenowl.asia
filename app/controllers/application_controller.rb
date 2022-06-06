@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  include Pundit
   layout :layout_by_resource
 
   DEFAULT_PER_PAGE = 6
