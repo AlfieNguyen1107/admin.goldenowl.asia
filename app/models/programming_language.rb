@@ -16,5 +16,8 @@
 #
 class ProgrammingLanguage < ApplicationRecord
   scope :filter_name_programming_languages, ->(name) { where(name: name) }
+  scope :programming_language_except, ->(id) { where.not(id: id) }
+  scope :set_name_programming_language, ->(id) { find(id).name }
+
   has_many :developers, through: :developer_programming_languages
 end

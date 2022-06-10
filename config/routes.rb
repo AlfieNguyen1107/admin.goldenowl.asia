@@ -13,6 +13,16 @@ Rails.application.routes.draw do
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
   end
+
+  namespace :update_session do
+    post 'update_session_project/:id', to: 'developer_updates#update_session_project'
+    post 'update_session_programming_language/:id', to: 'developer_updates#update_session_programming_language'
+    post 'update_session_framework/:id', to: 'developer_updates#update_session_framework'
+    post 'update_session_tool/:id', to: 'developer_updates#update_session_tool'
+    post 'update_session_skill/:id', to: 'developer_updates#update_session_skill'
+    post 'update_session_education/:id', to: 'developer_updates#update_session_education'
+  end
+
   resources :interns do
     member do
       put 'update_type/:id', to: 'interns#update_type', as: 'update_type'

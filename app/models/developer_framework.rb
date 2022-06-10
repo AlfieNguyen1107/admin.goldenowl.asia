@@ -23,6 +23,9 @@
 #  fk_rails_...  (framework_id => frameworks.id)
 #
 class DeveloperFramework < ApplicationRecord
-  belongs_to :developer, dependent: :destroy
-  belongs_to :framework, dependent: :destroy
+  belongs_to :developer
+  belongs_to :framework
+
+  scope :set_level, ->(developer_id, framework_id) { where(developer_id: developer_id, framework_id: framework_id).first.level}
+  enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

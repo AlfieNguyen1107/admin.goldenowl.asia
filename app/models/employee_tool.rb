@@ -23,4 +23,8 @@
 class EmployeeTool < ApplicationRecord
   belongs_to :employee
   belongs_to :tool
+
+  scope :set_level, ->(employee_id, tool_id ) { where(employee_id: employee_id, tool_id: tool_id).first.level }
+
+  enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

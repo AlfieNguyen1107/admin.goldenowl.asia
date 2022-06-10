@@ -1,0 +1,11 @@
+.developer-framework.my-2 
+  - if f.object.id.present?
+    span.badge.bg-primary.fs-4
+      = f.object.framework.name
+      |-
+      = f.object.level
+  -else
+    = f.select :framework_id, options_for_select(@frameworks), { prompt: 'Select Framework'}, class: 'btn btn-light dropdown-toggle'
+    = f.select :level, options_for_select(@levels), { prompt: 'Select level'}, class: 'btn btn-light dropdown-toggle mx-3'
+  = f.hidden_field :_destroy
+  = link_to_remove_fields "<i class='mdi mdi-window-close'></i>".html_safe,'.developer-framework', class: 'tn btn-outline-danger rounded-pill mx-2'

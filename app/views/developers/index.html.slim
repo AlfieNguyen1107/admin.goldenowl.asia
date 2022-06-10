@@ -56,7 +56,7 @@ section.section
                       - @developers.each do |d|
                           tr
                             td = d.id
-                            td = link_to d.full_name, d
+                            td = link_to d.full_name, developer_path(d.id), method: :get
                             td = d.position.name
                             td = link_to d.university&.code, d
                             td = d.belong_team

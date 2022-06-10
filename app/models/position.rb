@@ -17,4 +17,5 @@ class Position < ApplicationRecord
   has_ancestry
   has_many :employees, dependent: :destroy
   scope :filter_name_position, ->(name) { where(name: name) }
+  scope :name_position, ->(id) { where(id: id)}
 end

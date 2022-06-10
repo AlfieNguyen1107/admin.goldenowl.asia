@@ -1,3 +1,5 @@
+h4.page-title
+  | Developer detail
 section.section
   .container.mb-4
     .row
@@ -5,77 +7,32 @@ section.section
         | Full name:
         h4.title
           = @developer.full_name
+        hr/
         | Company name:
         h4.title
           = @developer.company_name
-        | Level:
+        hr/
+        | Senority:
         h4.title
           = @developer.senority
-        | Project:
-        h4.title
-          - @developer.projects.each do |p|
-            = p.name
-            br
-        | Programming language:
-        h4.title
-          - @developer.developer_programming_languages.each do |t|
-            span.badge.rounded-pill.bg-primary = t.programming_language.name
-            = " - "
-            = t.level
-            br
-        
-        | Frameworks:
-        h4.title
-          - @developer.developer_frameworks.each do |t|
-            span.badge.rounded-pill.bg-secondary = t.framework.name
-            = " - "
-            = t.level
-            br
-        | Tools:
-        h4.title
-          - @developer.employee_tools.each do |t|
-            span.badge.rounded-pill.bg-info = t.tool.name
-            = " - "
-            = t.level
-            br
-        | Skills:
-        h4.title
-          - @developer.skills.each do |s|
-            span.badge.rounded-pill.bg-danger = s.name
-      .col-xl-5.col-lg-6
-        | Education:
-        h4.title
-        - @developer.education_histories.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.university.name
-              br
-              = eh.subject
-              br
-              = eh.details
-            .col-4
-              = eh.from
-              | - 
-              = eh.to
-          br
         hr
-        | Projects:
-        h4.title
-        - @developer.employment_histories.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.company&.name
-              br
-              = eh.profession
-              br
-              = eh.details
-            .col-4
-              = eh.from
-              | - 
-              = eh.to
+        = simple_form_for(@employee, url: "/update_session/update_session_skill/#{@employee.id}", method: :post) do |f|
+            | Skill:
+            br
+            = f.simple_fields_for :employee_skills do |ff|
+              = render partial: 'employees/employee_skill_fields', locals: {f:ff}
+            = link_to_add_fields "Add", f, :employee_skills, class: 'btn btn-success my-2'
+            br
+            = f.submit 'Upadate Skill', class: 'btn btn-secondary my-2'
+        hr
+        = simple_form_for(@employee, url: "/update_session/update_session_education/#{@employee.id}", method: :post) do |f|
+          | Education:
           br
+          = f.simple_fields_for :education_histories do |ff|
+            = render partial: 'employees/education_history_fields', locals: {f:ff}
+          = link_to_add_fields "Add", f, :education_histories, class: 'btn btn-success my-2'
+          br
+          = f.submit 'Upadate Education', class: 'btn btn-secondary my-2'
         hr
         | Employments:
         h4.title
@@ -104,14 +61,49 @@ section.section
               br
               | Score: 
               = eh.score
-            .col-4
+            .col-4  
               = eh.year
           br
         hr
         = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do 
           i.uil-cog.me-1
           | Reset intern 
-          
+      .col-xl-5.col-lg-6
+        = simple_form_for(@developer, url: "/update_session/update_session_project/#{@developer.id}", method: :post) do |f|
+          | Project:
+          br
+          = f.simple_fields_for :developer_projects, @developer_projects do |ff|
+            = render partial: 'developer_project_fields', locals: { f: ff, projects: @projects }
+          = link_to_add_fields "Add", f, :developer_projects, class: 'btn btn-success btn-sm my-2'
+          br
+          = f.submit 'Update Project', class: 'btn btn-secondary my-2'
+        hr
+        = simple_form_for(@developer, url: "/update_session/update_session_programming_language/#{@developer.id}", method: :post) do |f|
+          | Programming language:
+          br
+          = f.simple_fields_for :developer_programming_languages do |ff|
+            = render partial: 'developer_programming_language_fields', locals: { f:ff }
+          = link_to_add_fields 'Add', f, :developer_programming_languages, class: 'btn btn-success btn-sm my-2'
+          br
+          = f.submit 'Upadate Programming Language', class: 'btn btn-secondary my-2'
+        hr
+        = simple_form_for(@developer, url: "/update_session/update_session_framework/#{@developer.id}", method: :post) do |f|    
+          | Frameworks:
+          br
+          = f.simple_fields_for :developer_frameworks do |ff|
+            = render partial: 'developer_framework_fields', locals: { f:ff} 
+          = link_to_add_fields 'Add', f, :developer_frameworks, class: 'btn btn-success btn-sm my-2'
+          br
+          = f.submit 'Update Freamwork', class: 'btn btn-secondary my-2'
+        hr
+        = simple_form_for(@employee, url: "/update_session/update_session_tool/#{@employee.id}", method: :post) do |f|
+          | Tools:
+          br
+          = f.simple_fields_for :employee_tools do |ff|
+            = render partial: 'employees/employee_tool_fields', locals: {f:ff}
+          = link_to_add_fields "Add", f, :employee_tools, class: 'btn btn-success my-2'
+          br
+          = f.submit 'Upadate Tool', class: 'btn btn-secondary my-2'
     .row 
       .col-12
         nav.level
@@ -125,6 +117,6 @@ section.section
               = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
             p.level-item.ms-1
               = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
-          
+    p.level-item.ms-1 
 
           

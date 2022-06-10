@@ -1,0 +1,9 @@
+.developer-project-fields
+  - if f.object.id.present?
+    span.badge.bg-primary.fs-4.my-1
+      = f.object.project.name
+  - else
+    .dropdown.btn-group
+      = f.select :project_id,  options_for_select(@projects), { prompt: 'Select  project' }, class: 'btn btn-outline-secondary dropdown-toggle'
+  = f.hidden_field :_destroy
+  = link_to_remove_fields "<i class='mdi mdi-window-close'></i>".html_safe, '.developer-project-fields', class: 'tn btn-outline-danger rounded-pill mx-2'

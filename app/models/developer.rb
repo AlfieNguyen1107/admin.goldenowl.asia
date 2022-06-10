@@ -46,7 +46,11 @@ class Developer < ApplicationRecord
   has_many :interns, foreign_key: 'mentor_id', dependent: :nullify, inverse_of: :mentor
   has_many :assignments, foreign_key: 'assigned_to_id', dependent: :destroy, inverse_of: :assigned_to
   has_many :project_histories, dependent: :destroy
-  accepts_nested_attributes_for :developer_projects, allow_destroy: true
+
+  accepts_nested_attributes_for :developer_projects,
+                                :developer_programming_languages,
+                                :developer_frameworks,
+                                allow_destroy: true
 
   # validates :full_name, presence: true, uniqueness: true
   # validates :company_name, presence: true, uniqueness: true

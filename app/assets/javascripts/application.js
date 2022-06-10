@@ -1,4 +1,5 @@
 //= require jquery
+//= require link_to_add_fields
 //= require popper
 //= require bootstrap
 //= require summernote/summernote-bs4.min

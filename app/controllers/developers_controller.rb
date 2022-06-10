@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class DevelopersController < ApplicationController
-  before_action :set_developer, only: %i[show edit update destroy detail reset_type]
   before_action :set_project_options, only: %i[new edit]
-  before_action :filter_params, only: %i[index]
   before_action :set_data_association, only: %i[new edit create]
   before_action :set_date_year, only: %i[new edit create]
+  before_action :set_developer, only: %i[edit destroy show]
+  before_action :set_select_object, only: %i[show]
 
   def index
     @senority = Developer.pluck(:senority)
@@ -15,7 +15,8 @@ class DevelopersController < ApplicationController
   end
 
   def show
-    @pagy, @developers = pagy(Developer, items: per_page)
+    @levels = DeveloperProgrammingLanguage.levels.map { |p| [p[0], p[0]] }
+    @employee = @developer.employable
   end
 
   def new
@@ -66,6 +67,15 @@ class DevelopersController < ApplicationController
     end
   end
 
+  def set_select_object
+    @projects = Project.pluck(:name, :id)
+    @programming_languages = ProgrammingLanguage.pluck(:name, :id)
+    @frameworks = Framework.pluck(:name, :id)
+    @tools = Tool.pluck(:name, :id)
+    @skills = Skill.pluck(:name, :id)
+    @universities = University.pluck(:name, :id)
+  end
+
   private
 
   def set_developer
@@ -76,14 +86,8 @@ class DevelopersController < ApplicationController
     @project_options = Project.pluck(:name, :id)
   end
 
-  def filter_params
-    return unless params[:filter]
-
-    @cur_day = params[:day]
-  end
-
   def developer_params
-    params.require(:developer).permit(:employable_id, :senority, :belong_team, :type, :university_id,
+    params.require(:developer).permit(:employable_id, :senority, :company_name, :belong_team, :type, :university_id,
                                       :graduation_year, :position_id).merge(employable_type: 'Employee')
   end
 
