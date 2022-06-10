@@ -74,6 +74,8 @@ class DevelopersController < ApplicationController
     @tools = Tool.pluck(:name, :id)
     @skills = Skill.pluck(:name, :id)
     @universities = University.pluck(:name, :id)
+    @companies = Company.pluck(:name, :id)
+    @certificates = Certificate.pluck(:name, :id)
   end
 
   private

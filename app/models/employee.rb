@@ -70,6 +70,8 @@ class Employee < ApplicationRecord
   accepts_nested_attributes_for :employee_tools,
                                 :employee_skills,
                                 :education_histories,
+                                :employment_histories,
+                                :certificate_employees,
                                 allow_destroy: true
 
   resize_image_config(

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     post 'update_session_tool/:id', to: 'developer_updates#update_session_tool'
     post 'update_session_skill/:id', to: 'developer_updates#update_session_skill'
     post 'update_session_education/:id', to: 'developer_updates#update_session_education'
+    post 'update_session_employment/:id', to: 'developer_updates#update_session_employment'
+    post 'update_session_certificate/:id', to: 'developer_updates#update_session_certificate'
   end
 
   resources :interns do
