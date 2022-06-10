@@ -10,10 +10,10 @@
           .col-8
             h5.card-text.my-1 Certificate:
             = f.object.certificate&.name
-            h5.card-text.my-1 Year: 
+            h5.card-text.my-1 Year:
             = f.object.year
           .col-4
-            h5.card-text.my-1 Score: 
+            h5.card-text.my-1 Score:
             = f.object.score
   - else
     br
@@ -28,6 +28,3 @@
         = f.text_field :year, class: "form-control", placeholder: "Year"
         p.card-text.my-1 Score:
         = f.text_field :score, placeholder: "Score"
-       
-
-  

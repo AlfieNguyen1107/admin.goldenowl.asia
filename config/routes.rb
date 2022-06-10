@@ -15,14 +15,8 @@ Rails.application.routes.draw do
   end
 
   namespace :update_session do
-    post 'update_session_project/:id', to: 'developer_updates#update_session_project'
-    post 'update_session_programming_language/:id', to: 'developer_updates#update_session_programming_language'
-    post 'update_session_framework/:id', to: 'developer_updates#update_session_framework'
-    post 'update_session_tool/:id', to: 'developer_updates#update_session_tool'
-    post 'update_session_skill/:id', to: 'developer_updates#update_session_skill'
-    post 'update_session_education/:id', to: 'developer_updates#update_session_education'
-    post 'update_session_employment/:id', to: 'developer_updates#update_session_employment'
-    post 'update_session_certificate/:id', to: 'developer_updates#update_session_certificate'
+    post 'update_session_with_developer/:id', to: 'developer_updates#update_session_with_developer'
+    post 'update_session_with_employee/:id', to: 'developer_updates#update_session_with_employee'
   end
 
   resources :interns do

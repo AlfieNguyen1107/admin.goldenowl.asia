@@ -17,7 +17,7 @@ section.section
           = @developer.senority
         hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_education/#{@employee.id}", method: :post) do |f|
+        = simple_form_for(@employee, url: "/update_session/update_session_with_employee/#{@employee.id}", method: :post) do |f|
           | Education:
           br
           = f.simple_fields_for :education_histories do |ff|
@@ -25,9 +25,8 @@ section.section
           = link_to_add_fields "Add", f, :education_histories, class: 'btn btn-success my-2'
           br
           = f.submit 'Upadate Education', class: 'btn btn-secondary my-2'
-        hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_employment/#{@employee.id}", method: :post) do |f|
+          hr
           | Employments:
           br
           = f.simple_fields_for :employment_histories do |ff|
@@ -35,9 +34,8 @@ section.section
           = link_to_add_fields "Add", f, :employment_histories, class: 'btn btn-success my-2'
           br
           = f.submit 'Upadate Employment', class: 'btn btn-secondary my-2'
-        hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_certificate/#{@employee.id}", method: :post) do |f|
+          hr
           | Certificates:
           br
           = f.simple_fields_for :certificate_employees do |ff|
@@ -47,12 +45,12 @@ section.section
           = f.submit 'Upadate Certificate', class: 'btn btn-secondary my-2'
         hr
 
-        = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do 
+        = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
           i.uil-cog.me-1
-          | Reset intern 
+          | Reset intern
 
       .col-xl-5.col-lg-6
-        = simple_form_for(@developer, url: "/update_session/update_session_project/#{@developer.id}", method: :post) do |f|
+        = simple_form_for(@developer, url: "/update_session/update_session_with_developer/#{@developer.id}", method: :post) do |f|
           | Project:
           br
           = f.simple_fields_for :developer_projects, @developer_projects do |ff|
@@ -60,9 +58,8 @@ section.section
           = link_to_add_fields "Add", f, :developer_projects, class: 'btn btn-success btn-sm my-2'
           br
           = f.submit 'Update Project', class: 'btn btn-secondary my-2'
-        hr
 
-        = simple_form_for(@developer, url: "/update_session/update_session_programming_language/#{@developer.id}", method: :post) do |f|
+          hr
           | Programming language:
           br
           = f.simple_fields_for :developer_programming_languages do |ff|
@@ -70,19 +67,18 @@ section.section
           = link_to_add_fields 'Add', f, :developer_programming_languages, class: 'btn btn-success btn-sm my-2'
           br
           = f.submit 'Upadate Programming Language', class: 'btn btn-secondary my-2'
-        hr
 
-        = simple_form_for(@developer, url: "/update_session/update_session_framework/#{@developer.id}", method: :post) do |f|    
+          hr
           | Frameworks:
           br
           = f.simple_fields_for :developer_frameworks do |ff|
-            = render partial: 'developer_framework_fields', locals: { f:ff} 
+            = render partial: 'developer_framework_fields', locals: { f:ff}
           = link_to_add_fields 'Add', f, :developer_frameworks, class: 'btn btn-success btn-sm my-2'
           br
           = f.submit 'Update Freamwork', class: 'btn btn-secondary my-2'
         hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_tool/#{@employee.id}", method: :post) do |f|
+        = simple_form_for(@employee, url: "/update_session/update_session_with_employee/#{@employee.id}", method: :post) do |f|
           | Tools:
           br
           = f.simple_fields_for :employee_tools do |ff|
@@ -90,17 +86,16 @@ section.section
           = link_to_add_fields "Add", f, :employee_tools, class: 'btn btn-success my-2'
           br
           = f.submit 'Upadate Tool', class: 'btn btn-secondary my-2'
-        hr
-        
-        = simple_form_for(@employee, url: "/update_session/update_session_skill/#{@employee.id}", method: :post) do |f|
-            | Skill:
-            br
-            = f.simple_fields_for :employee_skills do |ff|
-              = render partial: 'employees/employee_skill_fields', locals: {f:ff}
-            = link_to_add_fields "Add", f, :employee_skills, class: 'btn btn-success my-2'
-            br
-            = f.submit 'Upadate Skill', class: 'btn btn-secondary my-2'
-    .row 
+
+          hr
+          | Skill:
+          br
+          = f.simple_fields_for :employee_skills do |ff|
+            = render partial: 'employees/employee_skill_fields', locals: {f:ff}
+          = link_to_add_fields "Add", f, :employee_skills, class: 'btn btn-success my-2'
+          br
+          = f.submit 'Upadate Skill', class: 'btn btn-secondary my-2'
+    .row
       .col-12
         nav.level
           .level-left.mt-2
@@ -113,6 +108,4 @@ section.section
               = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
             p.level-item.ms-1
               = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
-    p.level-item.ms-1 
-
-          
+    p.level-item.ms-1

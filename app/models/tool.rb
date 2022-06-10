@@ -23,7 +23,6 @@ class Tool < ApplicationRecord
   has_many :employees, through: :employee_tools
 
   scope :filter_skill_category_tool, ->(id) { where(skill_category_id: id) }
-  scope :tool_except, ->(id) { where.not(id: id) }
   scope :set_name_tool, ->(id) { find(id).name }
 
   delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
