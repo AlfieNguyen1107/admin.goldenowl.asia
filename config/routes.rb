@@ -35,10 +35,14 @@ Rails.application.routes.draw do
   resources :skill_categories
   resources :skills
   resources :skill_category_groups
-  resources :employees
+  resources :employees do
+    collection { post :import }
+  end
   resources :item_types
   resources :items
   resources :item_histories
+  resources :annual_leaves
+  resources :leave_of_absence_letters
   get 'home', to: 'home#index'
 
   root 'home#index'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_30_065842) do
+ActiveRecord::Schema.define(version: 2022_06_13_050708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "annual_leaves", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.integer "standard_paid_time_off", default: 0
+    t.integer "seniority", default: 0
+    t.integer "extra_paid_time_off", default: 0
+    t.integer "total_paid_time_off", default: 0
+    t.decimal "total_leave_days", default: "0.0"
+    t.decimal "remaining_paid_time_off", default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_annual_leaves_on_employee_id"
   end
 
   create_table "assignment_scores", force: :cascade do |t|
@@ -267,6 +280,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.integer "genger"
     t.string "email"
     t.text "career_objectives"
+    t.date "contract_signing_date"
     t.index ["contract_status"], name: "index_employees_on_contract_status"
     t.index ["email"], name: "index_employees_on_email"
     t.index ["emp_number"], name: "index_employees_on_emp_number"
@@ -363,6 +377,19 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.integer "career_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "leave_of_absence_letters", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.integer "reason"
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.decimal "number_of_days"
+    t.string "note"
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_leave_of_absence_letters_on_employee_id"
   end
 
   create_table "pc_projects", force: :cascade do |t|
@@ -656,11 +683,15 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "uid"
     t.string "provider"
+    t.bigint "employee_id"
+    t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["employee_id"], name: "index_users_on_employee_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "annual_leaves", "employees"
   add_foreign_key "assignment_scores", "assignments"
   add_foreign_key "assignments", "developers", column: "assigned_to_id"
   add_foreign_key "assignments", "employees", column: "assigned_by_id"
@@ -690,6 +721,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_065842) do
   add_foreign_key "item_histories", "items"
   add_foreign_key "items", "item_types"
   add_foreign_key "job_submissions", "careers"
+  add_foreign_key "leave_of_absence_letters", "employees"
   add_foreign_key "pc_projects", "project_coordinators"
   add_foreign_key "pc_projects", "projects"
   add_foreign_key "project_frameworks", "frameworks"

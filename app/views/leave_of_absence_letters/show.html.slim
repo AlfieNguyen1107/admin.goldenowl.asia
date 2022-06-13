@@ -1,0 +1,45 @@
+section.section
+  .container.mb-4
+    | Employee:
+    h4.title
+      = @leave_of_absence_letter.employee_full_name
+    hr
+    | Employee id:
+    h4.title
+      = @leave_of_absence_letter.employee_id
+    hr
+    | Start date:
+    h4.title
+      = @leave_of_absence_letter.start_date
+    hr
+    | End date:
+    h4.title
+      = @leave_of_absence_letter.end_date
+    hr
+    | Reason:
+    h4.title
+      = @leave_of_absence_letter.reason
+    hr
+    | Note:
+    h4.title
+      = @leave_of_absence_letter.note
+    hr
+    | Number of days:
+    h4.title
+      = @leave_of_absence_letter.number_of_days
+    hr
+    | Status:
+    h4.title
+      = @leave_of_absence_letter.status
+    hr
+    nav.level
+      .level-left.mt-2
+        p.level-item
+          strong Actions
+      .level-right.d-flex
+        .level-item
+          = link_to "Edit", edit_leave_of_absence_letter_path(@leave_of_absence_letter), class:"button btn btn-primary btn-sm"
+        .level-item.ms-1
+          = link_to "Delete", leave_of_absence_letter_path(@leave_of_absence_letter), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+        .level-item.ms-1
+          = link_to "Back", leave_of_absence_letters_path, class:"button btn btn-dark btn-sm"

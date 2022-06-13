@@ -2,22 +2,23 @@
 #
 # Table name: employees
 #
-#  id                  :bigint           not null, primary key
-#  career_objectives   :text
-#  contract_status     :integer
-#  current_address     :string
-#  email               :string
-#  emp_number          :integer
-#  employment_status   :integer
-#  full_name           :string
-#  genger              :integer
-#  joined_date         :date
-#  phone_number        :string
-#  registered_address  :string
-#  working_arrangement :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  position_id         :bigint           not null
+#  id                    :bigint           not null, primary key
+#  career_objectives     :text
+#  contract_signing_date :date
+#  contract_status       :integer
+#  current_address       :string
+#  email                 :string
+#  emp_number            :integer
+#  employment_status     :integer
+#  full_name             :string
+#  genger                :integer
+#  joined_date           :date
+#  phone_number          :string
+#  registered_address    :string
+#  working_arrangement   :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  position_id           :bigint           not null
 #
 # Indexes
 #

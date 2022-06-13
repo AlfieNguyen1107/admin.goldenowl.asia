@@ -45,6 +45,11 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def import
+    Employee.import(params[:file])
+    redirect_to employees_path, notice: 'Employees imported.'
+  end
+
   private
 
   def set_employee
@@ -52,8 +57,25 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:full_name, :image, :email, :current_address, :emp_number, :phone_number, :registered_address, :employment_status, :employment_status, :contract_status,
-                                     :working_arrangement, :career_objectives, :position_id)
+    params[:employee][:user_attributes][:email] = params[:employee][:email]
+    params.require(:employee).permit(
+      :full_name,
+      :image,
+      :email,
+      :current_address,
+      :emp_number,
+      :phone_number,
+      :registered_address,
+      :employment_status,
+      :employment_status,
+      :contract_status,
+      :working_arrangement,
+      :career_objectives,
+      :position_id,
+      :joined_date,
+      :contract_signing_date,
+      user_attributes: %i[email password]
+    )
   end
 
   def set_positions

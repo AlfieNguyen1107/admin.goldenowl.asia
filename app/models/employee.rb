@@ -2,22 +2,23 @@
 #
 # Table name: employees
 #
-#  id                  :bigint           not null, primary key
-#  career_objectives   :text
-#  contract_status     :integer
-#  current_address     :string
-#  email               :string
-#  emp_number          :integer
-#  employment_status   :integer
-#  full_name           :string
-#  genger              :integer
-#  joined_date         :date
-#  phone_number        :string
-#  registered_address  :string
-#  working_arrangement :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  position_id         :bigint           not null
+#  id                    :bigint           not null, primary key
+#  career_objectives     :text
+#  contract_signing_date :date
+#  contract_status       :integer
+#  current_address       :string
+#  email                 :string
+#  emp_number            :integer
+#  employment_status     :integer
+#  full_name             :string
+#  genger                :integer
+#  joined_date           :date
+#  phone_number          :string
+#  registered_address    :string
+#  working_arrangement   :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  position_id           :bigint           not null
 #
 # Indexes
 #
@@ -51,6 +52,11 @@ class Employee < ApplicationRecord
   has_one_attached :image
   has_many :item_histories, dependent: :destroy
   has_many :items, through: :item_histories
+  has_many :leave_of_absence_letters, dependent: :destroy
+  has_one  :annual_leave, dependent: :destroy
+  has_one  :user, dependent: :destroy
+
+  accepts_nested_attributes_for :user, allow_destroy: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -66,11 +72,44 @@ class Employee < ApplicationRecord
 
   before_save { email.downcase }
 
+  after_commit :update_annual_leave, on: %i[create update]
+
   resize_image_config(
     thumb: [128, 128]
   )
 
+  private
+
   def self.active_employees_count
     where(employment_status: Employee.employment_statuses[:active]).count
+  end
+
+  def update_annual_leave
+    annual_leave = AnnualLeave.find_or_initialize_by(employee_id: self)
+    DayLeavesCalculationService.call(
+      contract_signing_date: contract_signing_date,
+      annual_leave: annual_leave,
+      employee: self
+    )
+  end
+
+  def self.import(file)
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = [header, spreadsheet.row(i)].transpose.to_h
+      employee = Employee.new
+      employee.attributes = row.to_hash.slice(*row.to_hash.keys)
+      employee.save!
+    end
+  end
+
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when '.csv' then Roo::CSV.new(file.path)
+    when '.xls' then Roo::Excel.new(file.path)
+    when '.xlsx' then Roo::Excelx.new(file.path)
+    else raise "Unknown file type: #{file.original_filename}"
+    end
   end
 end

@@ -8,97 +8,111 @@
     ul.metismenu.side-nav
       li.side-nav-title.side-nav-item
         | Navigation
-      li.side-nav-item
-        = link_to root_path, class: "side-nav-link #{active_items('home')}" do
-          i.dripicons-user
-          span Dashboard
-      li.side-nav-item
-        = link_to projects_path, class: "side-nav-link #{active_items('projects')}" do
-          i.dripicons-briefcase
-          span Projects
-      li.side-nav-item
-        = link_to clients_path, class: "side-nav-link #{active_items('clients')}" do
-          i.dripicons-user-group
-          span Clients
-      li.side-nav-item
-        = link_to contacts_path, class: "side-nav-link #{active_items('contacts')}" do
-          i.dripicons-user-group
-          span Contacts
-      li.side-nav-item
-        = link_to post_categories_path, class: "side-nav-link #{active_items('post_categories')}" do
-          i.dripicons-menu
-          span Blog Categories
-      li.side-nav-item
-        = link_to posts_path, class: "side-nav-link #{active_items('posts')}" do
-          i.dripicons-document-new
-          span Blogs
-      li.side-nav-item
-        = link_to careers_path, class: "side-nav-link #{active_items('careers')}" do
-          i.dripicons-briefcase
-          span Careers
-      li.side-nav-item
-        = link_to api_v1_subscriptions_path, class: "side-nav-link #{active_items('subscriptions')}" do
-          i.dripicons-briefcase
-          span Subscriptions
-      li.side-nav-item
-        = link_to employees_path, class: "side-nav-link #{active_items('employees')}" do
-          i.dripicons-user-group
-          span Employees
-      li.side-nav-item
-        = link_to developers_path, class: "side-nav-link #{active_items('developers')}" do
-          i.dripicons-briefcase
-          span Developers
-      li.side-nav-item
-        = link_to interns_path, class: "side-nav-link #{active_items('interns')}" do
-          i.dripicons-briefcase
-          span Interns
-      li.side-nav-item
-        = link_to project_coordinators_path, class: "side-nav-link #{active_items('project_coordinators')}" do
-          i.dripicons-briefcase
-          span Project Coordinators
-      li.side-nav-item
-        - inventory_paths = %w[items item_types item_histories]
-        - is_in_inventory = inventory_paths.include?(controller_name)
-        a.side-nav-link[class="#{is_in_inventory ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarInventories" aria-expanded="false" aria-controls="sidebarInventories"]
-          i.uil-bright
-          span
-            | Inventories
-          span.menu-arrow
-        #sidebarInventories.collapse[class="#{is_in_inventory ? 'show' : ''}"]
-          ul.side-nav-second-level
-            li
-              = link_to "Item Types",item_types_path, class: "#{active_items('item_types')}"
-            li
-              = link_to "Items", items_path, class: "#{active_items('items')}"
-            li
-              = link_to "Item Histories", item_histories_path, class: "#{active_items('item_hitories')}"
-      li.side-nav-item
-        - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills skill_category_groups]
-        - is_in_setting = setting_paths.include?(controller_name)
-        - side_nav_class, sidebar_layouts_class = is_in_setting ? ['', 'show'] : ['collapsed', '']
-        a.side-nav-link[class="#{side_nav_class}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
-          i.uil-bright
-          span
-            | Settings
-          span.menu-arrow
-        #sidebarLayouts.collapse[class="#{sidebar_layouts_class}"]
-          ul.side-nav-second-level
-            li
-              = link_to "Universities", universities_path, class: "#{active_items('universities')}"
-            li
-              = link_to "Programming Languages", programming_languages_path, class: "#{active_items('programming_languages')}"
-            li
-              = link_to "Frameworks", frameworks_path, class: "#{active_items('frameworks')}"
-            li
-              = link_to "Tools", tools_path, class: "#{active_items('tools')}"
-            li
-              = link_to "Certificates", certificates_path, class: "#{active_items('certificates')}"
-            li
-              = link_to "Positions", positions_path, class: "#{active_items('positions')}"
-            li
-              = link_to "Skill Category Groups", skill_category_groups_path, class: "#{active_items('skill_category_groups')}"
-            li
-              = link_to 'Skill Categories', skill_categories_path, class: "#{active_items('skill_categories')}"
-            li
-              = link_to 'Skills', skills_path, class: "#{active_items('skills')}"
+      - if current_user.admin?
+        li.side-nav-item
+          = link_to root_path, class: "side-nav-link #{active_items('home')}" do
+            i.dripicons-user
+            span Dashboard
+        li.side-nav-item
+          = link_to projects_path, class: "side-nav-link #{active_items('projects')}" do
+            i.dripicons-briefcase
+            span Projects
+        li.side-nav-item
+          = link_to clients_path, class: "side-nav-link #{active_items('clients')}" do
+            i.dripicons-user-group
+            span Clients
+        li.side-nav-item
+          = link_to contacts_path, class: "side-nav-link #{active_items('contacts')}" do
+            i.dripicons-user-group
+            span Contacts
+        li.side-nav-item
+          = link_to post_categories_path, class: "side-nav-link #{active_items('post_categories')}" do
+            i.dripicons-menu
+            span Blog Categories
+        li.side-nav-item
+          = link_to posts_path, class: "side-nav-link #{active_items('posts')}" do
+            i.dripicons-document-new
+            span Blogs
+        li.side-nav-item
+          = link_to careers_path, class: "side-nav-link #{active_items('careers')}" do
+            i.dripicons-briefcase
+            span Careers
+        li.side-nav-item
+          = link_to api_v1_subscriptions_path, class: "side-nav-link #{active_items('subscriptions')}" do
+            i.dripicons-briefcase
+            span Subscriptions
+        li.side-nav-item
+          = link_to employees_path, class: "side-nav-link #{active_items('employees')}" do
+            i.dripicons-user-group
+            span Employees
+        li.side-nav-item
+          = link_to annual_leaves_path, class: "side-nav-link #{active_items('annual_leaves')}" do
+            i.dripicons-briefcase
+            span Annual Leaves
+        li.side-nav-item
+          = link_to leave_of_absence_letters_path, class: "side-nav-link #{active_items('leave_of_absence_letters')}" do
+            i.dripicons-briefcase
+            span Leave Of Absence
+        li.side-nav-item
+          = link_to developers_path, class: "side-nav-link #{active_items('developers')}" do
+            i.dripicons-briefcase
+            span Developers
+        li.side-nav-item
+          = link_to interns_path, class: "side-nav-link #{active_items('interns')}" do
+            i.dripicons-briefcase
+            span Interns
+        li.side-nav-item
+          = link_to project_coordinators_path, class: "side-nav-link #{active_items('project_coordinators')}" do
+            i.dripicons-briefcase
+            span Project Coordinators
+        li.side-nav-item
+          - inventory_paths = %w[items item_types item_histories]
+          - is_in_inventory = inventory_paths.include?(controller_name)
+          a.side-nav-link[class="#{is_in_inventory ? '' : 'collapsed'}" data-bs-toggle="collapse" href="#sidebarInventories" aria-expanded="false" aria-controls="sidebarInventories"]
+            i.uil-bright
+            span
+              | Inventories
+            span.menu-arrow
+          #sidebarInventories.collapse[class="#{is_in_inventory ? 'show' : ''}"]
+            ul.side-nav-second-level
+              li
+                = link_to "Item Types",item_types_path, class: "#{active_items('item_types')}"
+              li
+                = link_to "Items", items_path, class: "#{active_items('items')}"
+              li
+                = link_to "Item Histories", item_histories_path, class: "#{active_items('item_hitories')}"
+        li.side-nav-item
+          - setting_paths = %w[universities programming_languages frameworks tools certificates positions skill_categories skills skill_category_groups]
+          - is_in_setting = setting_paths.include?(controller_name)
+          - side_nav_class, sidebar_layouts_class = is_in_setting ? ['', 'show'] : ['collapsed', '']
+          a.side-nav-link[class="#{side_nav_class}" data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts"]
+            i.uil-bright
+            span
+              | Settings
+            span.menu-arrow
+          #sidebarLayouts.collapse[class="#{sidebar_layouts_class}"]
+            ul.side-nav-second-level
+              li
+                = link_to "Universities", universities_path, class: "#{active_items('universities')}"
+              li
+                = link_to "Programming Languages", programming_languages_path, class: "#{active_items('programming_languages')}"
+              li
+                = link_to "Frameworks", frameworks_path, class: "#{active_items('frameworks')}"
+              li
+                = link_to "Tools", tools_path, class: "#{active_items('tools')}"
+              li
+                = link_to "Certificates", certificates_path, class: "#{active_items('certificates')}"
+              li
+                = link_to "Positions", positions_path, class: "#{active_items('positions')}"
+              li
+                = link_to "Skill Category Groups", skill_category_groups_path, class: "#{active_items('skill_category_groups')}"
+              li
+                = link_to 'Skill Categories', skill_categories_path, class: "#{active_items('skill_categories')}"
+              li
+                = link_to 'Skills', skills_path, class: "#{active_items('skills')}"
+      - else
+        li.side-nav-item
+          = link_to leave_of_absence_letters_path, class: "side-nav-link #{active_items('leave_of_absence_letters')}" do
+            i.dripicons-briefcase
+            span Leave Of Absence
     .clearfix

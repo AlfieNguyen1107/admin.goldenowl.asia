@@ -1,0 +1,2 @@
+- content_for :page_title, "Edit Leave Of Absence Letter"
+= render current_user.admin? ? 'form_admin' : 'form_employee'

@@ -1,0 +1,38 @@
+.section
+  = simple_form_for @leave_of_absence_letter do |f|
+    .field.mt-3
+      = f.label :employee_id
+      = f.select :employee_id,
+                  options_for_select(@employees, current_user.employee_id), {},
+                  { class: 'form-select form-select-sm me-1 disabled' }
+    .field
+      = f.label :start_date,
+                class: 'form-label col-md-12'
+      = f.datetime_field :start_date,
+                      class: 'datetimepicker form-control', id: 'leave_start_date'
+    .field
+      = f.label :end_date,
+                class: 'form-label col-md-12'
+      = f.datetime_field :end_date,
+                      class: 'datetimepicker form-control',
+                      id: 'leave_end_date'
+    .field
+      = f.input :number_of_days,
+                label_html: { class: 'label' },
+                input_html: { class: 'input' },
+                wrapper: false
+    .field
+      label.string.optional.label
+        | Email approvers
+      input#email_approvers.form-control.input.input.disabled type='text' value='#{ENV['MAIL_ADMIN_SENDER']}'
+    .field
+      = f.label :reason
+      = f.select :reason, options_for_select(LeaveOfAbsenceLetter.reasons.keys, @leave_of_absence_letter.reason), {},
+                        { class: 'form-select form-select-sm me-1' }
+    .field
+      = f.input :note,
+                label_html: { class: 'label' },
+                input_html: { class: 'input' },
+                wrapper: false
+    = f.button :submit, class: 'btn btn-info mb-2'
+    = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'

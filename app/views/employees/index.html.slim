@@ -13,10 +13,14 @@ section.hero.is-primary.is-medium
   .hero-head
     nav.navbar
       .container
+        .import-file
+          = form_tag import_employees_path, multipart: true do
+            = file_field_tag :file, class: 'form-control form-control-sm'
+            = submit_tag 'Import', class: 'form-control form-control-sm btn btn-success'
         .navbar-brand
-        #navbarMenuHeroA.navbar-menu
-          .navbar-end
-            = link_to "Create New Employee", new_employee_path, class:"navbar-item"
+          #navbarMenuHeroA.navbar-menu
+            .navbar-end
+              = link_to "Create New Employee", new_employee_path, class:"navbar-item"
 
 section.section
   .container
@@ -36,7 +40,6 @@ section.section
                       th scope="col" Current Address
                       th scope="col" Emp Number
                       th scope="col" Phone Number
-                      th scope="col" Registered Address
                       th scope="col" Position
                       th scope="col" class="mw-action" Active
                     - @employees.each do |e|
@@ -47,7 +50,6 @@ section.section
                           td = e.current_address
                           td = e.emp_number
                           td = e.phone_number
-                          td = e.registered_address
                           td = e.position_name
                           td.table-action
                             = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_employee_path(e.id), class: "table-link"

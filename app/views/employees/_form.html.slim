@@ -5,8 +5,16 @@
     .field.mt-2.mb-3
       = f.label :Avatar
       = f.input :image, required: true, direct_upload: true, as: :file
+    - if @employee.image.present?
+      = image_tag @employee.image.resize(:thumb)
     .field.mt-2.mb-3
       = f.input :email, input_html: { class: 'input', type: 'email' }, wrapper: false, label_html: { class: 'label' }
+    .field
+      = f.simple_fields_for :user do |ff|
+        = ff.input :password,
+                  label_html: { class: 'label' },
+                  input_html: { class: 'input' },
+                  wrapper: false
     .field.mt-2.mb-3
       = f.input :current_address, input_html: { class: 'input' }, label_html: { class: 'label fw-b' }
     .field.mt-2.mb-3
@@ -29,5 +37,17 @@
     .field.mt-2.mb-3
       = f.label :position_id, class: 'col-md-12'
       = f.select :position_id, options_for_select(@positions, @employee.position_id), {}, { class: 'form-select form-select-sm me-1'}
+    .field.mt-2.mb-3
+      = f.label :joined_date,
+                class: 'form-label col-md-12'
+      = f.date_field :joined_date,
+                      label_html: { class: 'label' },
+                      class: 'birthdatepicker form-control date'
+    .field.mt-2.mb-3
+      = f.label :contract_signing_date,
+                class: 'form-label col-md-12'
+      = f.date_field :contract_signing_date,
+                      label_html: { class: 'label' },
+                      class: 'birthdatepicker form-control date'
     = f.button :submit, class: 'btn btn-info mb-2'
     = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'

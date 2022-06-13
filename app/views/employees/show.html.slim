@@ -15,6 +15,14 @@ section.section
     h4.title
       = @employee.email
     hr/
+    | Joined date:
+    h4.title
+      = @employee.joined_date
+    hr/
+    | Contract signing date:
+    h4.title
+      = @employee.contract_signing_date
+    hr/
     | Current address:
     h4.title
       = @employee.current_address
@@ -46,7 +54,6 @@ section.section
     | Woring arrangement:
     h4.title
       = @employee.working_arrangement
-
     hr
     nav.level
       .level-left.mt-2
