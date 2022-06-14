@@ -5,7 +5,7 @@ class CertificatesController < ApplicationController
     @certificate_all = Certificate.all
     if params[:name].present?
       @name = params[:name]
-      @certificates = Certificate.filter_name_certificate(@name)
+      @certificates = Certificate.where(name: @name)
     else
       @certificates = Certificate.all
     end

@@ -15,8 +15,5 @@
 #  index_programming_languages_on_name            (name)
 #
 class ProgrammingLanguage < ApplicationRecord
-  scope :filter_name_programming_languages, ->(name) { where(name: name) }
-  scope :set_name_programming_language, ->(id) { find(id).name }
-
   has_many :developers, through: :developer_programming_languages
 end

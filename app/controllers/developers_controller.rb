@@ -4,8 +4,7 @@ class DevelopersController < ApplicationController
   before_action :set_project_options, only: %i[new edit]
   before_action :set_data_association, only: %i[new create edit]
   before_action :set_date_year, only: %i[new create edit]
-  before_action :set_developer, only: %i[show edit destroy]
-  before_action :set_data_update_session, only: %i[show]
+  before_action :set_developer, only: %i[show edit destroy detail]
 
   def index
     @senority = Developer.pluck(:senority)
@@ -66,18 +65,6 @@ class DevelopersController < ApplicationController
     end
   end
 
-  def set_data_update_session
-    @levels = DeveloperProgrammingLanguage.levels.map { |p| [p[0], p[0]] }
-    @projects = Project.pluck(:name, :id)
-    @programming_languages = ProgrammingLanguage.pluck(:name, :id)
-    @frameworks = Framework.pluck(:name, :id)
-    @tools = Tool.pluck(:name, :id)
-    @skills = Skill.pluck(:name, :id)
-    @universities = University.pluck(:name, :id)
-    @companies = Company.pluck(:name, :id)
-    @certificates = Certificate.pluck(:name, :id)
-  end
-
   private
 
   def set_developer
@@ -103,7 +90,7 @@ class DevelopersController < ApplicationController
     @universities = University.all.map { |u| [u.name, u.id] }
     @positions = Position.all.uniq.map { |p| [p.name, p.id] }
     @employee_id = Developer.all.map(&:employable_id)
-    @employable = Employee.except_item(@employee_id).map { |e| [e.full_name, e.id] }
+    @employable = Employee.except_employee(@employee_id).map { |e| [e.full_name, e.id] }
   end
 
   def set_date_year

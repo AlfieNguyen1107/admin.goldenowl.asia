@@ -14,9 +14,20 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :update_session do
-    post 'update_session_with_developer/:id', to: 'developer_updates#update_session_with_developer'
-    post 'update_session_with_employee/:id', to: 'developer_updates#update_session_with_employee'
+  namespace :developers do
+    post 'developer_projects/:id', to: 'developer_projects#update', as: 'update_projects'
+    post 'developer_programming_languages/:id', to: 'developer_programming_languages#update', as: 'update_programming_languages'
+    post 'developer_framework/:id', to: 'developer_frameworks#update', as: 'update_frameworks'
+
+    put 'developer_projects/:id', to: 'developer_projects#add', as: 'add_projects'
+  end
+
+  namespace :employees do
+    post 'employee_tool/:id', to: 'employee_tools#update', as: 'update_tools'
+    post 'employee_skill/:id', to: 'employee_skills#update', as: 'update_skills'
+    post 'employee_education/:id', to: 'employee_educations#update', as: 'update_educations'
+    post 'employee_certificate/:id', to: 'employee_certificates#update', as: 'update_certificates'
+    post 'employee_employment/:id', to: 'employee_employments#update', as: 'update_employments'
   end
 
   resources :interns do

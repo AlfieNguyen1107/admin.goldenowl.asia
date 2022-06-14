@@ -60,7 +60,7 @@ class Employee < ApplicationRecord
 
   delegate :name, to: :position, prefix: :position, allow_nil: true
 
-  scope :except_item, ->(id) { where.not(id: id) }
+  scope :except_employee, ->(id) { where.not(id: id) }
 
   validates :full_name, presence: true
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }

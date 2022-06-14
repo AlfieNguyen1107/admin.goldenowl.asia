@@ -26,6 +26,5 @@ class DeveloperFramework < ApplicationRecord
   belongs_to :developer
   belongs_to :framework
 
-  scope :set_level, ->(developer_id, framework_id) { find_by(developer_id: developer_id, framework_id: framework_id)&.level }
   enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

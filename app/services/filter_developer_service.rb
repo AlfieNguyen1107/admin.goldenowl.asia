@@ -8,8 +8,8 @@ class FilterDeveloperService < ApplicationService
   end
 
   def call
-    data = Developer.all.filter_developer_type('Developer')
-    data = data.filter_senority(@senority) if @senority.present?
+    data = Developer.where(type: 'Developer')
+    data = data.where(senority: @senority) if @senority.present?
     data
   end
 end

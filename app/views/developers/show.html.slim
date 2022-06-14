@@ -17,7 +17,7 @@ section.section
           = @developer.senority
         hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_with_employee/#{@employee.id}", method: :post) do |f|
+        = simple_form_for(@employee, url: employees_update_educations_path, method: :post) do |f|
           | Education:
           br
           = f.simple_fields_for :education_histories do |ff|
@@ -26,6 +26,7 @@ section.section
           br
           = f.submit 'Upadate Education', class: 'btn btn-secondary my-2'
 
+        = simple_form_for(@employee, url: employees_update_employments_path, method: :post) do |f|
           hr
           | Employments:
           br
@@ -35,6 +36,7 @@ section.section
           br
           = f.submit 'Upadate Employment', class: 'btn btn-secondary my-2'
 
+        = simple_form_for(@employee, url: employees_update_certificates_path, method: :post) do |f|
           hr
           | Certificates:
           br
@@ -50,15 +52,18 @@ section.section
           | Reset intern
 
       .col-xl-5.col-lg-6
-        = simple_form_for(@developer, url: "/update_session/update_session_with_developer/#{@developer.id}", method: :post) do |f|
+        = simple_form_for(@developer, url: developers_update_projects_path, method: :post) do |f|
           | Project:
           br
-          = f.simple_fields_for :developer_projects, @developer_projects do |ff|
-            = render partial: 'developer_project_fields', locals: { f: ff, projects: @projects }
-          = link_to_add_fields "Add", f, :developer_projects, class: 'btn btn-success btn-sm my-2'
+          #project_box
+            = f.simple_fields_for :developer_projects, @developer_projects do |ff|
+              = render partial: 'developer_project_fields', locals: { f: ff, projects: @projects }
+            = button_to 'Add', developers_add_projects_path(@developer), remote: true, method: :put
+            / = link_to_add_fields "Add", f, :developer_projects, class: 'btn btn-success btn-sm my-2'
           br
           = f.submit 'Update Project', class: 'btn btn-secondary my-2'
 
+        = simple_form_for(@developer, url: developers_update_programming_languages_path, method: :get) do |f|
           hr
           | Programming language:
           br
@@ -68,6 +73,7 @@ section.section
           br
           = f.submit 'Upadate Programming Language', class: 'btn btn-secondary my-2'
 
+        = simple_form_for(@developer, url: developers_update_frameworks_path, method: :post) do |f|
           hr
           | Frameworks:
           br
@@ -78,7 +84,7 @@ section.section
           = f.submit 'Update Freamwork', class: 'btn btn-secondary my-2'
         hr
 
-        = simple_form_for(@employee, url: "/update_session/update_session_with_employee/#{@employee.id}", method: :post) do |f|
+        = simple_form_for(@employee, url: employees_update_tools_path, method: :post) do |f|
           | Tools:
           br
           = f.simple_fields_for :employee_tools do |ff|
@@ -87,6 +93,7 @@ section.section
           br
           = f.submit 'Upadate Tool', class: 'btn btn-secondary my-2'
 
+        = simple_form_for(@employee, url: employees_update_skills_path, method: :post) do |f|
           hr
           | Skill:
           br

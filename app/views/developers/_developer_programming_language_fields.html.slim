@@ -5,7 +5,7 @@
       |-
       = f.object.level
   -else
-    = f.select :programming_language_id,  options_for_select(@programming_languages), { prompt: 'Select  programming language' }, class: 'btn btn-light dropdown-toggle' 
-    = f.select :level, options_for_select(@levels), { prompt: 'Select level'}, class: 'btn btn-light dropdown-toggle mx-3'
+    = f.select :programming_language_id,  options_for_select(programming_languages_collection), { prompt: 'Select  programming language' }, class: 'btn btn-light dropdown-toggle'
+    = f.select :level, options_for_select(levels_collection), { prompt: 'Select level'}, class: 'btn btn-light dropdown-toggle mx-3'
   = f.hidden_field :_destroy
   = link_to_remove_fields "<i class='mdi mdi-window-close'></i>".html_safe,'.developer-programming-language', class: 'tn btn-outline-danger rounded-pill mx-2'

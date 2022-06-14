@@ -10,14 +10,14 @@
           .col-8
             h5.card-text.my-1 Company:
             = f.object.company&.name
-            h5.card-text.my-1 Profession: 
+            h5.card-text.my-1 Profession:
             = f.object.profession
-            h5.card-text.my-1 Details: 
+            h5.card-text.my-1 Details:
             = f.object.details
           .col-4
-            h5.card-text.my-1 Form: 
+            h5.card-text.my-1 Form:
             = f.object.from
-            h5.card-text.my-1 To:  
+            h5.card-text.my-1 To:
             = f.object.to
   - else
     br
@@ -27,7 +27,7 @@
           = f.hidden_field :_destroy
           = link_to_remove_fields "<i class='mdi mdi-window-close'></i>".html_safe,'.employment_histrories', class: 'float-end tn btn-outline-danger rounded-pill'
         p.card-text.my-1 Company{*}:
-        = f.select :company_id,  options_for_select(@companies), { prompt: 'Select Company' }, class: 'btn btn-light dropdown-toggle'
+        = f.select :company_id,  options_for_select(companies_collection), { prompt: 'Select Company' }, class: 'btn btn-light dropdown-toggle'
         p.card-text.my-1 Profession:
         = f.text_field :profession, class: "form-control", placeholder: "Profession"
         p.card-text.my-1 Details:
@@ -36,5 +36,3 @@
         = f.date_field :from, class: 'form-control input-sm'
         p.card-text.my-1 To:
         = f.date_field :to, class: 'form-control input-sm'
-
-  

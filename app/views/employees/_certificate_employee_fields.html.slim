@@ -23,7 +23,7 @@
           = f.hidden_field :_destroy
           = link_to_remove_fields "<i class='mdi mdi-window-close'></i>".html_safe,'.certificate-employees', class: 'float-end tn btn-outline-danger rounded-pill'
         p.card-text.my-1 Certificate:
-        = f.select :certificate_id,  options_for_select(@certificates), { prompt: 'Select Certificate' }, class: 'btn btn-light dropdown-toggle'
+        = f.select :certificate_id,  options_for_select(certificates_collection), { prompt: 'Select Certificate' }, class: 'btn btn-light dropdown-toggle'
         p.card-text.my-1 Year:
         = f.text_field :year, class: "form-control", placeholder: "Year"
         p.card-text.my-1 Score:

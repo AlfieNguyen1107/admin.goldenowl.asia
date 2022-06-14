@@ -7,7 +7,7 @@ class FrameworksController < ApplicationController
   def index
     @frameworks_all = Framework.all
     @frameworks = if params[:programming_language_name].present?
-                    Framework.search_framework(@programming_language.first.id)
+                    Framework.where(programming_language_id: @programming_language.id)
                   else
                     Framework.all
                   end
@@ -55,7 +55,7 @@ class FrameworksController < ApplicationController
 
   def filter_name_programming_language
     @name = params[:programming_language_name]
-    @programming_language = ProgrammingLanguage.filter_name_programming_languages(@name)
+    @programming_language = ProgrammingLanguage.find_by(name: @name)
   end
 
   def load_skill_categories

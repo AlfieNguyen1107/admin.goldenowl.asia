@@ -26,7 +26,5 @@ class DeveloperProgrammingLanguage < ApplicationRecord
   belongs_to :developer
   belongs_to :programming_language
 
-  scope :set_level, ->(developer_id, programming_language_id) { finf_by(developer_id: developer_id, programming_language_id: programming_language_id)&.level }
-
   enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end
