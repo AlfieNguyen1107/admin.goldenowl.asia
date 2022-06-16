@@ -7,7 +7,7 @@ module Developers
     private
 
     def set_developer
-      @developer = Developer.find(params[:id])
+      @developer = Developer.find(params[:developer_id])
     end
   end
 end

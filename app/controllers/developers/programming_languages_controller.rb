@@ -2,10 +2,10 @@
 
 module Developers
   class DeveloperProgrammingLanguagesController < BaseController
-    def update
-      flash[:notice] = "#{@developer.update(set_params_developer_programming_laguage) ? 'Successfully' : 'Unsuccessfully'} update programming language" if params[:developer]
-      redirect_to developer_path(@developer)
+    def add
     end
+
+
 
     private
 

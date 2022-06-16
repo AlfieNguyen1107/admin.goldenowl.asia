@@ -12,14 +12,17 @@ Rails.application.routes.draw do
       get 'detail'
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
+    resources :projects, controller: 'developers/projects', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
   end
 
   namespace :developers do
-    post 'developer_projects/:id', to: 'developer_projects#update', as: 'update_projects'
+    # post 'developer_projects/:id', to: 'developer_projects#update', as: 'update_projects'
     post 'developer_programming_languages/:id', to: 'developer_programming_languages#update', as: 'update_programming_languages'
     post 'developer_framework/:id', to: 'developer_frameworks#update', as: 'update_frameworks'
-
-    put 'developer_projects/:id', to: 'developer_projects#add', as: 'add_projects'
+    # put 'developer_projects/:id', to: 'developer_projects#add', as: 'add'
   end
 
   namespace :employees do

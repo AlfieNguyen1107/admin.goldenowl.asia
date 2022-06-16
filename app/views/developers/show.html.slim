@@ -52,26 +52,9 @@ section.section
           | Reset intern
 
       .col-xl-5.col-lg-6
-        = simple_form_for(@developer, url: developers_update_projects_path, method: :post) do |f|
-          | Project:
-          br
-          #project_box
-            = f.simple_fields_for :developer_projects, @developer_projects do |ff|
-              = render partial: 'developer_project_fields', locals: { f: ff, projects: @projects }
-            = button_to 'Add', developers_add_projects_path(@developer), remote: true, method: :put
-            / = link_to_add_fields "Add", f, :developer_projects, class: 'btn btn-success btn-sm my-2'
-          br
-          = f.submit 'Update Project', class: 'btn btn-secondary my-2'
-
-        = simple_form_for(@developer, url: developers_update_programming_languages_path, method: :get) do |f|
+        #developer-project
+          = render partial: '/developers/projects/form' , locals: { developer: @developer }
           hr
-          | Programming language:
-          br
-          = f.simple_fields_for :developer_programming_languages do |ff|
-            = render partial: 'developer_programming_language_fields', locals: { f:ff }
-          = link_to_add_fields 'Add', f, :developer_programming_languages, class: 'btn btn-success btn-sm my-2'
-          br
-          = f.submit 'Upadate Programming Language', class: 'btn btn-secondary my-2'
 
         = simple_form_for(@developer, url: developers_update_frameworks_path, method: :post) do |f|
           hr
