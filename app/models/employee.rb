@@ -75,11 +75,11 @@ class Employee < ApplicationRecord
     thumb: [128, 128]
   )
 
-  private
-
   def self.active_employees_count
     where(employment_status: Employee.employment_statuses[:active]).count
   end
+
+  private
 
   def update_annual_leave
     annual_leave = AnnualLeave.find_or_initialize_by(employee_id: self)

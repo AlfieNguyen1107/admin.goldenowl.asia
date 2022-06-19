@@ -9,7 +9,7 @@ class Employee::LeaveOfAbsenceLettersController < ApplicationController
     @pagy, @leave_of_absence_letters = pagy(@leave_of_absence_letters, items: per_page)
   end
 
-  def new;end
+  def new; end
 
   def create
     if @leave_of_absence_letter.save
