@@ -1,19 +1,20 @@
-class LeaveOfAbsenceLettersController < ApplicationController
+class Employee::LeaveOfAbsenceLettersController < ApplicationController
   before_action :set_leave_of_absence_letter, only: %i[show edit update destroy]
   before_action :set_new_leave_of_absence_letter, only: %i[new create]
   before_action :set_leave_of_absence_letter_collection, only: %i[index]
-  before_action :set_form_selections, only: %i[new create edit update]
+  before_action :set_form_selections, only: %i[new create edit]
 
   def index
-    @leave_of_absence_letters = LeaveOfAbsenceLetter.order(id: :asc)
+    @leave_of_absence_letters = LeaveOfAbsenceLetter.where(employee_id: current_user.employee_id).order(id: :asc)
     @pagy, @leave_of_absence_letters = pagy(@leave_of_absence_letters, items: per_page)
   end
 
-  def new; end
+  def new;end
 
   def create
     if @leave_of_absence_letter.save
-      redirect_to @leave_of_absence_letter, notice: 'Leave of absence letter was successfully created.'
+      redirect_to employee_leave_of_absence_letter_path(@leave_of_absence_letter), notice: 'Leave of absence letter was successfully created.'
+      SendMailLeaveOfAbsenceLetterWorker.perform_async(@leave_of_absence_letter.id, current_user.role)
     else
       render :new
     end
@@ -25,7 +26,7 @@ class LeaveOfAbsenceLettersController < ApplicationController
 
   def update
     if @leave_of_absence_letter.update(leave_of_absence_letter_params)
-      redirect_to @leave_of_absence_letter, notice: 'Leave of absence letter successfully updated.'
+      redirect_to employee_leave_of_absence_letter_path(@leave_of_absence_letter), notice: 'Leave of absence letter successfully updated.'
     else
       render :edit
     end
@@ -33,7 +34,7 @@ class LeaveOfAbsenceLettersController < ApplicationController
 
   def destroy
     @leave_of_absence_letter.destroy
-    redirect_to leave_of_absence_letters_path, notice: 'Leave of absence letter successfully destroyed.'
+    redirect_to employee_leave_of_absence_letters_path, notice: 'Leave of absence letter successfully destroyed.'
   end
 
   private

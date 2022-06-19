@@ -2,16 +2,16 @@
 #
 # Table name: leave_of_absence_letters
 #
-#  id             :bigint           not null, primary key
-#  end_date       :datetime         not null
-#  note           :string
-#  number_of_days :decimal(, )
-#  reason         :integer
-#  start_date     :datetime         not null
-#  status         :integer          default("Đợi duyệt")
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  employee_id    :bigint           not null
+#  id                    :bigint           not null, primary key
+#  end_date              :datetime         not null
+#  note                  :string
+#  number_of_days        :decimal(, )
+#  start_date            :datetime         not null
+#  status                :integer          default("waiting for permission")
+#  type_leave_of_absence :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  employee_id           :bigint           not null
 #
 # Indexes
 #
@@ -22,24 +22,40 @@
 #  fk_rails_...  (employee_id => employees.id)
 #
 class LeaveOfAbsenceLetter < ApplicationRecord
-  enum reason: { 'Nghĩ phép': 0, 'Không phép': 1 }
-  enum status: { 'Đợi duyệt': 0, 'Đã duyệt': 1, 'Không được duyệt': 2 }
+  enum type_leave_of_absence: { 'leave with permission': 0, 'leave without permission': 1 }
+  enum status: { 'waiting for permission': 0, approved: 1, unapproved: 2 }
 
   belongs_to :employee
 
   delegate :full_name, to: :employee, prefix: :employee, allow_nil: true
   delegate :name, to: :'employee.position', prefix: :position, allow_nil: true
 
+  validates :start_date, :end_date, presence: true
+
+  validate :check_type_leave_of_absence_letter
+
   after_commit :update_annual_leave, on: %i[create update]
 
   private
 
   def update_annual_leave
+    SendMailLeaveOfAbsenceLetterWorker.perform_async(id, 'admin') if LeaveOfAbsenceLetter.statuses[status] == 2 || LeaveOfAbsenceLetter.statuses[status] == 1
     return unless LeaveOfAbsenceLetter.statuses[status] == 1
 
     annual_leave = AnnualLeave.find_by(employee_id: employee)
-    total_leave_days = + number_of_days
-    remaining_paid_time_off = annual_leave.total_paid_time_off - number_of_days
+    total_leave_days = annual_leave.total_leave_days + number_of_days
+    remaining_paid_time_off = if total_leave_days.zero?
+                                annual_leave.total_paid_time_off - number_of_days
+                              else
+                                annual_leave.remaining_paid_time_off - number_of_days
+                              end
     annual_leave.update(total_leave_days: total_leave_days, remaining_paid_time_off: remaining_paid_time_off)
+  end
+
+  def check_type_leave_of_absence_letter
+    return unless start_date.present? && end_date.present?
+    return if number_of_days <= employee.annual_leave.remaining_paid_time_off || type_leave_of_absence == 'leave without permission'
+
+    errors.add(:type_leave_of_absence, 'invalid')
   end
 end

@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 2022_06_13_050708) do
 
   create_table "leave_of_absence_letters", force: :cascade do |t|
     t.bigint "employee_id", null: false
-    t.integer "reason"
+    t.integer "type_leave_of_absence"
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
     t.decimal "number_of_days"

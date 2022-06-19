@@ -29,14 +29,17 @@ class DayLeavesCalculationService < ApplicationService
                           else
                             (Time.zone.today.month - @contract_signing_date.month) / 4
                           end
+
     total_paid_time_off = standard_paid_time_off + seniority + extra_paid_time_off
+    remaining_paid_time_off = ((total_paid_time_off - @annual_leave.total_leave_days) * 2).round / 2.0
+
     @annual_leave.update(
       employee_id: @employee.id,
       standard_paid_time_off: standard_paid_time_off,
       seniority: seniority,
       extra_paid_time_off: extra_paid_time_off,
       total_paid_time_off: total_paid_time_off,
-      remaining_paid_time_off: total_paid_time_off.round
+      remaining_paid_time_off: remaining_paid_time_off
     )
   end
 end

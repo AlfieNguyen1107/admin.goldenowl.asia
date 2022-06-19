@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: %i[show edit destroy update]
+  before_action :set_employee, only: %i[show edit destroy update add_account_employee]
   before_action :set_positions, only: %i[new edit create update]
 
   def index
@@ -45,9 +45,9 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def import
-    Employee.import(params[:file])
-    redirect_to employees_path, notice: 'Employees imported.'
+  def add_account_employee
+    user = User.find_or_initialize_by(employee_id: @employee)
+    user.update(user_params)
   end
 
   private
@@ -57,7 +57,6 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params[:employee][:user_attributes][:email] = params[:employee][:email]
     params.require(:employee).permit(
       :full_name,
       :image,
@@ -73,12 +72,19 @@ class EmployeesController < ApplicationController
       :career_objectives,
       :position_id,
       :joined_date,
-      :contract_signing_date,
-      user_attributes: %i[email password]
+      :contract_signing_date
     )
   end
 
   def set_positions
     @positions = Position.all.map { |p| [p.name, p.id] }
+  end
+
+  def user_params
+    params.permit(
+      :email,
+      :password,
+      :employee_id
+    )
   end
 end

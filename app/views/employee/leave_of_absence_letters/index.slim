@@ -14,7 +14,8 @@ section.hero.is-primary.is-medium
         .navbar-brand
         #navbarMenuHeroA.navbar-menu
           .navbar-end
-            = link_to 'Create New Leave Of Absence Letter', new_leave_of_absence_letter_path, class:'navbar-item'
+            - if current_user.employee.annual_leave.present?
+              = link_to 'Create New Leave Of Absence Letter', new_employee_leave_of_absence_letter_path, class:'navbar-item'
   .hero-body
     .container.has-text-centered
       h1.title
@@ -45,7 +46,7 @@ section.section
                     - @leave_of_absence_letters.each do |leave_of_absence_letter|
                         tr
                           td = leave_of_absence_letter.id
-                          td = current_user.admin? ? (link_to leave_of_absence_letter.employee_full_name, employee_path(leave_of_absence_letter.employee_id)) : leave_of_absence_letter.employee_full_name
+                          td = leave_of_absence_letter.employee_full_name
                           td = leave_of_absence_letter.employee_id
                           td = leave_of_absence_letter.type_leave_of_absence
                           td = leave_of_absence_letter.start_date.strftime('%d-%m-%Y, %H:%M')
@@ -55,12 +56,12 @@ section.section
                           td = leave_of_absence_letter.status
                           td.table-action
                             - if leave_of_absence_letter.status != 'approved'
-                              = link_to edit_leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
+                              = link_to edit_employee_leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
                                 i.mdi.mdi-pencil
-                              = link_to leave_of_absence_letter_path(leave_of_absence_letter.id), data: { confirm: 'Are you sure?' }, method: :delete, class: 'table-link' do
+                              = link_to employee_leave_of_absence_letter_path(leave_of_absence_letter.id), data: { confirm: 'Are you sure?' }, method: :delete, class: 'table-link' do
                                 i.mdi.mdi-delete
-                            = link_to leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
-                                i.mdi.mdi-bookmark-box-multiple
+                            = link_to employee_leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
+                              i.mdi.mdi-bookmark-box-multiple
 section.section
   .container.mb-3
     .d-flex.justify-content-center

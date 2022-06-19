@@ -66,3 +66,10 @@ section.section
           = link_to "Delete", employee_path(@employee), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
         .level-item.ms-1
           = link_to  "Back", employees_path(page: @page), class:"button btn btn-dark btn-sm"
+    hr
+    - if @employee.email.present?
+        div.field
+          button#add-account.side-nav-link data-bs-target='#standard-modal' data-bs-toggle='modal' type='button' class='btn btn-primary btn-sm'
+            span
+              | Add account
+        = render partial: 'modal_add_account', locals: {email: @employee.email }

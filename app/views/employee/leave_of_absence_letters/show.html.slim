@@ -39,8 +39,8 @@ section.section
       .level-right.d-flex
         - if @leave_of_absence_letter.status != 'approved'
           .level-item
-            = link_to "Edit", edit_leave_of_absence_letter_path(@leave_of_absence_letter), class:"button btn btn-primary btn-sm"
+            = link_to "Edit", edit_employee_leave_of_absence_letter_path(@leave_of_absence_letter), class:"button btn btn-primary btn-sm"
           .level-item.ms-1
-            = link_to "Delete", leave_of_absence_letter_path(@leave_of_absence_letter), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
+            = link_to "Delete", employee_leave_of_absence_letter_path(@leave_of_absence_letter), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
         .level-item.ms-1
-          = link_to "Back", leave_of_absence_letters_path, class:"button btn btn-dark btn-sm"
+          = link_to "Back", employee_leave_of_absence_letters_path, class:"button btn btn-dark btn-sm"

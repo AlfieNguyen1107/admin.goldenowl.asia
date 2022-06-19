@@ -13,14 +13,10 @@ section.hero.is-primary.is-medium
   .hero-head
     nav.navbar
       .container
-        .import-file
-          = form_tag import_employees_path, multipart: true do
-            = file_field_tag :file, class: 'form-control form-control-sm'
-            = submit_tag 'Import', class: 'form-control form-control-sm btn btn-success'
         .navbar-brand
-          #navbarMenuHeroA.navbar-menu
-            .navbar-end
-              = link_to "Create New Employee", new_employee_path, class:"navbar-item"
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            = link_to "Create New Employee", new_employee_path, class:"navbar-item"
 
 section.section
   .container

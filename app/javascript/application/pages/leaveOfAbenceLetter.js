@@ -17,9 +17,9 @@ document.addEventListener('turbolinks:load', () => {
   const diffDays = (date, otherDate) => parseFloat(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24)).toFixed(2);
   initFlatPickr();
 
-  $(document).on('change', '#leave_start_date, #leave_end_date', function(){
+  $(document).on('change','#leave_end_date', function(){
     let valueNumberOfDay = diffDays(new Date(leave_end_date.value), new Date(leave_start_date.value)).split('.');
-    if(valueNumberOfDay[1] == 15) {
+    if(valueNumberOfDay[1] == 15 || valueNumberOfDay[1] == 19) {
       $numberOfDayOff.val(parseInt(valueNumberOfDay[0]) + 0.5);
     } else {
       $numberOfDayOff.val(parseInt(valueNumberOfDay[0]) + 1);

@@ -1,0 +1,23 @@
+div style=("line-height: 1.2; font-size: 14px")
+  | Dear&nbsp;
+  = @leave_of_absence_letter.employee.full_name
+  - if @leave_of_absence_letter.status != 'unapproved'
+    h6
+    | Notification about request for a leave of absence beginning &nbsp;
+    = @leave_of_absence_letter.start_date.strftime('%d-%m-%Y - %H:%M')
+    | &nbsp;through&nbsp;
+    =  @leave_of_absence_letter.end_date.strftime('%d-%m-%Y - %H:%M')
+    br
+    | HR has received your email. Your leave application has been approved.
+    br
+    | Please kindly ensure that all your pending work or any other important issue is running according to schedule.
+  - else
+    h6
+    | This letter is in response to your request for a leave of absence beginning&nbsp;
+    = @leave_of_absence_letter.start_date.strftime('%d-%m-%Y - %H:%M')
+    | &nbsp;through&nbsp;
+    =  @leave_of_absence_letter.end_date.strftime('%d-%m-%Y - %H:%M')
+    br
+    | Although we make every effort to accommodate employees with a need for time off, unfortunately, your leave request is not approved.
+    br
+    |If you feel that this decision is made in error or that extenuating circumstances warrant further review of your request, please feel free to contact me with more information surrounding your need for leave.

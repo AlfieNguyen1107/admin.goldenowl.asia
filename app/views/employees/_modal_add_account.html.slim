@@ -1,0 +1,17 @@
+#standard-modal.modal.fade aria-hidden='true' aria-labelledby='standard-modalLabel' role='dialog' tabindex='-1'
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4#standard-modalLabel.modal-title Add account for employee
+        button.btn-close aria-hidden='true' data-bs-dismiss='modal' type='button'
+      .modal-body
+        .field
+          label.email.optional.label for='user_email' Email
+          input#user_email.form-control.is-valid.string.email.optional.input.disabled type='email' value='#{email}'
+        br
+        .field
+          label.email.optional.label for='user_password' Password
+          input#user_password.form-control.is-valid.string.password.optional.input type='password'
+      .modal-footer
+        button.btn.btn-light data-bs-dismiss='modal' type='button' id='close-modal'  Close
+        button#add-account-employee.btn.btn-primary type='button' Save

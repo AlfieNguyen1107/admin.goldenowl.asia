@@ -1,0 +1,14 @@
+:concurrency: 1
+staging:
+  :concurrency: 1
+production:
+  :concurrency: 1
+:queues:
+  - default
+  - schedule
+  - send_mail_leave_absence_letter
+  - update_annual_leave
+:schedule:
+  update_table_annual_leave:
+    cron: '0 0 * * *'
+    class: Schedulers::UpdateAnnualLeaveWorker

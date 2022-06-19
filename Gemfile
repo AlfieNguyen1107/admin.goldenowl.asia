@@ -95,5 +95,6 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'pundit'
-gem 'roo'
+gem 'redis-rails'
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
