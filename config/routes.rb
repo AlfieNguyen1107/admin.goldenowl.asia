@@ -12,17 +12,48 @@ Rails.application.routes.draw do
       get 'detail'
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
+
     resources :projects, controller: 'developers/projects', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :programming_languages, controller: 'developers/programming_languages', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :frameworks, controller: 'developers/frameworks', only: %i[create] do
       get 'add', on: :collection
       delete 'delete', on: :member
     end
   end
 
-  namespace :developers do
-    # post 'developer_projects/:id', to: 'developer_projects#update', as: 'update_projects'
-    post 'developer_programming_languages/:id', to: 'developer_programming_languages#update', as: 'update_programming_languages'
-    post 'developer_framework/:id', to: 'developer_frameworks#update', as: 'update_frameworks'
-    # put 'developer_projects/:id', to: 'developer_projects#add', as: 'add'
+  resources :employees do
+    resources :tools, controller: 'employees/tools', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :skills, controller: 'employees/skills', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :educations, controller: 'employees/educations', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :certificates, controller: 'employees/certificates', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :employments, controller: 'employees/employments', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
   end
 
   namespace :employees do
@@ -55,7 +86,6 @@ Rails.application.routes.draw do
   resources :skill_categories
   resources :skills
   resources :skill_category_groups
-  resources :employees
   resources :item_types
   resources :items
   resources :item_histories

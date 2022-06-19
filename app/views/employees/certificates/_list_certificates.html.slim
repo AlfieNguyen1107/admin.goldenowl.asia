@@ -1,0 +1,18 @@
+.certificate-list-item
+  - @employee.certificate_employees.each do |certificate_employee|
+    .card.border-secondary
+      .card-body
+        .row
+          h5.card-text.my-1
+            = link_to delete_employee_certificate_path(@employee, certificate_employee), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
+              i.mdi.mdi-window-close
+        .row
+          .col-8
+            h5.card-text.my-1 Certificate:
+            = certificate_employee.certificate.name
+            h5.card-text.my-1 Year:
+            = certificate_employee.year
+          .col-4
+            h5.card-text.my-1 Score:
+            = certificate_employee.score
+    br

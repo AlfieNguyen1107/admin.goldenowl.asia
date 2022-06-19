@@ -1,0 +1,14 @@
+.employee-education.my-2
+  .card.border-secondary.border
+    .card-body
+      p.card-text.my-1 University:
+      = select_tag 'employee[educations][][university_id]', options_for_select(universities_collection), class: 'btn btn-light dropdown-toggle'
+      p.card-text.my-1 Subject:
+      = text_field_tag 'employee[educations][][subject]',nil , class: "form-control", placeholder: "Subject"
+      p.card-text.my-1 Details:
+      = text_area_tag 'employee[educations][][details]', nil, class: "form-control"
+      p.card-text.my-1 from:
+      = date_field 'employee[educations][][from]', nil, class: 'form-control input-sm'
+      p.card-text.my-1 To:
+      = date_field 'employee[educations][][to]', nil, class: 'form-control input-sm'
+  br

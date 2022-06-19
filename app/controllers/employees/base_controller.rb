@@ -7,7 +7,7 @@ module Employees
     private
 
     def set_employee
-      @employee = Employee.find(params[:id])
+      @employee = Employee.find(params[:employee_id])
     end
   end
 end

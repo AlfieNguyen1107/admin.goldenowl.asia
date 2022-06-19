@@ -19,7 +19,7 @@ module DevelopersHelper
     Tool.pluck(:name, :id)
   end
 
-  def skill_collection
+  def skills_collection
     Skill.pluck(:name, :id)
   end
 

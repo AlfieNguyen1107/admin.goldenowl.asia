@@ -1,0 +1,14 @@
+.employee-employment.my-2
+  .card.border-secondary.border
+    .card-body
+      p.card-text.my-1 Company:
+      = select_tag 'employee[employments][][company_id]', options_for_select(companies_collection), class: 'btn btn-light dropdown-toggle'
+      p.card-text.my-1 Profession:
+      = text_field_tag 'employee[employments][][profession]',nil , class: "form-control", placeholder: "Subject"
+      p.card-text.my-1 Details:
+      = text_area_tag 'employee[employments][][details]', nil, class: "form-control"
+      p.card-text.my-1 from:
+      = date_field 'employee[employments][][from]', nil, class: 'form-control input-sm'
+      p.card-text.my-1 To:
+      = date_field 'employee[employments][][to]', nil, class: 'form-control input-sm'
+  br

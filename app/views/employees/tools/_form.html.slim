@@ -1,0 +1,8 @@
+#employee-tool-list
+  = render partial: '/employees/tools/list_tools'
+= simple_form_for(employee, url: employee_tools_path(employee), method: :post, remote: true) do |f|
+  #tool-box
+
+  = link_to 'Add', add_employee_tools_path(employee), remote: true
+  br
+  = f.submit 'Update Tool', class: 'btn btn-secondary my-2'

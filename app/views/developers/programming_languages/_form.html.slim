@@ -1,0 +1,8 @@
+#developer-programming-language-list
+  = render partial: '/developers/programming_languages/list_programming_languages'
+= simple_form_for(@developer, url: developer_programming_languages_path(@developer), method: :post, remote: true) do |f|
+  #programming-language-box
+
+  = link_to 'Add', add_developer_programming_languages_path(@developer), remote: true
+  br
+  = f.submit 'Update Programming Language', class: 'btn btn-secondary my-2'

@@ -1,0 +1,10 @@
+.employee-certificate.my-2
+  .card.border-secondary.border
+    .card-body
+      p.card-text.my-1 Certificate:
+      = select_tag 'employee[certificates][][certificate_id]', options_for_select(certificates_collection), class: 'btn btn-light dropdown-toggle'
+      p.card-text.my-1 Year:
+      = text_field_tag 'employee[certificates][][year]',nil , class: "form-control", placeholder: "Subject"
+      p.card-text.my-1 Score:
+      = text_field_tag 'employee[certificates][][score]', nil, class: "form-control"
+  br

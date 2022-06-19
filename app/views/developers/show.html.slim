@@ -17,34 +17,16 @@ section.section
           = @developer.senority
         hr
 
-        = simple_form_for(@employee, url: employees_update_educations_path, method: :post) do |f|
-          | Education:
-          br
-          = f.simple_fields_for :education_histories do |ff|
-            = render partial: 'employees/education_history_fields', locals: {f:ff}
-          = link_to_add_fields "Add", f, :education_histories, class: 'btn btn-success my-2'
-          br
-          = f.submit 'Upadate Education', class: 'btn btn-secondary my-2'
+        | Education:
+        = render partial: '/employees/educations/form' , locals: { employee: @employee }
+        hr
 
-        = simple_form_for(@employee, url: employees_update_employments_path, method: :post) do |f|
-          hr
-          | Employments:
-          br
-          = f.simple_fields_for :employment_histories do |ff|
-            = render partial: 'employees/employment_history_fields', locals: {f:ff}
-          = link_to_add_fields "Add", f, :employment_histories, class: 'btn btn-success my-2'
-          br
-          = f.submit 'Upadate Employment', class: 'btn btn-secondary my-2'
+        | Employments:
+        = render partial: '/employees/employments/form' , locals: { employee: @employee }
+        hr
 
-        = simple_form_for(@employee, url: employees_update_certificates_path, method: :post) do |f|
-          hr
-          | Certificates:
-          br
-          = f.simple_fields_for :certificate_employees do |ff|
-            = render partial: 'employees/certificate_employee_fields', locals: {f:ff}
-          = link_to_add_fields "Add", f, :certificate_employees, class: 'btn btn-success my-2'
-          br
-          = f.submit 'Upadate Certificate', class: 'btn btn-secondary my-2'
+        | Certificates:
+        = render partial: '/employees/certificates/form' , locals: { employee: @employee }
         hr
 
         = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
@@ -52,39 +34,25 @@ section.section
           | Reset intern
 
       .col-xl-5.col-lg-6
-        #developer-project
-          = render partial: '/developers/projects/form' , locals: { developer: @developer }
-          hr
-
-        = simple_form_for(@developer, url: developers_update_frameworks_path, method: :post) do |f|
-          hr
-          | Frameworks:
-          br
-          = f.simple_fields_for :developer_frameworks do |ff|
-            = render partial: 'developer_framework_fields', locals: { f:ff}
-          = link_to_add_fields 'Add', f, :developer_frameworks, class: 'btn btn-success btn-sm my-2'
-          br
-          = f.submit 'Update Freamwork', class: 'btn btn-secondary my-2'
+        | Projects:
+        = render partial: '/developers/projects/form' , locals: { developer: @developer }
         hr
 
-        = simple_form_for(@employee, url: employees_update_tools_path, method: :post) do |f|
-          | Tools:
-          br
-          = f.simple_fields_for :employee_tools do |ff|
-            = render partial: 'employees/employee_tool_fields', locals: {f:ff}
-          = link_to_add_fields "Add", f, :employee_tools, class: 'btn btn-success my-2'
-          br
-          = f.submit 'Upadate Tool', class: 'btn btn-secondary my-2'
+        | Programming Languages:
+        = render partial: '/developers/programming_languages/form' , locals: { developer: @developer }
+        hr
 
-        = simple_form_for(@employee, url: employees_update_skills_path, method: :post) do |f|
-          hr
-          | Skill:
-          br
-          = f.simple_fields_for :employee_skills do |ff|
-            = render partial: 'employees/employee_skill_fields', locals: {f:ff}
-          = link_to_add_fields "Add", f, :employee_skills, class: 'btn btn-success my-2'
-          br
-          = f.submit 'Upadate Skill', class: 'btn btn-secondary my-2'
+        | Frameworks:
+        = render partial: '/developers/frameworks/form' , locals: { developer: @developer }
+        hr
+
+        | Tools:
+        = render partial: '/employees/tools/form', locals: { employee: @employee }
+        hr
+
+        | Skills:
+        = render partial: '/employees/skills/form', locals: { employee: @employee }
+        hr
     .row
       .col-12
         nav.level

@@ -1,0 +1,10 @@
+.skill-list-item
+  - @employee.employee_skills.each do |employee_skill|
+    .skill-item
+      span.badge.bg-primary.fs-4.my-1
+        = employee_skill.skill.name
+        |-
+        = employee_skill.level
+      = link_to delete_employee_skill_path(@employee, employee_skill), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+        i.mdi.mdi-window-close
+    br

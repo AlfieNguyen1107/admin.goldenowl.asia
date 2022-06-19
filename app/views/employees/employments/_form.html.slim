@@ -1,0 +1,8 @@
+#employee-employment-list
+  = render partial: '/employees/employments/list_employments'
+= simple_form_for(employee, url: employee_employments_path(employee), method: :post, remote: true) do |f|
+  #employment-box
+
+  = link_to 'Add', add_employee_employments_path(employee), remote: true
+  br
+  = f.submit 'Update Employment', class: 'btn btn-secondary my-2'

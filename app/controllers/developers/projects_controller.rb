@@ -5,25 +5,19 @@ module Developers
     before_action :set_project, only: %i[delete]
 
     def add
-      respond_to do |format|
-        format.js { render file: 'developers/projects/add.js.erb', layout: false }
-      end
+      render :add
     end
 
     def create
       project_params['project_ids'].each do |project_id|
         DeveloperProject.find_or_create_by(project_id: project_id, developer_id: @developer.id)
       end
-      respond_to do |format|
-        format.js { render file: 'developers/projects/update.js.erb', layout: false, locals: {developer: @developer} }
-      end
+      render :update_list_project
     end
 
     def delete
       @project.destroy
-      respond_to do |format|
-        format.js { render file: 'developers/projects/update.js.erb', layout: false }
-      end
+      render :update_list_project
     end
 
     private
