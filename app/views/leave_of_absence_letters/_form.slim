@@ -1,6 +1,6 @@
 .section
   = simple_form_for @leave_of_absence_letter do |f|
-    .field
+    .field.mt-3
       = f.label :employee_id
       = f.select :employee_id,
                   options_for_select(@employees, @leave_of_absence_letter.employee_id), {},
