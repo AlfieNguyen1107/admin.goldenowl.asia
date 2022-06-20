@@ -2,7 +2,7 @@
 
 module Developers
   class ProgrammingLanguagesController < BaseController
-    before_action :set_programming_language, only: %i[delete]
+    before_action :set_programming_language, only: %i[destroy]
 
     def add
       render :add
@@ -11,13 +11,13 @@ module Developers
     def create
       programming_language_params['programming_languages'].each do |param|
         programming_language = DeveloperProgrammingLanguage.find_or_initialize_by(programming_language_id: param['id'],
-                                                                                  developer_id: params['developer_id'])
+                                                                                  developer_id: @developer.id)
         programming_language.update(level: param['level'])
       end
       render :update_list_programming_languages
     end
 
-    def delete
+    def destroy
       @programming_language.destroy
       render :update_list_programming_languages
     end

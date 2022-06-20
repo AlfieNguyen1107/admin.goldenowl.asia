@@ -2,7 +2,7 @@
 
 module Employees
   class CertificatesController < BaseController
-    before_action :set_certificate, only: %i[delete]
+    before_action :set_certificate, only: %i[destroy]
 
     def add
       render :add
@@ -19,7 +19,7 @@ module Employees
       render :update_list_certificates
     end
 
-    def delete
+    def destroy
       @certificate.destroy
       render :update_list_certificates
     end

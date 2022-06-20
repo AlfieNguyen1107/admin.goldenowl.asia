@@ -2,7 +2,7 @@
 
 module Developers
   class FrameworksController < BaseController
-    before_action :set_framework, only: %i[delete]
+    before_action :set_framework, only: %i[destroy]
 
     def add
       render :add
@@ -10,14 +10,14 @@ module Developers
 
     def create
       framework_params['frameworks'].each do |param|
-        framework = DeveloperFramework.find_or_initialize_by(framework_id: param['id'],
-                                                             developer_id: params['developer_id'])
+        framework = DeveloperFramework.find_or_initialize_by(framework_id: param['franework_id'],
+                                                             developer_id: @developer.id)
         framework.update(level: param['level'])
       end
       render :update_list_frameworks
     end
 
-    def delete
+    def destroy
       @framework.destroy
       render :update_list_frameworks
     end

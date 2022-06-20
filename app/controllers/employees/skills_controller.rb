@@ -2,7 +2,7 @@
 
 module Employees
   class SkillsController < BaseController
-    before_action :set_skill, only: %i[delete]
+    before_action :set_skill, only: %i[destroy]
 
     def add
       render :add
@@ -10,14 +10,14 @@ module Employees
 
     def create
       skill_params['skills'].each do |param|
-        skill = EmployeeSkill.find_or_initialize_by(skill_id: param['id'],
+        skill = EmployeeSkill.find_or_initialize_by(skill_id: param['skill_id'],
                                                     employee_id: params['employee_id'])
         skill.update(level: param['level'])
       end
       render :update_list_skills
     end
 
-    def delete
+    def destroy
       @skill.destroy
       render :update_list_skills
     end

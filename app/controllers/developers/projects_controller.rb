@@ -2,7 +2,7 @@
 
 module Developers
   class ProjectsController < BaseController
-    before_action :set_project, only: %i[delete]
+    before_action :set_project, only: %i[destroy]
 
     def add
       render :add
@@ -15,7 +15,7 @@ module Developers
       render :update_list_project
     end
 
-    def delete
+    def destroy
       @project.destroy
       render :update_list_project
     end

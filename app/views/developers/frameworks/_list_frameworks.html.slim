@@ -5,6 +5,6 @@
         = developer_framework.framework.name
         |-
         = developer_framework.level
-      = link_to delete_developer_framework_path(@developer, developer_framework), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+      = link_to developer_framework_path(@developer, developer_framework), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
         i.mdi.mdi-window-close
     br

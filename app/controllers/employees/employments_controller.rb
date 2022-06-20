@@ -2,7 +2,7 @@
 
 module Employees
   class EmploymentsController < BaseController
-    before_action :set_employment, only: %i[delete]
+    before_action :set_employment, only: %i[destroy]
 
     def add
       render :add
@@ -10,7 +10,7 @@ module Employees
 
     def create
       employment_params['employments'].each do |param|
-        employment = EmploymentHistory.find_or_initialize_by(company_id: param['id'],
+        employment = EmploymentHistory.find_or_initialize_by(company_id: param['company_id'],
                                                              employee_id: params['employee_id'])
 
         employment.update(profession: param['profession'],
@@ -21,7 +21,7 @@ module Employees
       render :update_list_employments
     end
 
-    def delete
+    def destroy
       @employment.destroy
       render :update_list_employments
     end

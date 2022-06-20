@@ -2,7 +2,7 @@
   .card.border-secondary.border
     .card-body
       p.card-text.my-1 University:
-      = select_tag 'employee[educations[][id]]', options_for_select(universities_collection), class: 'btn btn-light dropdown-toggle'
+      = select_tag 'employee[educations[][company_id]]', options_for_select(universities_collection), class: 'btn btn-light dropdown-toggle'
       p.card-text.my-1 Subject:
       = text_field_tag 'employee[educations[][subject]]',nil , class: "form-control", placeholder: "Subject"
       p.card-text.my-1 Details:

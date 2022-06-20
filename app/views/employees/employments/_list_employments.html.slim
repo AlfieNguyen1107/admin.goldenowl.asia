@@ -4,7 +4,7 @@
       .card-body
         .row
           h5.card-text.my-1
-            = link_to delete_employee_employment_path(@employee, employment_history), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
+            = link_to employee_employment_path(@employee, employment_history), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
               i.mdi.mdi-window-close
         .row
           .col-8

@@ -13,31 +13,26 @@ Rails.application.routes.draw do
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
 
-    resources :projects, controller: 'developers/projects', only: %i[create] do
+    resources :projects, controller: 'developers/projects', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
-    resources :programming_languages, controller: 'developers/programming_languages', only: %i[create] do
+    resources :programming_languages, controller: 'developers/programming_languages', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
-    resources :frameworks, controller: 'developers/frameworks', only: %i[create] do
+    resources :frameworks, controller: 'developers/frameworks', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
   end
 
   resources :employees do
-    resources :tools, controller: 'employees/tools', only: %i[create] do
+    resources :tools, controller: 'employees/tools', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
-    resources :skills, controller: 'employees/skills', only: %i[create] do
+    resources :skills, controller: 'employees/skills', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
     resources :educations, controller: 'employees/educations', only: %i[create] do
@@ -45,14 +40,12 @@ Rails.application.routes.draw do
       delete 'delete', on: :member
     end
 
-    resources :certificates, controller: 'employees/certificates', only: %i[create] do
+    resources :certificates, controller: 'employees/certificates', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
-    resources :employments, controller: 'employees/employments', only: %i[create] do
+    resources :employments, controller: 'employees/employments', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
   end
 

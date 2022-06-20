@@ -5,6 +5,6 @@
         = employee_skill.skill.name
         |-
         = employee_skill.level
-      = link_to delete_employee_skill_path(@employee, employee_skill), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+      = link_to employee_skill_path(@employee, employee_skill), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
         i.mdi.mdi-window-close
     br

@@ -2,7 +2,7 @@
 
 module Employees
   class ToolsController < BaseController
-    before_action :set_tool, only: %i[delete]
+    before_action :set_tool, only: %i[destroy]
 
     def add
       render :add
@@ -10,14 +10,14 @@ module Employees
 
     def create
       tool_params['tools'].each do |param|
-        tool = EmployeeTool.find_or_initialize_by(tool_id: param['id'],
+        tool = EmployeeTool.find_or_initialize_by(tool_id: param['tool_id'],
                                                   employee_id: params['employee_id'])
         tool.update(level: param['level'])
       end
       render :update_list_tools
     end
 
-    def delete
+    def destroy
       @tool.destroy
       render :update_list_tools
     end
