@@ -26,4 +26,8 @@ class EmployeePolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def add_account_employee?
+    user.admin?
+  end
 end
