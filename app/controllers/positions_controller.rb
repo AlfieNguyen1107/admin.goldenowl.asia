@@ -1,5 +1,6 @@
 class PositionsController < ApplicationController
   before_action :set_position, only: %i[show edit destroy update]
+  before_action :set_new_position, only: %i[new create]
 
   def index
     @ceo = Position.where(name: 'CEO').first
@@ -11,7 +12,6 @@ class PositionsController < ApplicationController
   def edit; end
 
   def create
-    @position = Position.new(position_params)
     if @position.save
       redirect_to positions_path, notice: 'Position was successfully created'
     else
@@ -19,9 +19,7 @@ class PositionsController < ApplicationController
     end
   end
 
-  def new
-    @position = Position.new
-  end
+  def new; end
 
   def update
     if @position.update(position_params)
@@ -43,9 +41,15 @@ class PositionsController < ApplicationController
 
   def set_position
     @position = Position.find(params[:id])
+    authorize(@position)
   end
 
   def position_params
     params.require(:position).permit(:ancestry, :name)
+  end
+
+  def set_new_position
+    @position = Position.new((request.post? && position_params) || nil)
+    authorize(@position)
   end
 end

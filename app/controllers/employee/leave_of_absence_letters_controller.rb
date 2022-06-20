@@ -41,17 +41,14 @@ class Employee::LeaveOfAbsenceLettersController < ApplicationController
 
   def set_leave_of_absence_letter
     @leave_of_absence_letter = LeaveOfAbsenceLetter.find(params[:id])
-    authorize(@leave_of_absence_letter)
   end
 
   def set_new_leave_of_absence_letter
     @leave_of_absence_letter = LeaveOfAbsenceLetter.new((request.post? && leave_of_absence_letter_params) || nil)
-    authorize(@leave_of_absence_letter)
   end
 
   def set_leave_of_absence_letter_collection
     @leave_of_absence_letters = LeaveOfAbsenceLetter.order(id: :asc)
-    authorize(@leave_of_absence_letters)
   end
 
   def leave_of_absence_letter_params

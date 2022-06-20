@@ -7,10 +7,10 @@ class InternsController < ApplicationController
   before_action :set_data_association, only: %i[new edit create]
   before_action :set_date_year, only: %i[new edit create]
   before_action :set_mentor, only: %i[new edit]
+  before_action :set_new_intern, only: %i[new create]
+  before_action :set_intern_collection, only: %i[index]
 
   def index
-    @interns = Intern.all
-    @interns = FilterInternService.call(params).payload if params[:filter].present?
     @pagy, @interns = pagy_array(@interns.uniq, items: per_page)
   end
 
@@ -20,38 +20,29 @@ class InternsController < ApplicationController
 
   def new
     @project_options = Project.pluck(:name, :id)
-    @intern = Intern.new
   end
 
   def edit; end
 
   def create
-    @intern = Intern.new(intern_params)
-
-    respond_to do |format|
-      if @intern.save
-        format.html { redirect_to @intern, notice: 'Intern was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @intern.save
+      redirect_to @intern, notice: 'Intern was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @intern.update(intern_params)
-        format.html { redirect_to @intern, notice: 'Intern was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @intern.update(intern_params)
+      redirect_to @intern, notice: 'Intern was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @intern.destroy
-    respond_to do |format|
-      format.html { redirect_to interns_url, notice: 'Intern was successfully destroyed.' }
-    end
+    redirect_to interns_url, notice: 'Intern was successfully destroyed.'
   end
 
   def detail
@@ -70,6 +61,7 @@ class InternsController < ApplicationController
 
   def set_intern
     @intern = Intern.find(params[:id])
+    authorize(@intern)
   end
 
   def set_project_options
@@ -99,5 +91,19 @@ class InternsController < ApplicationController
 
   def set_date_year
     @years = ((Date.current.year - 30)..Date.current.year).to_a
+  end
+
+  def set_new_intern
+    @intern = intern.new((request.post? && intern_params) || nil)
+    authorize(@intern)
+  end
+
+  def set_intern_collection
+    @interns = if params[:filter].present?
+                 FilterInternService.call(params).payload
+               else
+                 Intern.order(id: :asc)
+               end
+    authorize(@interns)
   end
 end

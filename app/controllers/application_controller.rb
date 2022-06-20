@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   layout :layout_by_resource
 
   DEFAULT_PER_PAGE = 6
@@ -18,5 +20,10 @@ class ApplicationController < ActionController::Base
     return DEFAULT_PER_PAGE if params[:size].blank?
 
     params[:size].to_i > MAX_PER_PAGE ? MAX_PER_PAGE : params[:size]
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path
   end
 end

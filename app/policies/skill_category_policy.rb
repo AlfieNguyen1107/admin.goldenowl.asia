@@ -1,4 +1,4 @@
-class ItemPolicy < ApplicationPolicy
+class SkillCategoryPolicy < ApplicationPolicy
   def index?
     user.admin?
   end

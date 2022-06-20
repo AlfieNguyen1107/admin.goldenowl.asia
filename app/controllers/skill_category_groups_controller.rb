@@ -1,21 +1,17 @@
 class SkillCategoryGroupsController < ApplicationController
   before_action :set_skill_category_group, only: %i[show edit update destroy]
+  before_action :set_new_skill_category_group, only: %i[new create]
+  before_action :set_skill_category_group_collection, only: %i[index]
 
   def index
-    @skill_category_groups = SkillCategoryGroup.all
     @pagy, @skill_category_groups = pagy(@skill_category_groups, item: per_page)
   end
 
   def create
-    @skill_category_group = SkillCategoryGroup.new(skill_categoty_group_params)
-    respond_to do |format|
-      if @skill_category_group.save
-        format.html { redirect_to @skill_category_group, notice: 'Skill category group was successfully created.' }
-        format.json { render :show, status: :created, location: @skill_category_group }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @skill_category_group.errors, status: :unprocessable_entity }
-      end
+    if @skill_category_group.save
+      redirect_to @skill_category_group, notice: 'Skill category group was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -23,19 +19,13 @@ class SkillCategoryGroupsController < ApplicationController
 
   def edit;  end
 
-  def new
-    @skill_category_group = SkillCategoryGroup.new
-  end
+  def new; end
 
   def update
-    respond_to do |format|
-      if @skill_category_group.update(skill_categoty_group_params)
-        format.html { redirect_to @skill_category_group, notice: 'Skill category group was successfully updtated.' }
-        format.json { render :show, status: :created, location: @skill_category_group }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @skill_category_group.errors, status: :unprocessable_entity }
-      end
+    if @skill_category_group.update(skill_category_group_params)
+      redirect_to @skill_category_group, notice: 'Skill category group was successfully updtated.'
+    else
+      render :new
     end
   end
 
@@ -46,11 +36,22 @@ class SkillCategoryGroupsController < ApplicationController
 
   private
 
-  def skill_categoty_group_params
+  def skill_category_group_params
     params.require(:skill_category_group).permit(:name, :order)
   end
 
   def set_skill_category_group
     @skill_category_group = SkillCategoryGroup.find(params[:id])
+    authorize(@skill_category_group)
+  end
+
+  def set_new_skill_category_group
+    @skill_category_group = SkillCategoryGroup.new((request.post? && skill_category_group_params) || nil)
+    authorize(@skill_category_group)
+  end
+
+  def set_skill_category_group_collection
+    @skill_category_groups = SkillCategoryGroup.order(id: :asc)
+    authorize(@skill_category_groups)
   end
 end

@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_technology_options
   before_action :upload_image, only: :update
+  before_action :set_new_project, only: %i[new create]
 
   def index
     project_filter
@@ -13,15 +14,11 @@ class ProjectsController < ApplicationController
 
   def show; end
 
-  def new
-    @project = Project.new
-  end
+  def new; end
 
   def edit; end
 
   def create
-    @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -67,6 +64,7 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+    authorize(@project)
   end
 
   def set_technology_options
@@ -78,6 +76,7 @@ class ProjectsController < ApplicationController
     @industry = params[:industry]
     @projects = @projects.search(params[:search]) if params[:search]
     @projects = @projects.filter_industry(@industry) if @industry.present?
+    authorize(@projects)
   end
 
   def project_params
@@ -107,5 +106,10 @@ class ProjectsController < ApplicationController
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date
     )
+  end
+
+  def set_new_project
+    @project = Project.new((request.post? && project_params) || nil)
+    authorize(@project)
   end
 end

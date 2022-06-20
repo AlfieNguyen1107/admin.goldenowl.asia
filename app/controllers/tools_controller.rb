@@ -1,6 +1,7 @@
 class ToolsController < ApplicationController
   before_action :set_tool, only: %i[show edit update destroy]
   before_action :load_skill_categories, only: %i[new edit]
+  before_action :set_new_tool, only: %i[new create]
 
   def index
     @skill_categories = SkillCategory.pluck(:name, :id)
@@ -13,7 +14,6 @@ class ToolsController < ApplicationController
   end
 
   def create
-    @tool = Tool.new(tool_params)
     if @tool.save
       redirect_to tools_path, notice: 'Tool was successfully created'
     else
@@ -25,9 +25,7 @@ class ToolsController < ApplicationController
 
   def edit; end
 
-  def new
-    @tool = Tool.new
-  end
+  def new; end
 
   def update
     if @tool.update(tool_params)
@@ -49,6 +47,7 @@ class ToolsController < ApplicationController
 
   def set_tool
     @tool = Tool.find(params[:id])
+    authorize(@tool)
   end
 
   def load_skill_categories
@@ -57,5 +56,10 @@ class ToolsController < ApplicationController
 
   def tool_params
     params.require(:tool).permit(:name, :skill_category_id)
+  end
+
+  def set_new_tool
+    @tool = Tool.new((request.post? && tool_params) || nil)
+    authorize(@tool)
   end
 end

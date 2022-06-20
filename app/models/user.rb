@@ -50,10 +50,4 @@ class User < ApplicationRecord
       password: Devise.friendly_token[0, 20]
     )
   end
-
-  def admin?
-    return true if role == 'admin'
-
-    false
-  end
 end

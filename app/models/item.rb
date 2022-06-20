@@ -7,7 +7,7 @@
 #  description  :string
 #  image        :string
 #  name         :string
-#  status       :integer          default(0)
+#  status       :integer          default("available")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  item_type_id :bigint           not null

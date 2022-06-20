@@ -1,14 +1,14 @@
 class ItemHistoryPolicy < ApplicationPolicy
   def index?
-    true
+    user.admin?
   end
 
   def show?
-    true
+    user.admin?
   end
 
   def create?
-    true
+    user.admin?
   end
 
   def new?
@@ -20,10 +20,10 @@ class ItemHistoryPolicy < ApplicationPolicy
   end
 
   def edit?
-    true
+    user.admin?
   end
 
   def destroy?
-    true
+    user.admin?
   end
 end

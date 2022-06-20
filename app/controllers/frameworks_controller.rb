@@ -3,6 +3,7 @@ class FrameworksController < ApplicationController
   before_action :filter_name_programming_language, only: :index
   before_action :set_skill_categories_and_programming_languages, only: %i[new create edit]
   before_action :load_skill_categories, only: %i[new edit]
+  before_action :set_new_framework, only: %i[new create]
 
   def index
     @frameworks_all = Framework.all
@@ -15,7 +16,6 @@ class FrameworksController < ApplicationController
   end
 
   def create
-    @framework = Framework.new(framework_params)
     if @framework.save
       redirect_to frameworks_path, notice: 'Framework was successfully created.'
     else
@@ -23,9 +23,7 @@ class FrameworksController < ApplicationController
     end
   end
 
-  def new
-    @framework = Framework.new
-  end
+  def new; end
 
   def show; end
 
@@ -51,6 +49,7 @@ class FrameworksController < ApplicationController
 
   def set_framework
     @framework = Framework.find(params[:id])
+    authorize(@framework)
   end
 
   def filter_name_programming_language
@@ -69,5 +68,10 @@ class FrameworksController < ApplicationController
   def set_skill_categories_and_programming_languages
     @skill_categories = SkillCategory.all.map { |sc| [sc.name, sc.id] }
     @programming_languages = ProgrammingLanguage.all.map { |p| [p.name, p.id] }
+  end
+
+  def set_new_framework
+    @framework = Framework.new((request.post? && framework_params) || nil)
+    authorize(@framework)
   end
 end
