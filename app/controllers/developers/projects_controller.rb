@@ -9,8 +9,8 @@ module Developers
     end
 
     def create
-      project_params['project_ids'].each do |project_id|
-        DeveloperProject.find_or_create_by(project_id: project_id, developer_id: @developer.id)
+      project_params['projects'].each do |project|
+        DeveloperProject.find_or_create_by(project_id: project[:id], developer_id: @developer.id)
       end
       render :update_list_project
     end
@@ -27,7 +27,7 @@ module Developers
     end
 
     def project_params
-      params.require(:developer).permit(project_ids: [])
+      params.require(:developer).permit(projects: [:id])
     end
   end
 end

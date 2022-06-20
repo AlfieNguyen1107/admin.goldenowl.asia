@@ -5,7 +5,7 @@
 
     .replace_project[style = "display: none;" ]
       .dropdown.btn-group.my-1
-        = select_tag 'developer[project_ids][]',  options_for_select(projects_collection),  class: 'btn btn-outline-secondary dropdown-toggle'
+        = select_tag 'developer[projects[][id]]',  options_for_select(projects_collection),  class: 'btn btn-outline-secondary dropdown-toggle'
       br
   = link_to 'Add', add_developer_projects_path(@developer), remote: true
   br

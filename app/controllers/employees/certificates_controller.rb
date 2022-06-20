@@ -9,11 +9,12 @@ module Employees
     end
 
     def create
-      certificate_params.each do |certificate|
-        CertificateEmployee.find_or_create_by(certificate_id: certificate[:certificate_id],
-                                              year: certificate[:year],
-                                              employee_id: @employee.id,
-                                              score: certificate[:score])
+      certificate_params['certificates'].each do |param|
+        certificate = CertificateEmployee.find_or_initialize_by(certificate_id: param['id'],
+                                                                employee_id: params['employee_id'])
+
+        certificate.update(year: param['year'],
+                           score: param[:score])
       end
       render :update_list_certificates
     end
@@ -30,7 +31,7 @@ module Employees
     end
 
     def certificate_params
-      params.require(:employee)[:certificates]
+      params.require(:employee).permit(certificates: %i[id year score])
     end
   end
 end

@@ -9,12 +9,14 @@ module Employees
     end
 
     def create
-      education_params.each do |education|
-        EducationHistory.find_or_create_by(university_id: education[:university_id],
-                                           subject: education[:subject],
-                                           employee_id: @employee.id,
-                                           from: education[:from].to_sentence,
-                                           to: education[:to].to_sentence)
+      education_params['educations'].each do |param|
+        education = EducationHistory.find_or_initialize_by(university_id: param['id'],
+                                                           employee_id: params['employee_id'])
+
+        education.update(subject: param['subject'],
+                         details: param['details'],
+                         from: param['from'],
+                         to: param['to'])
       end
       render :update_list_educations
     end
@@ -31,7 +33,7 @@ module Employees
     end
 
     def education_params
-      params.require(:employee)[:educations]
+      params.require(:employee).permit(educations: %i[id subject details from to])
     end
   end
 end

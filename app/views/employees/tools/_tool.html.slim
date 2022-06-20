@@ -1,3 +1,3 @@
 .employee-tool.my-2
-  = select_tag 'employee[tools][][tool_id]',  options_for_select(tools_collection), class: 'btn btn-light dropdown-toggle'
+  = select_tag 'employee[tools][][id]',  options_for_select(tools_collection), class: 'btn btn-light dropdown-toggle'
   = select_tag 'employee[tools][][level]' , options_for_select(levels_collection), class: 'btn btn-light dropdown-toggle mx-3'

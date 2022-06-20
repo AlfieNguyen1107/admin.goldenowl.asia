@@ -22,32 +22,32 @@
                 = eh.details
               .col-4
                 = eh.from
-                | - 
+                | -
                 = eh.to
         hr/
         | Programming Languages
-        h4.title 
+        h4.title
           - @developer.developer_programming_languages.each do |t|
             span.badge.rounded-pill.bg-primary = t.programming_language.name
             = " - "
             = t.level
         hr/
         | Frameworks
-        h4.title 
+        h4.title
           - @developer.developer_frameworks.each do |t|
             span.badge.rounded-pill.bg-secondary = t.framework.name
             = " - "
-            = t.level 
+            = t.level
         hr/
         | Tools
-        h4.title 
+        h4.title
           - @developer.employee_tools.each do |t|
             span.badge.rounded-pill.bg-info = t.tool.name
             = " - "
             = t.level
       .col-xl-5.col-lg-6
         | Skills
-        h4.title 
+        h4.title
           - @developer.skills.each do |s|
             span.badge.rounded-pill.bg-danger = s.name
         hr/
@@ -64,7 +64,7 @@
               = eh.details
             .col-4
               = eh.from
-              | - 
+              | -
               = eh.to
         hr/
         | Certificates:
@@ -75,14 +75,11 @@
               b
                 = eh.certificate.name
               br
-              | Score: 
+              | Score:
               = eh.score
             .col-4
               = eh.year
         hr/
         | Positions
-        h4.title 
-        = Position.name_position(@developer.position_id).first.name
-
-
-        
+        h4.title
+          = @developer.position.name

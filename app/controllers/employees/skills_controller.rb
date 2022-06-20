@@ -9,10 +9,10 @@ module Employees
     end
 
     def create
-      skill_params.each do |skill|
-        EmployeeSkill.find_or_create_by(skill_id: skill[:skill_id],
-                                        employee_id: @employee.id,
-                                        level: skill[:level])
+      skill_params['skills'].each do |param|
+        skill = EmployeeSkill.find_or_initialize_by(skill_id: param['id'],
+                                                employee_id: params['employee_id'])
+        skill.update(level: param['level'])
       end
       render :update_list_skills
     end
@@ -29,7 +29,7 @@ module Employees
     end
 
     def skill_params
-      params.require(:employee)[:skills]
+      params.require(:employee).permit(skills: %i[id level])
     end
   end
 end

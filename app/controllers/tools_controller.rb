@@ -3,7 +3,6 @@ class ToolsController < ApplicationController
   before_action :load_skill_categories, only: %i[new edit]
 
   def index
-    @skill_categories = SkillCategory.pluck(:name, :id)
     @tools = if params[:skill_category_id].present?
                Tool.where(skill_category_id: params[:skill_category_id])
              else

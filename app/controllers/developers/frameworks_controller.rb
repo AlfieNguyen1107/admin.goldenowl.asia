@@ -9,10 +9,10 @@ module Developers
     end
 
     def create
-      framework_params.each do |framework|
-        DeveloperFramework.find_or_create_by(framework_id: framework[:framework_id],
-                                             developer_id: @developer.id,
-                                             level: framework[:level])
+      framework_params['frameworks'].each do |param|
+        framework = DeveloperFramework.find_or_initialize_by(framework_id: param['id'],
+                                                             developer_id: params['developer_id'])
+        framework.update(level: param['level'])
       end
       render :update_list_frameworks
     end
@@ -29,7 +29,7 @@ module Developers
     end
 
     def framework_params
-      params.require(:developer)[:frameworks]
+      params.require(:developer).permit(frameworks: %i[id level])
     end
   end
 end

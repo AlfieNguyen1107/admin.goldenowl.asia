@@ -18,8 +18,6 @@ gem 'webpacker', '~> 4.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim'
 gem 'slim-rails'
-gem 'link_to_add_fields'
-
 # Auth
 gem 'devise'
 

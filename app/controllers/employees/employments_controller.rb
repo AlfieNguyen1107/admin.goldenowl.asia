@@ -9,13 +9,14 @@ module Employees
     end
 
     def create
-      employment_params.each do |employment|
-        EmploymentHistory.find_or_create_by(company_id: employment[:company_id],
-                                            profession: employment[:profession],
-                                            employee_id: @employee.id,
-                                            details: employment[:details],
-                                            from: employment[:from].to_sentence,
-                                            to: employment[:to].to_sentence)
+      employment_params['employments'].each do |param|
+        employment = EmploymentHistory.find_or_initialize_by(company_id: param['id'],
+                                                             employee_id: params['employee_id'])
+
+        employment.update(profession: param['profession'],
+                          details: param['details'],
+                          from: param[:from],
+                          to: param[:to])
       end
       render :update_list_employments
     end
@@ -32,7 +33,7 @@ module Employees
     end
 
     def employment_params
-      params.require(:employee)[:employments]
+      params.require(:employee).permit(employments: %i[id profession details from to])
     end
   end
 end

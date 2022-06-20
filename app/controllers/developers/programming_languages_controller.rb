@@ -9,10 +9,10 @@ module Developers
     end
 
     def create
-      programming_language_params.each do |programming_language|
-        DeveloperProgrammingLanguage.find_or_create_by(programming_language_id: programming_language[:programming_language_id],
-                                                       developer_id: @developer.id,
-                                                       level: programming_language[:level])
+      programming_language_params['programming_languages'].each do |param|
+        programming_language = DeveloperProgrammingLanguage.find_or_initialize_by(programming_language_id: param['id'],
+                                                                                  developer_id: params['developer_id'])
+        programming_language.update(level: param['level'])
       end
       render :update_list_programming_languages
     end
@@ -29,7 +29,7 @@ module Developers
     end
 
     def programming_language_params
-      params.require(:developer)[:programming_languages]
+      params.require(:developer).permit(programming_languages: %i[id level])
     end
   end
 end

@@ -83,7 +83,7 @@ class InternsController < ApplicationController
   end
 
   def set_mentor
-    @mentors = Developer.where(type: 'Developer').map { |d| [d.full_name, d.id] }
+    @mentors = Developer.developers.map { |d| [d.full_name, d.id] }
   end
 
   def intern_params
