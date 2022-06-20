@@ -11,7 +11,7 @@ module Employees
     def create
       skill_params['skills'].each do |param|
         skill = EmployeeSkill.find_or_initialize_by(skill_id: param['id'],
-                                                employee_id: params['employee_id'])
+                                                    employee_id: params['employee_id'])
         skill.update(level: param['level'])
       end
       render :update_list_skills
