@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SkillsController < ApplicationController
   before_action :load_skill, only: %i[show edit destroy update]
   before_action :load_skill_categories, only: %i[edit new]

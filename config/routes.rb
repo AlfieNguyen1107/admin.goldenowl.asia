@@ -49,14 +49,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :employees do
-    post 'employee_tool/:id', to: 'employee_tools#update', as: 'update_tools'
-    post 'employee_skill/:id', to: 'employee_skills#update', as: 'update_skills'
-    post 'employee_education/:id', to: 'employee_educations#update', as: 'update_educations'
-    post 'employee_certificate/:id', to: 'employee_certificates#update', as: 'update_certificates'
-    post 'employee_employment/:id', to: 'employee_employments#update', as: 'update_employments'
-  end
-
   resources :interns do
     member do
       put 'update_type/:id', to: 'interns#update_type', as: 'update_type'
