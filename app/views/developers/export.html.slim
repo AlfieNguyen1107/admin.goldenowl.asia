@@ -1,0 +1,51 @@
+.row
+  .col-xl-5.col-lg-6
+    | Full name:
+    h4.title
+      = @developer.full_name
+    hr/
+    | Company name:
+    h4.title
+      = @developer.company_name
+    hr/
+    | Senority:
+    h4.title
+      = @developer.senority
+    hr
+
+    | Education:
+    = render partial: '/employees/educations/list_educations'
+    hr
+
+    | Employments:
+    = render partial: '/employees/employments/list_employments'
+    hr
+
+    | Certificates:
+    = render partial: '/employees/certificates/list_certificates'
+    hr
+
+    = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
+      i.uil-cog.me-1
+      | Reset intern
+
+  .col-xl-5.col-lg-6
+    | Projects:
+    = render partial: '/developers/projects/list_projects'
+    hr
+
+    | Programming Languages:
+    = render partial: '/developers/programming_languages/list_programming_languages'
+    hr
+
+    | Frameworks:
+    = render partial: '/developers/frameworks/list_frameworks'
+    hr
+
+    | Tools:
+    = render partial: '/employees/tools/list_tools'
+    hr
+
+    | Skills:
+    = render partial: '/employees/skills/list_skills'
+    hr

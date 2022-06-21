@@ -15,6 +15,12 @@ class DevelopersController < ApplicationController
 
   def show
     @employee = @developer.employable
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'file.pdf', template: 'developers/export.html.slim'
+      end
+    end
   end
 
   def new
