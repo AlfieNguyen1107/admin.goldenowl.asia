@@ -4,9 +4,8 @@ class ToolsController < ApplicationController
   before_action :set_new_tool, only: %i[new create]
 
   def index
-    @skill_categories = SkillCategory.pluck(:name, :id)
     @tools = if params[:skill_category_id].present?
-               Tool.filter_skill_category_tool(params[:skill_category_id])
+               Tool.where(skill_category_id: params[:skill_category_id])
              else
                Tool.all
              end

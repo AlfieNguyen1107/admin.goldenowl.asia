@@ -1,0 +1,8 @@
+#employee-certificate-list
+  = render partial: '/employees/certificates/list_certificates'
+= simple_form_for(employee, url: employee_certificates_path(employee), method: :post, remote: true) do |f|
+  #certificate-box
+
+  = link_to 'Add', add_employee_certificates_path(employee), remote: true
+  br
+  = f.submit 'Update Certificate', class: 'btn btn-secondary my-2'

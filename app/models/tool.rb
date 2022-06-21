@@ -23,5 +23,6 @@ class Tool < ApplicationRecord
   has_many :employees, through: :employee_tools
 
   scope :filter_skill_category_tool, ->(id) { where(skill_category_id: id) }
+
   delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
 end

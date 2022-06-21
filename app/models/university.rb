@@ -16,6 +16,4 @@
 class University < ApplicationRecord
   has_many :developers, dependent: :destroy
   has_many :education_histories, dependent: :destroy
-
-  scope :filter_code_universities, ->(code) { where(code: code) }
 end

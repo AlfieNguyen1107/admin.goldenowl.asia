@@ -3,13 +3,7 @@ class UniversitiesController < ApplicationController
   before_action :set_new_university, only: %i[new create]
 
   def index
-    @universities_all = University.all
-    if params[:code].present?
-      @code = params[:code]
-      @universities = University.filter_code_universities(@code)
-    else
-      @universities = University.all
-    end
+    @universities = University.all
     @pagy, @universities = pagy(@universities.order(id: :ASC), items: per_page)
   end
 

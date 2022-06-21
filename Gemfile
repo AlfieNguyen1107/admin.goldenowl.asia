@@ -18,7 +18,6 @@ gem 'webpacker', '~> 4.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim'
 gem 'slim-rails'
-
 # Auth
 gem 'devise'
 

@@ -62,7 +62,6 @@ class Project < ApplicationRecord
   validates :deployment, presence: true
 
   scope :active_projects, -> { where(status: Project.statuses[:ongoing]) }
-  scope :filter_industry, ->(industry) { where(industry: industry) }
   scope :search, ->(query) { where('lower(name) LIKE ? OR lower(deployment) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
   resize_image_config(

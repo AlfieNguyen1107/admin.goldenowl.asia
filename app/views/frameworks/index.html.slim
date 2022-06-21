@@ -31,15 +31,12 @@ section.section
             .media-content
               .card-body
                 h4.header-title.mb-2 Frameworks
-                - @names = []
-                - @frameworks_all.each do |f|
-                  - @names << f.programming_language.name
                 = form_tag("/frameworks", method: 'get') do
                   .field.mb-3.float-md-right.mr-2
                     lable.form-label
-                      = select_tag(:programming_language_name, options_for_select(@names.uniq, select: @name), {:prompt => "Select name framework",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
+                      = select_tag(:programming_language_id, options_for_select(name_programming_language), {:prompt => "Select name programming language",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
-                    span.header-title.mr-3 style=("font-weight: bold;") Filter:    
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:
                   .table-responsive-sm
                     table.table.table-centered.mb-0
                       tr
@@ -55,15 +52,15 @@ section.section
                             td = f.id
                             td = link_to f.name, framework_path(f.id)
                             td = f.programming_language.name
-                            td = f.year_of_release   
+                            td = f.year_of_release
                             td = f.latest_version
                             td = f.skill_category_name
                             td.table-action
-                              = link_to edit_framework_path(f.id), class: "table-link" do 
+                              = link_to edit_framework_path(f.id), class: "table-link" do
                                 i.mdi.mdi-pencil
-                              = link_to framework_path(f.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                              = link_to framework_path(f.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do
                                 i.mdi.mdi-delete
-                              = link_to framework_path(f.id), class: "table-link" do 
+                              = link_to framework_path(f.id), class: "table-link" do
                                 i.mdi.mdi-bookmark-box-multiple
 section.section
   .container.mb-3

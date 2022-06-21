@@ -1,0 +1,8 @@
+.project-list-item
+  - @developer.projects.each do |project|
+    .project-item
+      span.badge.bg-primary.fs-4.my-1
+        = project.name
+      = link_to developer_project_path(@developer, project), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+        i.mdi.mdi-window-close
+    br

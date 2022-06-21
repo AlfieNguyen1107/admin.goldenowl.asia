@@ -12,7 +12,51 @@ Rails.application.routes.draw do
       get 'detail'
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
+
+    resources :projects, controller: 'developers/projects', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+
+    resources :programming_languages, controller: 'developers/programming_languages', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+
+    resources :frameworks, controller: 'developers/frameworks', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
   end
+
+  resources :employees do
+    resources :tools, controller: 'employees/tools', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+
+    resources :skills, controller: 'employees/skills', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+
+    resources :educations, controller: 'employees/educations', only: %i[create] do
+      get 'add', on: :collection
+      delete 'delete', on: :member
+    end
+
+    resources :certificates, controller: 'employees/certificates', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+
+    resources :employments, controller: 'employees/employments', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
+  end
+
+  namespace :employees do
+    post 'employee_tool/:id', to: 'employee_tools#update', as: 'update_tools'
+    post 'employee_skill/:id', to: 'employee_skills#update', as: 'update_skills'
+    post 'employee_education/:id', to: 'employee_educations#update', as: 'update_educations'
+    post 'employee_certificate/:id', to: 'employee_certificates#update', as: 'update_certificates'
+    post 'employee_employment/:id', to: 'employee_employments#update', as: 'update_employments'
+  end
+
   resources :interns do
     member do
       put 'update_type/:id', to: 'interns#update_type', as: 'update_type'

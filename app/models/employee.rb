@@ -65,11 +65,19 @@ class Employee < ApplicationRecord
   enum working_arrangement: { inoffice: 0, remote: 1, freelancer: 2 }
 
   delegate :name, to: :position, prefix: :position, allow_nil: true
-  scope :except_item, ->(id) { where.not(id: id) }
+
+  scope :except_employee, ->(id) { where.not(id: id) }
 
   validates :full_name, presence: true
 
   after_commit :update_annual_leave, on: %i[create update]
+
+  accepts_nested_attributes_for :employee_tools,
+                                :employee_skills,
+                                :education_histories,
+                                :employment_histories,
+                                :certificate_employees,
+                                allow_destroy: true
 
   resize_image_config(
     thumb: [128, 128]

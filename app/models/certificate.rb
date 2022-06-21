@@ -14,5 +14,4 @@
 #  index_certificates_on_rating  (rating)
 #
 class Certificate < ApplicationRecord
-  scope :filter_name_certificate, ->(name) { where(name: name) }
 end

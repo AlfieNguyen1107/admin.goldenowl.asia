@@ -1,0 +1,3 @@
+.employee-skill.my-2
+  = select_tag 'employee[skills][][id]',  options_for_select(skills_collection), class: 'btn btn-light dropdown-toggle'
+  = select_tag 'employee[skills][][level]' , options_for_select(levels_collection), class: 'btn btn-light dropdown-toggle mx-3'

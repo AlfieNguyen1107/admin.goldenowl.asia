@@ -6,34 +6,80 @@
     .media-body
       h4.mt-1.mb-1
         = @developer.full_name
-      p.font-13
-        = @developer.senority
-      div[style="display:flex"]
-        .list-inline-item.mr-3
-          h5.mb-1
-            | Projects
-          p.mb-0.font-13
-            - @developer.projects.each do |p|
-              .mb-0.mt-0.font-13
-                = p.name
-        .list-inline-item
-          h5.mb-1
-            | Programming Languages
-          p.mb-0.font-13
-            - @temp = []
-            - @developer.developer_programming_languages.each do |t|
-              = t.programming_language.name
-              = " - "
-              = t.level
+  .container.mb-4
+    .row
+      .col-xl-5.col-lg-6
+        | Project:
+        h4.title
+          - @developer.employment_histories.each do |eh|
+            .row
+              .col-8
+                b
+                  = eh.company&.name
+                br
+                = eh.profession
+                br
+                = eh.details
+              .col-4
+                = eh.from
+                | -
+                = eh.to
+        hr/
+        | Programming Languages
+        h4.title
+          - @developer.developer_programming_languages.each do |t|
+            span.badge.rounded-pill.bg-primary = t.programming_language.name
+            = " - "
+            = t.level
+        hr/
+        | Frameworks
+        h4.title
+          - @developer.developer_frameworks.each do |t|
+            span.badge.rounded-pill.bg-secondary = t.framework.name
+            = " - "
+            = t.level
+        hr/
+        | Tools
+        h4.title
+          - @developer.employee_tools.each do |t|
+            span.badge.rounded-pill.bg-info = t.tool.name
+            = " - "
+            = t.level
+      .col-xl-5.col-lg-6
+        | Skills
+        h4.title
+          - @developer.skills.each do |s|
+            span.badge.rounded-pill.bg-danger = s.name
+        hr/
+        | Education:
+        h4.title
+        - @developer.education_histories.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.university.name
               br
-
-        .list-inline-item
-          h5.mb-1
-            | Frameworks
-          p.mb-0.font-13
-            - @temp = []
-            - @developer.developer_frameworks.each do |t|
-              = t.framework.name
-              = " - "
-              = t.level
+              = eh.subject
               br
+              = eh.details
+            .col-4
+              = eh.from
+              | -
+              = eh.to
+        hr/
+        | Certificates:
+        h4.title
+        - @developer.certificate_employees.each do |eh|
+          .row
+            .col-8
+              b
+                = eh.certificate.name
+              br
+              | Score:
+              = eh.score
+            .col-4
+              = eh.year
+        hr/
+        | Positions
+        h4.title
+          = @developer.position.name

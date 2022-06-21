@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class DevelopersController < ApplicationController
-  before_action :set_developer, only: %i[show edit update destroy detail reset_type]
   before_action :set_project_options, only: %i[new edit]
-  before_action :filter_params, only: %i[index]
-  before_action :set_data_association, only: %i[new edit create]
-  before_action :set_date_year, only: %i[new edit create]
+  before_action :set_data_association, only: %i[new create edit]
+  before_action :set_date_year, only: %i[new create edit]
+  before_action :set_developer, only: %i[show edit destroy detail]
   before_action :set_new_developer, only: %i[new create]
   before_action :set_developer_collection, only: %i[index]
 
@@ -15,7 +14,7 @@ class DevelopersController < ApplicationController
   end
 
   def show
-    @pagy, @developers = pagy(Developer, items: per_page)
+    @employee = @developer.employable
   end
 
   def new
@@ -68,22 +67,22 @@ class DevelopersController < ApplicationController
     @project_options = Project.pluck(:name, :id)
   end
 
-  def filter_params
-    return unless params[:filter]
-
-    @cur_day = params[:day]
-  end
-
   def developer_params
-    params.require(:developer).permit(:employable_id, :senority, :belong_team, :type, :university_id,
-                                      :graduation_year, :position_id).merge(employable_type: 'Employee')
+    params.require(:developer).permit(:employable_id,
+                                      :senority,
+                                      :company_name,
+                                      :belong_team,
+                                      :type,
+                                      :university_id,
+                                      :graduation_year,
+                                      :position_id).merge(employable_type: 'Employee')
   end
 
   def set_data_association
     @universities = University.all.map { |u| [u.name, u.id] }
     @positions = Position.all.uniq.map { |p| [p.name, p.id] }
     @employee_id = Developer.all.map(&:employable_id)
-    @employable = Employee.except_item(@employee_id).map { |e| [e.full_name, e.id] }
+    @employable = Employee.except_employee(@employee_id).map { |e| [e.full_name, e.id] }
   end
 
   def set_date_year

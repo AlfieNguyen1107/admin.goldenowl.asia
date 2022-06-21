@@ -32,9 +32,9 @@ section.section
               .card-body
                 h4.header-title.mb-2 Tools
                 = form_tag("/tools", method: 'get') do
-                  = select_tag(:skill_category_id, options_for_select(@skill_categories, :selected => params[:skill_category_id] ), {:prompt => "Select skill category name",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
+                  = select_tag(:skill_category_id, options_for_select(skill_category_collection), {:prompt => "Select skill category name",  onchange: "this.form.submit();", class: 'form-select form-select-sm me-1'})
                   .field.mb-3.float-md-right
-                    span.header-title.mr-3 style=("font-weight: bold;") Filter:    
+                    span.header-title.mr-3 style=("font-weight: bold;") Filter:
                   .table-responsive-sm
                     table.table.table-centered.mb-0
                       tr
@@ -48,11 +48,11 @@ section.section
                             td = link_to tool.name, tool_path(tool.id)
                             td = tool.skill_category.name
                             td.table-action
-                              = link_to edit_tool_path(tool.id), class: "table-link" do 
+                              = link_to edit_tool_path(tool.id), class: "table-link" do
                                 i.mdi.mdi-pencil
-                              = link_to tool_path(tool.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                              = link_to tool_path(tool.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do
                                 i.mdi.mdi-delete
-                              = link_to tool_path(tool.id), class: "table-link" do 
+                              = link_to tool_path(tool.id), class: "table-link" do
                                 i.mdi.mdi-bookmark-box-multiple
 section.section
   .container.mb-3

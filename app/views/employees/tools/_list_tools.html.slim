@@ -1,0 +1,10 @@
+.tool-list-item
+  - @employee.employee_tools.each do |employee_tool|
+    .tool-item
+      span.badge.bg-primary.fs-4.my-1
+        = employee_tool.tool.name
+        |-
+        = employee_tool.level
+      = link_to employee_tool_path(@employee, employee_tool), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+        i.mdi.mdi-window-close
+    br

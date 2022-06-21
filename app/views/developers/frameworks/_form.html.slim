@@ -1,0 +1,8 @@
+#developer-framework-list
+  = render partial: '/developers/frameworks/list_frameworks'
+= simple_form_for(developer, url: developer_frameworks_path(developer), method: :post, remote: true) do |f|
+  #framework-box
+
+  = link_to 'Add', add_developer_frameworks_path(developer), remote: true
+  br
+  = f.submit 'Update Framework', class: 'btn btn-secondary my-2'

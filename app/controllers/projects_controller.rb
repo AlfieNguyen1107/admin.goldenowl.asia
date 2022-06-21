@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     @industry = params[:industry]
     @projects = @projects.search(params[:search]) if params[:search]
-    @projects = @projects.filter_industry(@industry) if @industry.present?
+    @projects = @projects.where(industry: @industry) if @industry.present?
     authorize(@projects)
   end
 
