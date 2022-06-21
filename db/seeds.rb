@@ -222,7 +222,7 @@ universities = University.all.to_a
 
 certificates = F.create_list :certificate, 1 + rand(20)
 
-(20 + rand(30)).times do 
+(20 + rand(30)).times do
   F.create :developer, position: positions.sample, university: universities.sample
 end
 devs = Developer.all.to_a
@@ -246,7 +246,7 @@ devs.each do |d|
   rand(10).times do
     d.project_histories << F.create(:project_history)
   end
-  
+
 
   d.save
 
@@ -293,7 +293,7 @@ projects.each do |p|
   p.project_tools.create tool: sc1.tools.sample
   p.project_skills.create skill: skills.sample
 
-  
+
   (1 + rand(2)).times do
     p.pc_projects << F.create(:pc_project, project: p, project_coordinator: pcs.sample)
   end
@@ -313,10 +313,6 @@ projects.each do |p|
   rand(5).times do
     p.project_resources.create! url: 'https://drive.google.com/file/d/1BzJtHIm8YAvU0Jjl_CPO1WL4Sivg_1gv/view?usp=sharing', name: 'Project Requirements'
   end
-
-  # rand(5).times do
-  #   p.project_screenshots.create! image:  
-  # end
 
   p.software_category_list = cats.shuffle.take(1 + rand(4)).map(&:name)
   p.save!
