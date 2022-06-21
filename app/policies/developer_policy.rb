@@ -26,4 +26,8 @@ class DeveloperPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def reset_type?
+    user.admin?
+  end
 end
