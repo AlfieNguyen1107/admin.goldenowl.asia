@@ -36,7 +36,6 @@ section.section
                       th scope="col" Current Address
                       th scope="col" Emp Number
                       th scope="col" Phone Number
-                      th scope="col" Registered Address
                       th scope="col" Position
                       th scope="col" class="mw-action" Active
                     - @employees.each do |e|
@@ -47,7 +46,6 @@ section.section
                           td = e.current_address
                           td = e.emp_number
                           td = e.phone_number
-                          td = e.registered_address
                           td = e.position_name
                           td.table-action
                             = link_to "<i class='mdi mdi-pencil'></i>".html_safe, edit_employee_path(e.id), class: "table-link"

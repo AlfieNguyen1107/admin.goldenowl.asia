@@ -1,5 +1,6 @@
 class CertificatesController < ApplicationController
   before_action :set_certificate, only: %i[show edit update destroy]
+  before_action :set_new_certificate, only: %i[new create]
 
   def index
     @certificates = Certificate.all
@@ -7,7 +8,6 @@ class CertificatesController < ApplicationController
   end
 
   def create
-    @certificate = Certificate.new(certificate_params)
     if @certificate.save
       redirect_to certificates_path, notice: 'Certificate was successfully created'
     else
@@ -19,9 +19,7 @@ class CertificatesController < ApplicationController
 
   def edit; end
 
-  def new
-    @certificate = Certificate.new
-  end
+  def new; end
 
   def update
     if @certificate.update(certificate_params)
@@ -43,9 +41,15 @@ class CertificatesController < ApplicationController
 
   def set_certificate
     @certificate = Certificate.find(params[:id])
+    authorize(@certificate)
   end
 
   def certificate_params
     params.require(:certificate).permit(:name, :rating)
+  end
+
+  def set_new_certificate
+    @certificate = Certificate.new((request.post? && certificate_params) || nil)
+    authorize(@certificate)
   end
 end

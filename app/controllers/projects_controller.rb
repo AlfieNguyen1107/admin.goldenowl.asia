@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_technology_options
   before_action :upload_image, only: :update
+  before_action :set_new_project, only: %i[new create]
 
   def index
     project_filter
@@ -13,35 +14,23 @@ class ProjectsController < ApplicationController
 
   def show; end
 
-  def new
-    @project = Project.new
-  end
+  def new; end
 
   def edit; end
 
   def create
-    @project = Project.new(project_params)
-
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      redirect_to @project, notice: 'Project was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params_upload)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(project_params_upload)
+      redirect_to @project, notice: 'Project was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -57,16 +46,14 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to projects_url, notice: 'Project was successfully destroyed.'
   end
 
   private
 
   def set_project
     @project = Project.find(params[:id])
+    authorize(@project)
   end
 
   def set_technology_options
@@ -78,6 +65,7 @@ class ProjectsController < ApplicationController
     @industry = params[:industry]
     @projects = @projects.search(params[:search]) if params[:search]
     @projects = @projects.where(industry: @industry) if @industry.present?
+    authorize(@projects)
   end
 
   def project_params
@@ -107,5 +95,10 @@ class ProjectsController < ApplicationController
       :industry,
       :git_repo, :task_tracker_url, :website, :start_date, :end_date
     )
+  end
+
+  def set_new_project
+    @project = Project.new((request.post? && project_params) || nil)
+    authorize(@project)
   end
 end

@@ -1,22 +1,20 @@
 class ProjectCoordinatorsController < ApplicationController
   before_action :set_project_coordinator, only: %i[show edit update destroy]
   before_action :set_employable, only: %i[new edit create]
+  before_action :set_new_project_coordinator, only: %i[new create]
+  before_action :set_project_coordinator_collection, only: %i[index]
+
   def index
-    @project_coordinators = ProjectCoordinator.all
     @pagy, @project_coordinators = pagy_array(@project_coordinators, items: per_page)
   end
 
   def show; end
 
-  def new
-    @project_coordinator = ProjectCoordinator.new
-  end
+  def new; end
 
   def edit; end
 
   def create
-    @project_coordinator = ProjectCoordinator.new(project_coordinator_params)
-
     respond_to do |format|
       if @project_coordinator.save
         format.html { redirect_to @project_coordinator, notice: 'ProjectCoordinator was successfully created.' }
@@ -52,6 +50,7 @@ class ProjectCoordinatorsController < ApplicationController
 
   def set_project_coordinator
     @project_coordinator = ProjectCoordinator.find(params[:id])
+    authorize(@project_coordinator)
   end
 
   def set_employable
@@ -60,5 +59,15 @@ class ProjectCoordinatorsController < ApplicationController
 
   def project_coordinator_params
     params.require(:project_coordinator).permit(:employable_id, :level).merge(employable_type: 'Employee')
+  end
+
+  def set_new_project_coordinator
+    @project_coordinator = ProjectCoordinator.new((request.post? && project_coordinator_params) || nil)
+    authorize(@project_coordinator)
+  end
+
+  def set_project_coordinator_collection
+    @project_coordinators = ProjectCoordinator.order(id: :asc)
+    authorize(@project_coordinators)
   end
 end

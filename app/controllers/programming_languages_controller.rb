@@ -1,5 +1,6 @@
 class ProgrammingLanguagesController < ApplicationController
   before_action :set_programming_language, only: %i[show edit update destroy]
+  before_action :set_new_programming_language, only: %i[new create]
 
   def index
     @programming_languages = ProgrammingLanguage.all
@@ -7,7 +8,6 @@ class ProgrammingLanguagesController < ApplicationController
   end
 
   def create
-    @programming_language = ProgrammingLanguage.new(programming_language_params)
     respond_to do |format|
       if @programming_language.save
         format.html { redirect_to @programming_language, notice: 'Programming langguage was successfully created.' }
@@ -23,9 +23,7 @@ class ProgrammingLanguagesController < ApplicationController
 
   def edit; end
 
-  def new
-    @programming_language = ProgrammingLanguage.new
-  end
+  def new; end
 
   def update
     respond_to do |format|
@@ -51,9 +49,15 @@ class ProgrammingLanguagesController < ApplicationController
 
   def set_programming_language
     @programming_language = ProgrammingLanguage.find(params[:id])
+    authorize(@programming_language)
   end
 
   def programming_language_params
     params.require(:programming_language).permit(:name, :year_of_release, :latest_version)
+  end
+
+  def set_new_programming_language
+    @programming_language = ProgrammingLanguage.new((request.post? && programming_language_params) || nil)
+    authorize(@programming_language)
   end
 end

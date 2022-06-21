@@ -1,0 +1,69 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Leave Of Absence Letter
+
+section.hero.is-primary.is-medium
+  .hero-head
+    nav.navbar
+      .container
+        .navbar-brand
+        #navbarMenuHeroA.navbar-menu
+          .navbar-end
+            - if current_user.employee.annual_leave.present?
+              = link_to 'Create New Leave Of Absence Letter', new_employee_leave_of_absence_letter_path, class:'navbar-item'
+  .hero-body
+    .container.has-text-centered
+      h1.title
+        = yield :page_title
+
+section.section
+  .container
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              h4.header-title.mb-2 Leave Of Absence Letters
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope='col' ID
+                    th scope='col' Employee
+                    th scope='col' Emp ID
+                    th scope='col' Type LOA
+                    th scope='col' Start date
+                    th scope='col' End date
+                    th scope='col' note
+                    th scope='col' Number of days
+                    th scope='col' Status
+                    th scope='col' class='mw-action' Action
+                    - @leave_of_absence_letters.each do |leave_of_absence_letter|
+                        tr
+                          td = leave_of_absence_letter.id
+                          td = leave_of_absence_letter.employee_full_name
+                          td = leave_of_absence_letter.employee_id
+                          td = leave_of_absence_letter.type_leave_of_absence
+                          td = leave_of_absence_letter.start_date.strftime('%d-%m-%Y, %H:%M')
+                          td = leave_of_absence_letter.end_date.strftime('%d-%m-%Y, %H:%M')
+                          td = leave_of_absence_letter.note
+                          td = leave_of_absence_letter.number_of_days
+                          td = leave_of_absence_letter.status
+                          td.table-action
+                            - if leave_of_absence_letter.status != 'approved'
+                              = link_to edit_employee_leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
+                                i.mdi.mdi-pencil
+                              = link_to employee_leave_of_absence_letter_path(leave_of_absence_letter.id), data: { confirm: 'Are you sure?' }, method: :delete, class: 'table-link' do
+                                i.mdi.mdi-delete
+                            = link_to employee_leave_of_absence_letter_path(leave_of_absence_letter.id), class: 'table-link' do
+                              i.mdi.mdi-bookmark-box-multiple
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @leave_of_absence_letters.size > 0
+          == pagy_bootstrap_nav(@pagy)

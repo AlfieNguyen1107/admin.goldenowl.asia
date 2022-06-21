@@ -5,11 +5,11 @@ class DevelopersController < ApplicationController
   before_action :set_data_association, only: %i[new create edit]
   before_action :set_date_year, only: %i[new create edit]
   before_action :set_developer, only: %i[show edit destroy detail]
+  before_action :set_new_developer, only: %i[new create]
+  before_action :set_developer_collection, only: %i[index]
 
   def index
     @senority = Developer.pluck(:senority)
-    @developers = FilterDeveloperService.new(senority: params[:senority]).call.order(:id)
-
     @pagy, @developers = pagy_array(@developers, items: per_page)
   end
 
@@ -19,38 +19,29 @@ class DevelopersController < ApplicationController
 
   def new
     @project_options = Project.pluck(:name, :id)
-    @developer = Developer.new
   end
 
   def edit; end
 
   def create
-    @developer = Developer.new(developer_params)
-
-    respond_to do |format|
-      if @developer.save
-        format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @developer.save
+      redirect_to @developer, notice: 'Developer was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @developer.update(developer_params)
-        format.html { redirect_to @developer, notice: 'Developer was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @developer.update(developer_params)
+      redirect_to @developer, notice: 'Developer was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @developer.destroy
-    respond_to do |format|
-      format.html { redirect_to developers_url, notice: 'Developer was successfully destroyed.' }
-    end
+    redirect_to developers_url, notice: 'Developer was successfully destroyed.'
   end
 
   def detail
@@ -69,6 +60,7 @@ class DevelopersController < ApplicationController
 
   def set_developer
     @developer = Developer.find(params[:id])
+    authorize(@developer)
   end
 
   def set_project_options
@@ -95,5 +87,15 @@ class DevelopersController < ApplicationController
 
   def set_date_year
     @years = ((Date.current.year - 30)..Date.current.year).to_a
+  end
+
+  def set_new_developer
+    @developer = Developer.new((request.post? && developer_params) || nil)
+    authorize(@developer)
+  end
+
+  def set_developer_collection
+    @developers = FilterDeveloperService.new(senority: params[:senority]).call.order(:id)
+    authorize(@developers)
   end
 end

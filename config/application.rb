@@ -47,5 +47,6 @@ module AdminGoldenowlAsia
                                     path: ':class/:attachment/:id/:style/:filename'
                                   }
                                 end
+    config.active_job.queue_adapter = :sidekiq
   end
 end

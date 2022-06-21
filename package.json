@@ -20,7 +20,8 @@
     "summernote-image-title": "^0.2.2",
     "sweetalert": "^2.1.2",
     "trix": "^1.2.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "flatpickr": "^4.6.9"
   },
   "version": "0.1.0",
   "devDependencies": {

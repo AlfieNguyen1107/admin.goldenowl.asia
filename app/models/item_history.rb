@@ -6,7 +6,7 @@
 #  description :string
 #  end_date    :date
 #  start_date  :date
-#  status      :integer          default(0)
+#  status      :integer          default("hold")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  employee_id :bigint           not null

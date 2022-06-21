@@ -1,14 +1,14 @@
 class ItemPolicy < ApplicationPolicy
   def index?
-    true
+    user.admin?
   end
 
   def show?
-    true
+    user.admin?
   end
 
   def create?
-    true
+    user.admin?
   end
 
   def new?
@@ -16,7 +16,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    user.admin?
   end
 
   def edit?
@@ -24,6 +24,6 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    user.admin?
   end
 end

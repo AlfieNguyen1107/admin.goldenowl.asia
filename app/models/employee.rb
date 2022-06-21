@@ -2,22 +2,23 @@
 #
 # Table name: employees
 #
-#  id                  :bigint           not null, primary key
-#  career_objectives   :text
-#  contract_status     :integer
-#  current_address     :string
-#  email               :string
-#  emp_number          :integer
-#  employment_status   :integer
-#  full_name           :string
-#  genger              :integer
-#  joined_date         :date
-#  phone_number        :string
-#  registered_address  :string
-#  working_arrangement :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  position_id         :bigint           not null
+#  id                    :bigint           not null, primary key
+#  career_objectives     :text
+#  contract_signing_date :date
+#  contract_status       :integer
+#  current_address       :string
+#  email                 :string
+#  emp_number            :integer
+#  employment_status     :integer
+#  full_name             :string
+#  genger                :integer
+#  joined_date           :date
+#  phone_number          :string
+#  registered_address    :string
+#  working_arrangement   :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  position_id           :bigint           not null
 #
 # Indexes
 #
@@ -51,6 +52,11 @@ class Employee < ApplicationRecord
   has_one_attached :image
   has_many :item_histories, dependent: :destroy
   has_many :items, through: :item_histories
+  has_many :leave_of_absence_letters, dependent: :destroy
+  has_one  :annual_leave, dependent: :destroy
+  has_one  :user, dependent: :destroy
+
+  accepts_nested_attributes_for :user, allow_destroy: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -63,9 +69,8 @@ class Employee < ApplicationRecord
   scope :except_employee, ->(id) { where.not(id: id) }
 
   validates :full_name, presence: true
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
-  before_save { email.downcase }
+  after_commit :update_annual_leave, on: %i[create update]
 
   accepts_nested_attributes_for :employee_tools,
                                 :employee_skills,
@@ -80,5 +85,16 @@ class Employee < ApplicationRecord
 
   def self.active_employees_count
     where(employment_status: Employee.employment_statuses[:active]).count
+  end
+
+  private
+
+  def update_annual_leave
+    annual_leave = AnnualLeave.find_or_initialize_by(employee_id: self)
+    DayLeavesCalculationService.call(
+      contract_signing_date: contract_signing_date,
+      annual_leave: annual_leave,
+      employee: self
+    )
   end
 end

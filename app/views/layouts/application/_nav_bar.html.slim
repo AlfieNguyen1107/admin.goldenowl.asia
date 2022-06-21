@@ -1,13 +1,13 @@
 .navbar-custom.d-flex.justify-content-between
   ul.list-unstyled.topbar-right-menu.float-right.mb-0
     li.dropdown.notification-list
-      a.nav-link.dropdown-toggle.nav-user.arrow-none.mr-0 aria-expanded='false' aria-haspopup='false' data-toggle='dropdown' href='#' role='button'
+      button.nav-link.dropdown-toggle.nav-user.arrow-none.mr-0 aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"
         span.account-user-avatar
           = image_pack_tag 'users/avatar.svg', alt: 'user-image', class: 'rounded-circle'
         span
           span.account-position
             = current_user.email if current_user.present?
-      .dropdown-menu.dropdown-menu-right.dropdown-menu-animated.profile-dropdown
+      .dropdown-menu.dropdown-menu-animated
         = link_to edit_user_registration_path, class: 'dropdown-item notify-item' do
           i.mdi.mdi-account-circle
           span My Account

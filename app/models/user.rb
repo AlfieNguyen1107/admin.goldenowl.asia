@@ -11,13 +11,16 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("employee")
 #  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  employee_id            :bigint
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_employee_id           (employee_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
@@ -26,6 +29,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
   scope :search, ->(search_string) { where('lower(email) LIKE ?', "%#{search_string.downcase}%") }
+
+  enum role: { employee: 0, admin: 1 }
+
+  belongs_to :employee, optional: true
+
+  delegate :full_name, to: :employee, prefix: :employee, allow_nil: true
 
   def user_name
     email.split('@')[0]

@@ -1,0 +1,5 @@
+div style=("line-height: 1.2; font-size: 14px")
+  = @leave_of_absence_letter.employee.full_name
+  |  &nbsp;submitted an application for permission.
+  h5 Click here for details
+  = link_to 'Details', leave_of_absence_letter_url(@leave_of_absence_letter), style: "color: #086ADA"

@@ -1,0 +1,39 @@
+.field.mt-3
+  label.form-label.col-md-12
+    | Remaining paid time off
+  label.title
+    = current_user.employee.annual_leave.remaining_paid_time_off
+.section
+  = simple_form_for @leave_of_absence_letter, url: employee_leave_of_absence_letters_path, method: :post do |f|
+    .field
+      = f.label :employee_id
+      = f.select :employee_id,
+                  options_for_select(@employees, current_user.employee_id), {},
+                  { class: 'form-select form-select-sm me-1 disabled' }
+    .field
+      = f.input :start_date,
+                wrapper: false,
+                as: :string,
+                input_html: {class: 'datetimepicker', id: 'leave_start_date'}
+    .field
+      = f.input :end_date,
+                wrapper: false,
+                as: :string,
+                input_html: {class: 'datetimepicker', id: 'leave_end_date'}
+    .field
+      = f.label :number_of_days,
+                class: 'form-label col-md-12'
+      = f.text_field :number_of_days,
+                      class: 'form-control string optional input disabled'
+    .field
+      = f.input :type_leave_of_absence,
+                collection: LeaveOfAbsenceLetter.type_leave_of_absences.keys,
+                selected: @leave_of_absence_letter.type_leave_of_absence,
+                label_html: { class: 'label' },
+                input_html: { class: 'input' }
+    .field
+      = f.input :note,
+                class: 'form-control string optional input',
+                wrapper: false
+    = f.button :submit, class: 'btn btn-info mb-2'
+    = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'

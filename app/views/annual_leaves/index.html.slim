@@ -1,0 +1,49 @@
+.row
+  .col-12
+    .page-title-box
+      .page-title-right
+        ol.breadcrumb.m-0
+          li.breadcrumb-item
+            = link_to 'Home', root_path
+          li.breadcrumb-item Career
+      h4.page-title
+        | Annual Leave
+section.section
+  .container
+    .card
+      .card-content
+        .container
+          .media
+          .media-content
+            .card-body
+              h4.header-title.mb-2 Annual Leaves
+              .table-responsive-sm
+                table.table.table-centered.mb-0
+                  tr
+                    th scope="col" ID
+                    th scope="col" Employee
+                    th scope="col" class="mw-action" Joined date
+                    th scope="col" class="mw-action" Contract signing date
+                    th scope="col" Standard PTO
+                    th scope="col" Seniority
+                    th scope="col" Extra PTO
+                    th scope="col" Total PTO
+                    th scope="col" Total leave days
+                    th scope="col" Remaining PTO
+                    - @annual_leaves.each do |annual_leave|
+                        tr
+                          td = annual_leave.id
+                          td = link_to annual_leave.employee_full_name, employee_path(annual_leave.employee_id)
+                          td = annual_leave.employee_joined_date
+                          td = annual_leave.employee_contract_signing_date
+                          td = annual_leave.standard_paid_time_off
+                          td = annual_leave.seniority
+                          td = annual_leave.extra_paid_time_off
+                          td = annual_leave.total_paid_time_off
+                          td = annual_leave.total_leave_days
+                          td = annual_leave.remaining_paid_time_off
+section.section
+  .container.mb-3
+    .d-flex.justify-content-center
+      - if @annual_leaves.size > 0
+          == pagy_bootstrap_nav(@pagy)

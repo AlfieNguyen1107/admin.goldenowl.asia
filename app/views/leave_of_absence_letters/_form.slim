@@ -1,0 +1,39 @@
+.section
+  = simple_form_for @leave_of_absence_letter do |f|
+    .field.mt-3
+      = f.label :employee_id
+      = f.select :employee_id,
+                  options_for_select(@employees, @leave_of_absence_letter.employee_id), {},
+                  { class: 'form-select form-select-sm me-1' }
+    .field
+      = f.input :start_date,
+                wrapper: false,
+                as: :string,
+                input_html: {class: 'datetimepicker', id: 'leave_start_date'}
+    .field
+      = f.input :end_date,
+                wrapper: false,
+                as: :string,
+                input_html: {class: 'datetimepicker', id: 'leave_end_date'}
+    .field
+      = f.input :number_of_days,
+                label_html: { class: 'label' },
+                input_html: { class: 'input disabled' },
+                wrapper: false
+    .field
+      = f.input :type_leave_of_absence,
+                collection: LeaveOfAbsenceLetter.type_leave_of_absences.keys,
+                selected: @leave_of_absence_letter.type_leave_of_absence,
+                label_html: { class: 'label' },
+                input_html: { class: 'input' }
+    .field
+      = f.input :note,
+                label_html: { class: 'label' },
+                input_html: { class: 'input' },
+                wrapper: false
+    .field
+      = f.label :status
+      = f.select :status, options_for_select(LeaveOfAbsenceLetter.statuses.keys, @leave_of_absence_letter.status), {},
+                        { class: 'form-select form-select-sm me-1' }
+    = f.button :submit, class: 'btn btn-info mb-2'
+    = link_to  'Back', :back, class:'btn btn-secondary mb-2 ml-4'
