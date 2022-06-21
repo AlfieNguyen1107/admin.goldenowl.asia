@@ -39,17 +39,12 @@ class LeaveOfAbsenceLetter < ApplicationRecord
   private
 
   def update_annual_leave
-    SendMailLeaveOfAbsenceLetterWorker.perform_async(id, 'admin') if LeaveOfAbsenceLetter.statuses[status] == 2 || LeaveOfAbsenceLetter.statuses[status] == 1
-    return unless LeaveOfAbsenceLetter.statuses[status] == 1
-
     annual_leave = AnnualLeave.find_by(employee_id: employee)
-    total_leave_days = annual_leave.total_leave_days + number_of_days
-    remaining_paid_time_off = if total_leave_days.zero?
-                                annual_leave.total_paid_time_off - number_of_days
-                              else
-                                annual_leave.remaining_paid_time_off - number_of_days
-                              end
-    annual_leave.update(total_leave_days: total_leave_days, remaining_paid_time_off: remaining_paid_time_off)
+    LeaveOfAbsenceLetterService.call(
+      leave_of_absence_letter: self,
+      employee: employee,
+      annual_leave: annual_leave
+    )
   end
 
   def check_type_leave_of_absence_letter

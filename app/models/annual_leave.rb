@@ -24,5 +24,8 @@
 class AnnualLeave < ApplicationRecord
   belongs_to :employee
 
-  delegate :full_name, :joined_date, :contract_signing_date, to: :employee, prefix: :employee, allow_nil: true
+  delegate :full_name,
+           :joined_date,
+           :contract_signing_date,
+           to: :employee, prefix: :employee, allow_nil: true
 end

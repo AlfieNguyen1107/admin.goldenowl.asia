@@ -31,7 +31,7 @@ class CareersController < ApplicationController
 
   def destroy
     @career.destroy
-    redirect_to careers_url, notice: 'Career was successfully deleted.'
+    redirect_to careers_path, notice: 'Career was successfully deleted.'
   end
 
   private
@@ -46,11 +46,7 @@ class CareersController < ApplicationController
   end
 
   def extract_career
-    @careers = if params[:search]
-                 Career.search(params[:search])
-               else
-                 Career.all.order(id: :desc)
-               end
+    @careers = CareerService.call(search: params[:search])
     authorize(@careers)
   end
 
