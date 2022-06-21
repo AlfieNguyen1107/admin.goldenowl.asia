@@ -25,4 +25,6 @@
 class DeveloperProgrammingLanguage < ApplicationRecord
   belongs_to :developer
   belongs_to :programming_language
+
+  enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

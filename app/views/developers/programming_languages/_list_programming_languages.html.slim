@@ -1,0 +1,10 @@
+.programming-language-list-item
+  - @developer.developer_programming_languages.each do |developer_programming_language|
+    .programming_language-item
+      span.badge.bg-primary.fs-4.my-1
+        = developer_programming_language.programming_language.name
+        |-
+        = developer_programming_language.level
+      = link_to developer_programming_language_path(@developer, developer_programming_language), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'tn btn-outline-danger rounded-pill mx-2' do
+        i.mdi.mdi-window-close
+    br

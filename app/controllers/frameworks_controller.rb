@@ -1,13 +1,11 @@
 class FrameworksController < ApplicationController
   before_action :set_framework, only: %i[edit show update destroy]
-  before_action :filter_name_programming_language, only: :index
   before_action :set_skill_categories_and_programming_languages, only: %i[new create edit]
   before_action :load_skill_categories, only: %i[new edit]
 
   def index
-    @frameworks_all = Framework.all
-    @frameworks = if params[:programming_language_name].present?
-                    Framework.search_framework(@programming_language.first.id)
+    @frameworks = if params[:programming_language_id].present?
+                    Framework.where(programming_language_id: params[:programming_language_id])
                   else
                     Framework.all
                   end
@@ -51,11 +49,6 @@ class FrameworksController < ApplicationController
 
   def set_framework
     @framework = Framework.find(params[:id])
-  end
-
-  def filter_name_programming_language
-    @name = params[:programming_language_name]
-    @programming_language = ProgrammingLanguage.filter_name_programming_languages(@name)
   end
 
   def load_skill_categories

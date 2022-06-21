@@ -21,6 +21,8 @@
 class Skill < ApplicationRecord
   belongs_to :skill_category
 
+  scope :skill_except, ->(id) { where.not(id: id) }
+
   delegate :name, to: :skill_category, prefix: :skill_category, allow_nil: true
 
   validates :name, presence: true

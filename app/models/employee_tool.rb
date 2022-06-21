@@ -23,4 +23,6 @@
 class EmployeeTool < ApplicationRecord
   belongs_to :employee
   belongs_to :tool
+
+  enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

@@ -2,13 +2,7 @@ class CertificatesController < ApplicationController
   before_action :set_certificate, only: %i[show edit update destroy]
 
   def index
-    @certificate_all = Certificate.all
-    if params[:name].present?
-      @name = params[:name]
-      @certificates = Certificate.filter_name_certificate(@name)
-    else
-      @certificates = Certificate.all
-    end
+    @certificates = Certificate.all
     @pagy, @certificates = pagy(@certificates.order(id: :ASC), items: per_page)
   end
 

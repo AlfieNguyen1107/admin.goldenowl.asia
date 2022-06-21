@@ -46,7 +46,6 @@ class Developer < ApplicationRecord
   has_many :interns, foreign_key: 'mentor_id', dependent: :nullify, inverse_of: :mentor
   has_many :assignments, foreign_key: 'assigned_to_id', dependent: :destroy, inverse_of: :assigned_to
   has_many :project_histories, dependent: :destroy
-  accepts_nested_attributes_for :developer_projects, allow_destroy: true
 
   # validates :full_name, presence: true, uniqueness: true
   # validates :company_name, presence: true, uniqueness: true
@@ -56,8 +55,8 @@ class Developer < ApplicationRecord
 
   scope :not_have_current_project, -> { where(developer_projects: { current: nil }) }
   scope :have_current_project, -> { where('developer_projects.current = true') }
-  scope :filter_senority, ->(senority) { where(senority: senority) }
-  scope :filter_developer_type, ->(type) { where(type: type) }
+  scope :developers, -> { where(type: 'Developer') }
+
   def self.free_after_x_days(params)
     available_developer_ids = Developer.joins(:projects).where('current = true').group(:id).having('max(projects.end_date) <= ?', Time.zone.today + params).pluck(:id)
 

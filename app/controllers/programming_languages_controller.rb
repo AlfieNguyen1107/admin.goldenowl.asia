@@ -2,14 +2,7 @@ class ProgrammingLanguagesController < ApplicationController
   before_action :set_programming_language, only: %i[show edit update destroy]
 
   def index
-    @programming_languages_all = ProgrammingLanguage.all
-
-    if params[:name].present?
-      @name = params[:name]
-      @programming_languages = ProgrammingLanguage.filter_name_programming_languages(@name)
-    else
-      @programming_languages = ProgrammingLanguage.all
-    end
+    @programming_languages = ProgrammingLanguage.all
     @pagy, @programming_languages = pagy(@programming_languages.order(id: :ASC), items: per_page)
   end
 

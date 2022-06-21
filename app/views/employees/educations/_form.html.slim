@@ -1,0 +1,8 @@
+#employee-education-list
+  = render partial: '/employees/educations/list_educations'
+= simple_form_for(employee, url: employee_educations_path(employee), method: :post, remote: true) do |f|
+  #education-box
+
+  = link_to 'Add', add_employee_educations_path(employee), remote: true
+  br
+  = f.submit 'Update Education', class: 'btn btn-secondary my-2'

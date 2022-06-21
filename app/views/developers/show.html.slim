@@ -1,3 +1,5 @@
+h4.page-title
+  | Developer detail
 section.section
   .container.mb-4
     .row
@@ -5,114 +7,53 @@ section.section
         | Full name:
         h4.title
           = @developer.full_name
+        hr/
         | Company name:
         h4.title
           = @developer.company_name
-        | Level:
+        hr/
+        | Senority:
         h4.title
           = @developer.senority
-        | Project:
-        h4.title
-          - @developer.projects.each do |p|
-            = p.name
-            br
-        | Programming language:
-        h4.title
-          - @developer.developer_programming_languages.each do |t|
-            span.badge.rounded-pill.bg-primary = t.programming_language.name
-            = " - "
-            = t.level
-            br
-        
-        | Frameworks:
-        h4.title
-          - @developer.developer_frameworks.each do |t|
-            span.badge.rounded-pill.bg-secondary = t.framework.name
-            = " - "
-            = t.level
-            br
-        | Tools:
-        h4.title
-          - @developer.employee_tools.each do |t|
-            span.badge.rounded-pill.bg-info = t.tool.name
-            = " - "
-            = t.level
-            br
-        | Skills:
-        h4.title
-          - @developer.skills.each do |s|
-            span.badge.rounded-pill.bg-danger = s.name
-      .col-xl-5.col-lg-6
+        hr
+
         | Education:
-        h4.title
-        - @developer.education_histories.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.university.name
-              br
-              = eh.subject
-              br
-              = eh.details
-            .col-4
-              = eh.from
-              | - 
-              = eh.to
-          br
+        = render partial: '/employees/educations/form' , locals: { employee: @employee }
         hr
-        | Projects:
-        h4.title
-        - @developer.employment_histories.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.company&.name
-              br
-              = eh.profession
-              br
-              = eh.details
-            .col-4
-              = eh.from
-              | - 
-              = eh.to
-          br
-        hr
+
         | Employments:
-        h4.title
-        - @developer.employment_histories.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.company&.name
-              br
-              = eh.profession
-              br
-              = eh.details
-            .col-4
-              = eh.from
-              | - 
-              = eh.to
-          br
+        = render partial: '/employees/employments/form' , locals: { employee: @employee }
         hr
+
         | Certificates:
-        h4.title
-        - @developer.certificate_employees.each do |eh|
-          .row
-            .col-8
-              b
-                = eh.certificate.name
-              br
-              | Score: 
-              = eh.score
-            .col-4
-              = eh.year
-          br
+        = render partial: '/employees/certificates/form' , locals: { employee: @employee }
         hr
-        = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do 
+
+        = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
           i.uil-cog.me-1
-          | Reset intern 
-          
-    .row 
+          | Reset intern
+
+      .col-xl-5.col-lg-6
+        | Projects:
+        = render partial: '/developers/projects/form' , locals: { developer: @developer }
+        hr
+
+        | Programming Languages:
+        = render partial: '/developers/programming_languages/form' , locals: { developer: @developer }
+        hr
+
+        | Frameworks:
+        = render partial: '/developers/frameworks/form' , locals: { developer: @developer }
+        hr
+
+        | Tools:
+        = render partial: '/employees/tools/form', locals: { employee: @employee }
+        hr
+
+        | Skills:
+        = render partial: '/employees/skills/form', locals: { employee: @employee }
+        hr
+    .row
       .col-12
         nav.level
           .level-left.mt-2
@@ -125,6 +66,4 @@ section.section
               = link_to "Delete", developer_path(@developer), method: :delete, data: { confirm: "Are you sure?" }, class:"button btn btn-danger btn-sm"
             p.level-item.ms-1
               = link_to  "Back", developers_path(page: @page), class:"button btn btn-dark btn-sm"
-          
-
-          
+    p.level-item.ms-1

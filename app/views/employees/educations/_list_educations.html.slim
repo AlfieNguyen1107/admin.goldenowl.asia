@@ -1,0 +1,22 @@
+.education-list-item
+  - @employee.education_histories.each do |education_history|
+    .card.border-secondary
+      .card-body
+        .row
+          h5.card-text.my-1
+            = link_to delete_employee_education_path(@employee, education_history), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
+              i.mdi.mdi-window-close
+        .row
+          .col-8
+            h5.card-text.my-1 University:
+            = education_history.university.name
+            h5.card-text.my-1 Subject:
+            = education_history.subject
+            h5.card-text.my-1 Details:
+            = education_history.details
+          .col-4
+            h5.card-text.my-1 Form:
+            = education_history.from
+            h5.card-text.my-1 To:
+            = education_history.to
+    br

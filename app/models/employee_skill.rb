@@ -23,4 +23,6 @@
 class EmployeeSkill < ApplicationRecord
   belongs_to :employee
   belongs_to :skill
+
+  enum level: { fresher: 0, junior: 1, mid: 2, senior: 3 }
 end

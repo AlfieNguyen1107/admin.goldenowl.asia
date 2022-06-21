@@ -1,0 +1,8 @@
+#employee-skill-list
+  = render partial: '/employees/skills/list_skills'
+= simple_form_for(employee, url: employee_skills_path(employee), method: :post, remote: true) do |f|
+  #skill-box
+
+  = link_to 'Add', add_employee_skills_path(employee), remote: true
+  br
+  = f.submit 'Update Skill', class: 'btn btn-secondary my-2'

@@ -1,0 +1,22 @@
+.employment-list-item
+  - @employee.employment_histories.each do |employment_history|
+    .card.border-secondary
+      .card-body
+        .row
+          h5.card-text.my-1
+            = link_to employee_employment_path(@employee, employment_history), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
+              i.mdi.mdi-window-close
+        .row
+          .col-8
+            h5.card-text.my-1 Company:
+            = employment_history.company.name
+            h5.card-text.my-1 Profession:
+            = employment_history.profession
+            h5.card-text.my-1 Details:
+            = employment_history.details
+          .col-4
+            h5.card-text.my-1 Form:
+            = employment_history.from
+            h5.card-text.my-1 To:
+            = employment_history.to
+    br
