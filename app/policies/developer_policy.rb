@@ -30,4 +30,8 @@ class DeveloperPolicy < ApplicationPolicy
   def reset_type?
     user.admin?
   end
+
+  def detail?
+    user.admin?
+  end
 end
