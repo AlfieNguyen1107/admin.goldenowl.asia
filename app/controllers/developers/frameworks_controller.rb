@@ -10,7 +10,7 @@ module Developers
 
     def create
       framework_params['frameworks'].each do |param|
-        framework = DeveloperFramework.find_or_initialize_by(framework_id: param['franework_id'],
+        framework = DeveloperFramework.find_or_initialize_by(framework_id: param['id'],
                                                              developer_id: @developer.id)
         framework.update(level: param['level'])
       end

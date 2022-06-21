@@ -10,7 +10,7 @@ module Employees
 
     def create
       tool_params['tools'].each do |param|
-        tool = EmployeeTool.find_or_initialize_by(tool_id: param['tool_id'],
+        tool = EmployeeTool.find_or_initialize_by(tool_id: param['id'],
                                                   employee_id: params['employee_id'])
         tool.update(level: param['level'])
       end

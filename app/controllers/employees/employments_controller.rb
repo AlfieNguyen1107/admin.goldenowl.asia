@@ -10,7 +10,7 @@ module Employees
 
     def create
       employment_params['employments'].each do |param|
-        employment = EmploymentHistory.find_or_initialize_by(company_id: param['company_id'],
+        employment = EmploymentHistory.find_or_initialize_by(company_id: param['id'],
                                                              employee_id: params['employee_id'])
 
         employment.update(profession: param['profession'],
