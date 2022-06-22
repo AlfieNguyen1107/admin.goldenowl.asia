@@ -1,51 +1,127 @@
-.row
-  .col-xl-5.col-lg-6
-    | Full name:
-    h4.title
+h3 Profile Developer
+.body-cv
+  .row.head-cv
+    .col
+      .title
+        | Full name:
+      .title
+        | Company name:
+      .title
+        | Senority:
+    .col
       = @developer.full_name
-    hr/
-    | Company name:
-    h4.title
-      = @developer.company_name
-    hr/
-    | Senority:
-    h4.title
-      = @developer.senority
-    hr
+      p
+        = @developer.company_name
+      p
+        = @developer.senority
+  .row.main-cv.border-top
+    .col.left-cv
+      .title
+        | Projects
+      - @developer.projects.each do |project|
+        .item-cv
+          | +
+          = project.name
+      br
 
-    | Education:
-    = render partial: '/employees/educations/list_educations'
-    hr
+      .title
+        | Programming Languages
 
-    | Employments:
-    = render partial: '/employees/employments/list_employments'
-    hr
+      - @developer.developer_programming_languages.each do |developer_programming_language|
+        .item-cv
+          | +
+          = developer_programming_language.programming_language.name
+          |-
+          = developer_programming_language.level
+      br
 
-    | Certificates:
-    = render partial: '/employees/certificates/list_certificates'
-    hr
+      .title
+        | Frameworks
+      - @developer.developer_frameworks.each do |developer_framework|
+        .item-cv
+          | +
+          = developer_framework.framework.name
+          |-
+          = developer_framework.level
+      br
 
-    = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
-      i.uil-cog.me-1
-      | Reset intern
+      .title
+        | Tools:
+      - @employee.employee_tools.each do |employee_tool|
+        .item-cv
+          | +
+          = employee_tool.tool.name
+          |-
+          = employee_tool.level
+      br
 
-  .col-xl-5.col-lg-6
-    | Projects:
-    = render partial: '/developers/projects/list_projects'
-    hr
+      .title
+        | Skills:
+      - @employee.employee_skills.each do |employee_skill|
+        .item-cv
+          | +
+          = employee_skill.skill.name
+          |-
+          = employee_skill.level
 
-    | Programming Languages:
-    = render partial: '/developers/programming_languages/list_programming_languages'
-    hr
+    .col.right-cv
+      .title-form
+        | Education
+      - @employee.education_histories.each do |education_history|
+        .row.box_shadow
+          .col.width-200
+            h4.title University:
+            h4.title Subject:
+            h4.title Details:
+            h4.title Form:
+            h4.title To:
+          .col.width-200
+            .item-cv
+              = education_history.university.name
+            .item-cv
+              = education_history.subject
+            .item-cv
+              = education_history.details
+            .item-cv
+              = education_history.from
+            .item-cv
+              = education_history.to
+      br
 
-    | Frameworks:
-    = render partial: '/developers/frameworks/list_frameworks'
-    hr
-
-    | Tools:
-    = render partial: '/employees/tools/list_tools'
-    hr
-
-    | Skills:
-    = render partial: '/employees/skills/list_skills'
-    hr
+      .title-form
+        | Employments
+      - @employee.employment_histories.each do |employment_history|
+        .row.box_shadow
+          .col.width-200
+            h4.title Company:
+            h4.title Profession:
+            h4.title Details:
+            h4.title Form:
+            h4.title To:
+          .col.width-200
+            .item-cv
+              = employment_history.company.name
+            .item-cv
+              = employment_history.profession
+            .item-cv
+              = employment_history.details
+            .item-cv
+              = employment_history.from
+            .item-cv
+              = employment_history.to
+      br
+      .title-form
+        | Certificates
+      - @employee.certificate_employees.each do |certificate_employee|
+        .row.text-align-center.box_shadow
+          .col.width-200
+            h4.title Certificate:
+            h4.title Year:
+            h4.title Score:
+          .col.width-200
+            .item-cv
+              = certificate_employee.certificate.name
+            .item-cv
+              = certificate_employee.year
+            .item-cv
+              = certificate_employee.score

@@ -33,6 +33,10 @@ section.section
           i.uil-cog.me-1
           | Reset intern
 
+        = link_to developer_path(@developer, format: :pdf), class: 'btn btn-outline-success mx-1' do
+          i.uil-print.me-1
+          | Export file
+
       .col-xl-5.col-lg-6
         | Projects:
         = render partial: '/developers/projects/form' , locals: { developer: @developer }
