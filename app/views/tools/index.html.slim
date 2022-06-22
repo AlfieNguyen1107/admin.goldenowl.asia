@@ -57,6 +57,5 @@ section.section
 section.section
   .container.mb-3
     .d-flex.justify-content-center
-      - if @tools.size > 50
-        .pagination-rounded
-          == pagy_bootstrap_nav(@pagy)
+      .pagination-rounded
+        == pagy_bootstrap_nav(@pagy)
