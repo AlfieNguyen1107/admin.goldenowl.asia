@@ -29,7 +29,7 @@ section.section
         = render partial: '/employees/certificates/form' , locals: { employee: @employee }
         hr
 
-        = link_to reset_type_developer_path(@developer), method: :put, class: 'btn btn-outline-success' do
+        = link_to reset_type_developer_path(@developer), method: :put, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-success' do
           i.uil-cog.me-1
           | Reset intern
 

@@ -26,4 +26,8 @@ class InternPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def update_type?
+    user.admin?
+  end
 end

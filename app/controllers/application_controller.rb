@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  DEFAULT_PER_PAGE = 6
-  MAX_PER_PAGE = 20
+  DEFAULT_PER_PAGE = 50
+  MAX_PER_PAGE = 100
 
   private
 
