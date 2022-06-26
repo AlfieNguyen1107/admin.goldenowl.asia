@@ -18,7 +18,7 @@ class DevelopersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: 'file.pdf',
+        render pdf: 'profile_developer',
                template: 'developers/export.html.slim',
                layout: 'pdf',
                page_size: 'A4'

@@ -1,8 +1,17 @@
 head
   meta[charset="utf-8"]
-    = stylesheet_link_tag wicked_pdf_asset_base64("pdf")
-    = wicked_pdf_stylesheet_link_tag "bootstrap"
+    = wicked_pdf_stylesheet_pack_tag 'pdf'
+    = wicked_pdf_javascript_pack_tag 'pdf'
 body[onload="number_pages"]
   #header
+    .box-header
+      .left
+        .left-box
+          .logo
+            = wicked_pdf_image_pack_tag 'media/images/logo_company.png'
+
+      .right
+        .name_company
+          h1 GOLDEN OWL CONSULTING
   #content
     = yield

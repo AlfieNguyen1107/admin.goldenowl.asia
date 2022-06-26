@@ -1,0 +1,106 @@
+
+.box-header{
+  display: block;
+  width: 100%;
+  height: 320px;
+
+  background-color: #e6e4e0;
+  .left{
+    display: inline-block;
+    width: 40%;
+
+    .left-box{
+      background-color: #f9be39;
+      height: 100%;
+      width: 50%;
+
+      .logo{
+        img{
+          width: 170px;
+          height: 170px;
+
+          border-radius: 50%;
+          margin-top: 40%;
+          margin-left: 50%;
+        }
+      }
+    }
+  }
+
+  .right{
+    display: inline-block;
+    width: 60%;
+    height: 40%;
+
+    font-weight: 900;
+    background-color: #f9be39;
+    text-align: center;
+
+    .name_company{
+      width: 300px;
+      float: left;
+      margin-top: -55px;
+
+      padding: 10px;
+      font-size: 20px;
+    }
+  }
+}
+
+.body-cv{
+  .head-cv{
+    position: relative;
+    font-size: 20px;
+    margin-top: -100px;
+    margin-left: 26%;
+
+    p{
+      margin-top: -25px;
+    }
+  }
+
+  .main-cv{
+    position: relative;
+
+    .left-cv{
+      position: absolute;
+      width: 40%;
+      height: 100%;
+      background-color: rgb(252, 225, 184);
+
+      .item-cv{
+        margin-left: 30px;
+        &_card{
+          letter-spacing: 0.5;
+        }
+      }
+    }
+
+    .right-cv{
+      position: absolute;
+      border-left: black solid 1px;
+      width: 59%;
+      right: 0px;
+      padding-left: 10px;
+      .form-box{
+        margin-left: 30px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-bottom: 5px;
+
+        padding: 10px;
+        display: block;
+
+        &_left{
+          display: inline-block;
+          width: 70%;
+        }
+
+        &_right{
+          width: 30%;
+          display: inline-block;
+          float: right;
+        }
+      }
+    }
+  }
+}

@@ -94,7 +94,7 @@ class InternsController < ApplicationController
   end
 
   def set_new_intern
-    @intern = intern.new((request.post? && intern_params) || nil)
+    @intern = Intern.new((request.post? && intern_params) || nil)
     authorize(@intern)
   end
 

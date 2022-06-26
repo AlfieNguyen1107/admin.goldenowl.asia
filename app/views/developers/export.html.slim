@@ -1,127 +1,117 @@
-h3 Profile Developer
 .body-cv
-  .row.head-cv
-    .col
-      .title
-        | Full name:
-      .title
-        | Company name:
-      .title
-        | Senority:
-    .col
+  .head-cv
+    h1
       = @developer.full_name
-      p
-        = @developer.company_name
-      p
-        = @developer.senority
-  .row.main-cv.border-top
-    .col.left-cv
-      .title
-        | Projects
+    p
+      = @developer.position.name
+  .main-cv
+    .left-cv
+      h2 Projects
       - @developer.projects.each do |project|
-        .item-cv
-          | +
-          = project.name
-      br
+          .item-cv
+            h4
+              | +
+              = project.name
+              | (
+              = project.start_date
+              |-->
+              = project.end_date
+              |)
 
-      .title
-        | Programming Languages
+            .item-cv_card
+              | For: _
+              = project.client.name
+              | -
+              = project.client.hq
 
+      h2 Programming Languages
       - @developer.developer_programming_languages.each do |developer_programming_language|
         .item-cv
-          | +
-          = developer_programming_language.programming_language.name
-          |-
-          = developer_programming_language.level
-      br
+          h4
+            | +
+            = developer_programming_language.programming_language.name
+            |-
+            = developer_programming_language.level
 
-      .title
-        | Frameworks
+      h2 Frameworks
       - @developer.developer_frameworks.each do |developer_framework|
         .item-cv
-          | +
-          = developer_framework.framework.name
-          |-
-          = developer_framework.level
-      br
+          h4
+            | +
+            = developer_framework.framework.name
+            |-
+            = developer_framework.level
 
-      .title
-        | Tools:
+      h2 Tools
       - @employee.employee_tools.each do |employee_tool|
         .item-cv
-          | +
-          = employee_tool.tool.name
-          |-
-          = employee_tool.level
-      br
+          h4
+            | +
+            = employee_tool.tool.name
+            |-
+            = employee_tool.level
 
-      .title
-        | Skills:
+      h2 Skills
       - @employee.employee_skills.each do |employee_skill|
         .item-cv
-          | +
-          = employee_skill.skill.name
-          |-
-          = employee_skill.level
+          h4
+            | +
+            = employee_skill.skill.name
+            |-
+            = employee_skill.level
 
-    .col.right-cv
-      .title-form
-        | Education
+
+    .right-cv.width-60
+      h2 Education
       - @employee.education_histories.each do |education_history|
-        .row.box_shadow
-          .col.width-200
-            h4.title University:
-            h4.title Subject:
-            h4.title Details:
-            h4.title Form:
-            h4.title To:
-          .col.width-200
-            .item-cv
+          .form-box
+            .form-box_left
+              h4
+                | University
               = education_history.university.name
-            .item-cv
+              h4
+                | Subject
               = education_history.subject
-            .item-cv
+              h4
+                | Details
               = education_history.details
-            .item-cv
-              = education_history.from
-            .item-cv
-              = education_history.to
+            .form-box_right
+                h4.title Form
+                = education_history.from
+                h4.title To
+                = education_history.to
       br
 
-      .title-form
-        | Employments
+      h2 Employments
       - @employee.employment_histories.each do |employment_history|
-        .row.box_shadow
-          .col.width-200
-            h4.title Company:
-            h4.title Profession:
-            h4.title Details:
-            h4.title Form:
-            h4.title To:
-          .col.width-200
-            .item-cv
-              = employment_history.company.name
-            .item-cv
-              = employment_history.profession
-            .item-cv
-              = employment_history.details
-            .item-cv
-              = employment_history.from
-            .item-cv
-              = employment_history.to
+        .form-box
+          .form-box_left
+            h4
+              | Company
+            = employment_history.company.name
+            h4
+              | Profession
+            = employment_history.profession
+            h4
+              | Details
+            = employment_history.details
+          .form-box_right
+            h4
+              | Form
+            = employment_history.from
+            h4
+              | To
+            = employment_history.to
       br
-      .title-form
-        | Certificates
+
+      h2 Certificates
       - @employee.certificate_employees.each do |certificate_employee|
-        .row.text-align-center.box_shadow
-          .col.width-200
-            h4.title Certificate:
-            h4.title Year:
-            h4.title Score:
-          .col.width-200
-            .item-cv
-              = certificate_employee.certificate.name
-            .item-cv
-              = certificate_employee.year
-            .item-cv
-              = certificate_employee.score
+        .form-box
+          .form-box_left
+            h4 Certificate
+            = certificate_employee.certificate.name
+            h4 Year
+            = certificate_employee.year
+          .form-box_right
+            h4 Score
+            = certificate_employee.score
