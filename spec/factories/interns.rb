@@ -13,7 +13,7 @@
 #  updated_at      :datetime         not null
 #  employable_id   :integer
 #  mentor_id       :bigint
-#  position_id     :bigint           not null
+#  position_id     :bigint
 #  university_id   :bigint
 #
 # Indexes

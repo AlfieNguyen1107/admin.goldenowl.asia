@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 2022_06_13_050708) do
     t.string "belong_team"
     t.bigint "university_id"
     t.integer "graduation_year"
-    t.bigint "position_id", null: false
+    t.bigint "position_id"
     t.integer "employable_id"
     t.string "employable_type"
     t.string "type", default: "Developer"
