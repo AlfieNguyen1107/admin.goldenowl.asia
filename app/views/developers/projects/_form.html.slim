@@ -3,10 +3,6 @@
 = simple_form_for(@developer, url: developer_projects_path(@developer), method: :post, remote: true) do |f|
   #project_box
 
-    .replace_project[style = "display: none;" ]
-      .dropdown.btn-group.my-1
-        = select_tag 'developer[projects[][id]]',  options_for_select(projects_collection),  class: 'btn btn-outline-secondary dropdown-toggle'
-      br
   = link_to 'Add', add_developer_projects_path(@developer), remote: true
   br
   = f.submit 'Update Project', class: 'btn btn-secondary my-2'

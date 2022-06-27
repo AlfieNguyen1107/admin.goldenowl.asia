@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     resources :frameworks, controller: 'developers/frameworks', only: %i[create destroy] do
       get 'add', on: :collection
     end
+
+    resources :project_histories, controller: 'developers/project_histories', only: %i[create destroy] do
+      get 'add', on: :collection
+    end
   end
 
   resources :employees do
@@ -35,9 +39,8 @@ Rails.application.routes.draw do
       get 'add', on: :collection
     end
 
-    resources :educations, controller: 'employees/educations', only: %i[create] do
+    resources :educations, controller: 'employees/educations', only: %i[create destroy] do
       get 'add', on: :collection
-      delete 'delete', on: :member
     end
 
     resources :certificates, controller: 'employees/certificates', only: %i[create destroy] do

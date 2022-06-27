@@ -6,7 +6,7 @@ section.section
       .col-xl-5.col-lg-6
         | Full name:
         h4.title
-          = @developer.full_name
+        = @developer.full_name
         hr/
         | Company name:
         h4.title
@@ -40,6 +40,10 @@ section.section
       .col-xl-5.col-lg-6
         | Projects:
         = render partial: '/developers/projects/form' , locals: { developer: @developer }
+        hr
+
+         | Projects history:
+        = render partial: '/developers/project_histories/form' , locals: { developer: @developer }
         hr
 
         | Programming Languages:

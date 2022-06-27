@@ -1,0 +1,8 @@
+#developer-project-history
+  = render partial: '/developers/project_histories/list_project_histories'
+= simple_form_for(@developer, url: developer_project_histories_path(@developer), method: :post, remote: true) do |f|
+  #project_history_box
+
+  = link_to 'Add', add_developer_project_histories_path(@developer), remote: true
+  br
+  = f.submit 'Update Project', class: 'btn btn-secondary my-2'
