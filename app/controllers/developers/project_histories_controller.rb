@@ -15,6 +15,11 @@ module Developers
         project_history.update(details: param['details'],
                                position: param['position'],
                                order: param['order'],
+                               responsibilities: param['responsibilities'],
+                               team_size: param['team_size'],
+                               tools: param['tools'],
+                               frameworks: param['frameworks'],
+                               skills: param['skills'],
                                from: param['from'],
                                to: param['to'])
       end
@@ -33,7 +38,7 @@ module Developers
     end
 
     def project_params
-      params.require(:developer).permit(project_histories: %i[company_id name details position order from to])
+      params.require(:developer).permit(project_histories: %i[company_id name details position order responsibilities tools frameworks skills team_size from to])
     end
   end
 end

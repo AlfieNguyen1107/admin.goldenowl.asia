@@ -5,164 +5,123 @@
     p
       = @developer.position.name
   .page_1
-    .left-cv
-      h2 CONTACT
-      table
-        tr
-          th
-            .logo
-              = wicked_pdf_image_pack_tag 'media/images/logo_address.png'
-          th
-            | Address
-            .text-normal
-              = @developer.employable.current_address
-        tr
-          th
-            .logo
-              = wicked_pdf_image_pack_tag 'media/images/logo_phone.png'
-          th
-            | Phone
-            .text-normal
-              = @developer.employable.phone_number
-        tr
-          th
-             .logo
-              = wicked_pdf_image_pack_tag 'media/images/logo_mail.png'
-          th
-            | Email
-            .text-normal
-              = @developer.employable.email
+    .page-break
+      .left-cv
+        h2 CONTACT
+        table
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_address.png'
+            th
+              | Address
+              .text-normal
+                = @developer.employable.current_address
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_phone.png'
+            th
+              | Phone
+              .text-normal
+                = @developer.employable.phone_number
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_mail.png'
+            th
+              | Email
+              .text-normal
+                = @developer.employable.email
 
-      h2 EDUCATION
-      - @employee.education_histories.each do |education_history|
-        .text-intalic
+        h2 EDUCATION
+        - @employee.education_histories.each do |education_history|
           h4
             = education_history.university.name
-          = education_history.subject
-          |-
-          = education_history.details
-          |(
-          = education_history.from
-          | ->
-          = education_history.to
-          |)
+          .text-intalic
+            = education_history.subject
+            |&nbsp;-&nbsp;
+            = education_history.details
+            |,&nbsp;
+            = education_history.from.to_s.slice(0, 4)
+            | &nbsp;-&nbsp;
+            = education_history.to.to_s.slice(0, 4)
 
-    .right-cv
-      h2 SKILLS
-      ul
-        li Tools:
-        - @employee.employee_tools.each do |employee_tool|
-            = employee_tool.tool.name
-            | .&nbsp;
-        li Frameworks:
-        - @developer.developer_frameworks.each do |developer_framework|
-          = developer_framework.framework.name
-          | .&nbsp;
-        li Programming languages:
-        - @developer.developer_programming_languages.each do |developer_programming_language|
-          = developer_programming_language.programming_language.name
-          | .&nbsp;
-        li Certificates:
-        - @employee.certificate_employees.each do |certificate_employee|
-          = certificate_employee.certificate.name
-          | -&nbsp;
-          = certificate_employee.score
-          | .
+      .right-cv
+        h2 SKILLS
+        .skill_content
+          ul
+            li
+              |  Tools: &nbsp;
+              = tool_name(@employee)
+            li
+              | Frameworks: &nbsp;
+              = framework_name(@developer)
+            li
+              | Programming languages: &nbsp;
+              = programming_language_name(@developer)
+            li
+              | Certificates: &nbsp;
+              = certificate_name(@developer)
 
-      h2 WORK EXPERIENCE
-      - @developer.employable.employment_histories.each do |employment_history|
-            h4
+        h2 WORK EXPERIENCE
+        ul
+          li
+            = @developer.company_name
+
+            |(
+            = @developer.created_at.to_s.slice(0, 4)
+            |&nbsp; - present)
+          .text-intalic.margin-left-20
+            = @developer.position.name
+
+          - @developer.employable.employment_histories.each do |employment_history|
+            li
               = employment_history.company.name
               |(
-              = employment_history.from
-              | ->&nbsp;
-              = employment_history.to
+              = employment_history.from.to_s.slice(0, 4)
+              | &nbsp; - &nbsp;
+              = employment_history.to.to_s.slice(0, 4)
               |)
             .text-intalic.margin-left-20
               = employment_history.profession
-  .page-break
-
-  - @developer.projects.each do |project|
-    .page-project
-      .header
-        = render partial: '/pdf/header'
-      .body
-        h2 Projects
-        h4
-          |[
-          = project.name
-          |] Time:&nbsp;
-          = project.end_date
-          | ->&nbsp;
-          = project.start_date
-
-        h3
-          | Customer
-        | +&nbsp;
-        = project.client.name
-        | -&nbsp;
-        = project.client.hq
-
-        h3 Website
-        | +&nbsp;
-        = project.website
-
-        h3 Industry
-        | +&nbsp;
-        = project.industry
-
-        h3 Description
-        - details = project.description.split("\n")
-        ul
-          - details&.each do |d|
-            li
-              = d
-        = project.description if details.blank?
-
-        h3 Technologies used
-        ul
-          li Tools:
-          - project.tools.each do |tool|
-            = tool.name
-            |.
-          li Frameworks:
-          - project.frameworks.each do |framework|
-            = framework.name
-            |.
-          li Skills:
-          - project.skills.each do |skill|
-            = skill.name
-            |.
-    .page-break
 
   - @developer.project_histories.each do |project|
-    .page-project
-      .header
-        = render partial: '/pdf/header'
-      .body
-        h2 Projects histories
-        h4
-          |[
-          = project.name
-          |]
-        | Time:&nbsp;
-        = project.from
-        |->
-        = project.to
-        ul
-          li
-            h3 Position
-            = project.position
-
-          li
-            h3 Company
-            = project.company.name
-          li
-            h3 Description
-            - details = project.details.split("\n")
-            ul
-              - details.each do |d|
-                li
-                  = d
-              = project.details if details.blank?
     .page-break
+      .page-project
+        .header
+          = render partial: '/pdf/header'
+        .body
+          h2 PROJECTS
+          h3
+            |[
+            = project.name
+            |]
+          h3
+            = project.position
+          ul
+            li  Descriptions:
+            ul
+              - project.details.split("\n").each do |detail|
+                li
+                  = detail
+            li
+              | Team size: &nbsp;
+              = project.team_size
+            li Responsibilities:
+            ul
+              - project.responsibilities.split("\n").each do |responsibility|
+                li
+                  = responsibility
+            li
+              | Technologies used:
+              ul
+                li
+                  | Tools: &nbsp;
+                  = project.tools
+                li
+                  | Frameworks: &nbsp;
+                  = project.frameworks
+                li
+                  | Skills: &nbsp;
+                  = project.skills

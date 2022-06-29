@@ -4,7 +4,7 @@ class DevelopersController < ApplicationController
   before_action :set_project_options, only: %i[new edit]
   before_action :set_data_association, only: %i[new create edit]
   before_action :set_date_year, only: %i[new create edit]
-  before_action :set_developer, only: %i[show edit destroy detail reset_type]
+  before_action :set_developer, only: %i[show edit update destroy detail reset_type]
   before_action :set_new_developer, only: %i[new create]
   before_action :set_developer_collection, only: %i[index]
 

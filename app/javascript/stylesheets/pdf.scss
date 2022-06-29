@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800&family=Vazirmatn:wght@100;300;400;500;600;700;800;900&display=swap');
+
 body {
   background-color: #f8e8ac57;
   font-size: 20px;
 }
+
 .box-header {
   display: block;
   width: 100%;
@@ -30,6 +33,16 @@ body {
     }
   }
 
+  .line {
+    display: inline-block;
+    width: 2px;
+    height: 100px;
+
+    border-left: #23293d solid 2px;
+    position: absolute;
+    top: -20px;
+  }
+
   .right {
     display: inline-block;
     width: 60%;
@@ -40,38 +53,55 @@ body {
     text-align: center;
 
     .name_company {
-      width: 300px;
+      width: 400px;
       float: left;
       margin-top: -55px;
 
-      padding: 10px;
-      font-size: 20px;
+      padding: 20px;
+      font-size: 45px;
+      font-weight: 900;
+
+      letter-spacing: 0.5;
+      line-height: 1.5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
   }
 }
 
 .body-cv {
-  letter-spacing: 1;
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 100;
 
   .head-cv {
     position: relative;
     font-size: 20px;
-    margin-top: -100px;
+
+    margin-top: -120px;
     margin-left: 26%;
 
+    h1 {
+      text-transform: uppercase;
+    }
+
     p {
-      margin-top: -25px;
+      margin-top: -30px;
+      font-weight: 300;
     }
   }
 
   .page_1 {
     width: 100%;
-    display: block;
+    height: auto;
+    position: relative;
 
     .left-cv {
-      width: 30%;
+      width: 37%;
+      height: 95%;
       margin-left: 30px;
-      display: inline-block;
+
+      page-break-after: right;
+      position: absolute;
+      border-right: #23293d solid 2px;
 
       table {
         font-size: 16px;
@@ -79,7 +109,7 @@ body {
 
         .text-normal {
           position: relative;
-          font-weight: normal;
+          font-weight: 100;
           width: 200px;
           word-wrap:break-word;
         }
@@ -101,29 +131,39 @@ body {
 
     .right-cv {
       width: 60%;
-      display: inline-block;
-      border-left: rgba(0, 0, 0, 0.955) solid 2px;
-      float: right;
+      position: absolute;
+      right: 0px;
+
+      .skill_content {
+        ul {
+          list-style-type: disc;
+          margin-left: 50px;
+
+          li {
+            font-weight: 100;
+          }
+        }
+      }
 
       h2 {
-        margin-left: 20px;
+        padding-left: 50px;
       }
 
       ul {
-        list-style-type: disc;
-
+        list-style-type: none;
         li {
           margin: 10px;
+          font-weight: 600;
         }
       }
 
       h4 {
-        margin-left: 20px;
+        margin-left: 50px;
       }
     }
   }
 
-  .page-project{
+  .page-project {
     height: 100%;
     line-height: 1.5;
 
@@ -132,8 +172,12 @@ body {
 
       ul {
         list-style-type: disc;
+
+        ul {
+          list-style-type: circle;
+        }
+
         li {
-          margin-bottom: 5px;
           text-align: left;
 
           ul {
@@ -149,11 +193,12 @@ body {
   width: 100%;
   margin-top: 50px;
   display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 
-  .line{
+  .line {
     width: 100px;
     height: 100px;
-    border-right: black solid 1px;
+    border-right: #23293d solid 2px;
     margin-bottom: 50px;
   }
 
@@ -164,13 +209,15 @@ body {
 
       background-color: #f9be39;
       margin-left: 50px;
+
     .name {
       width: 400px;
-      font-size: 25px;
+      font-size: 45px;
       font-weight: 900;
 
-      margin-top: -60px;
+      margin-top: -37px;
       margin-left: 50px;
+      line-height: 1.5;
     }
   }
 
@@ -186,6 +233,10 @@ body {
 
 .text-intalic {
   font-style: italic;
+  text-align: left;
+  word-wrap: break-word;
+
+  padding-right: 10px;
 }
 
 .margin-left-20 {

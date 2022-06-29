@@ -2,17 +2,22 @@
 #
 # Table name: project_histories
 #
-#  id           :bigint           not null, primary key
-#  details      :text
-#  from         :date
-#  name         :string
-#  order        :integer
-#  position     :string
-#  to           :date
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  company_id   :bigint           not null
-#  developer_id :bigint           not null
+#  id               :bigint           not null, primary key
+#  details          :text
+#  frameworks       :string
+#  from             :date
+#  name             :string
+#  order            :integer
+#  position         :string
+#  responsibilities :string
+#  skills           :string
+#  team_size        :integer
+#  to               :date
+#  tools            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  company_id       :bigint           not null
+#  developer_id     :bigint           not null
 #
 # Indexes
 #

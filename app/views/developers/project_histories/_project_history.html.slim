@@ -5,12 +5,20 @@
       = text_field_tag 'developer[project_histories[][name]]',nil , class: "form-control"
       p.card-text.my-1 Company:
       = select_tag 'developer[project_histories[][company_id]]',  options_for_select(companies_collection),  class: 'btn btn-outline-secondary dropdown-toggle'
-      p.card-text.my-1 Position:
+      .card-text.my-1 Position:
       = text_field_tag 'developer[project_histories[][position]]',nil, class: "form-control"
       p.card-text.my-1 Detail:
       = text_area_tag 'developer[project_histories[][details]]', nil, 'data-provider': :summernote, class: "form-control"
-      p.card-text.my-1 Order:
-      = text_field_tag 'developer[project_histories[][order]]', nil, class: "form-control"
+      p.card-text.my-1 Responsibilities:
+      = text_area_tag 'developer[project_histories[][responsibilities]]', nil, 'data-provider': :summernote, class: "form-control"
+      p.card-text.my-1 Tools:
+      = text_field_tag 'developer[project_histories[][tools]]', nil, class: "form-control"
+      p.card-text.my-1 Frameworks:
+      = text_field_tag 'developer[project_histories[][frameworks]]', nil, class: "form-control"
+      p.card-text.my-1 Skills:
+      = text_field_tag 'developer[project_histories[][skills]]', nil, class: "form-control"
+      p.card-text.my-1 Team size:
+      = text_field_tag 'developer[project_histories[][team_size]]',nil , class: "form-control"
       p.card-text.my-1 From:
       = date_field_tag 'developer[project_histories[][from]]', nil, class: 'form-control input-sm'
       p.card-text.my-1 To:
