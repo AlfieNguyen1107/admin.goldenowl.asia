@@ -62,24 +62,23 @@ section.section
                             td = d.belong_team
                             td = d.senority
                             td
+                              - d.project_histories.each do |p|
+                                = p.name
+                                br
+                            td
                               - d.projects.each do |p|
                                 = link_to p.name, p
                                 br
-                            td
-                              - d.developer_projects.each do |dp|
-                                - if dp.current?
-                                  = link_to dp.project.name, dp.project
-                                  br
                             td
                               = Date.today.year - d.graduation_year
                             td
                             td = link_to "Detail", detail_developer_path(d)
                             td.table-action
-                              = link_to edit_developer_path(d.id), class: "table-link" do 
+                              = link_to edit_developer_path(d.id), class: "table-link" do
                                 i.mdi.mdi-pencil
-                              = link_to developer_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do 
+                              = link_to developer_path(d.id), data: { confirm: "Are you sure?" }, method: :delete, class: "table-link" do
                                 i.mdi.mdi-delete
-                              = link_to developer_path(d.id), class: "table-link" do 
+                              = link_to developer_path(d.id), class: "table-link" do
                                 i.mdi.mdi-bookmark-box-multiple
   section.section
     .container.mb-3

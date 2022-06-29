@@ -17,35 +17,6 @@ section.section
           = @developer.senority
         hr
 
-        | Education:
-        = render partial: '/employees/educations/form' , locals: { employee: @employee }
-        hr
-
-        | Employments:
-        = render partial: '/employees/employments/form' , locals: { employee: @employee }
-        hr
-
-        | Certificates:
-        = render partial: '/employees/certificates/form' , locals: { employee: @employee }
-        hr
-
-        = link_to reset_type_developer_path(@developer), method: :put, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-success' do
-          i.uil-cog.me-1
-          | Reset intern
-
-        = link_to developer_path(@developer, format: :pdf), class: 'btn btn-outline-success mx-1' do
-          i.uil-print.me-1
-          | Export file
-
-      .col-xl-5.col-lg-6
-        | Projects:
-        = render partial: '/developers/projects/form' , locals: { developer: @developer }
-        hr
-
-         | Projects history:
-        = render partial: '/developers/project_histories/form' , locals: { developer: @developer }
-        hr
-
         | Programming Languages:
         = render partial: '/developers/programming_languages/form' , locals: { developer: @developer }
         hr
@@ -61,12 +32,42 @@ section.section
         | Skills:
         = render partial: '/employees/skills/form', locals: { employee: @employee }
         hr
+
+        | Education:
+        = render partial: '/employees/educations/form' , locals: { employee: @employee }
+        hr
+
+        | Employments:
+        = render partial: '/employees/employments/form' , locals: { employee: @employee }
+        hr
+
+      .col-xl-5.col-lg-6
+        | Certificates:
+        = render partial: '/employees/certificates/form' , locals: { employee: @employee }
+        hr
+
+        | Projects:
+        = render partial: '/developers/projects/form' , locals: { developer: @developer }
+        hr
+
+         | Projects history:
+        = render partial: '/developers/project_histories/form' , locals: { developer: @developer }
+        hr
     .row
       .col-12
         nav.level
           .level-left.mt-2
             p.level-item
               strong Actions
+          .d-flex.my-2
+            = link_to reset_type_developer_path(@developer), method: :put, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-success' do
+              i.uil-cog.me-1
+              | Reset intern
+
+            = link_to developer_path(@developer, format: :pdf), class: 'btn btn-outline-success mx-1' do
+              i.uil-print.me-1
+              | Export file
+
           .level-right.d-flex
             p.level-item
               = link_to "Edit", edit_developer_path(@developer), class:"button btn btn-primary btn-sm"

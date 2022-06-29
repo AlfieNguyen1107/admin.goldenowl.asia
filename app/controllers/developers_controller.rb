@@ -21,7 +21,9 @@ class DevelopersController < ApplicationController
         render pdf: 'profile_developer',
                template: 'developers/export.html.slim',
                layout: 'pdf',
-               page_size: 'A4'
+               page_size: 'A4',
+               margin: { top: 0, bottom: 0, left: 0, right: 0 },
+               viewport_size: '1280x1024'
       end
     end
   end

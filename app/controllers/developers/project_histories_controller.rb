@@ -12,7 +12,7 @@ module Developers
       project_params['project_histories'].each do |param|
         project_history = ProjectHistory.find_or_initialize_by(name: param['name'], company_id: param['company_id'], developer_id: @developer.id)
 
-          project_history.update(details: param['details'],
+        project_history.update(details: param['details'],
                                position: param['position'],
                                order: param['order'],
                                from: param['from'],
