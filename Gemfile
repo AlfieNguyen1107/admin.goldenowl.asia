@@ -43,8 +43,6 @@ group :development do
   gem 'rubocop-performance', '~> 1.13.3', require: false
   gem 'rubocop-rails', '~> 2.14.2', require: false
   gem 'web-console', '>= 3.3.0'
-  gem 'wicked_pdf'
-  gem 'wkhtmltopdf-binary'
 end
 
 group :test do
@@ -99,3 +97,5 @@ gem 'pundit'
 gem 'redis'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
