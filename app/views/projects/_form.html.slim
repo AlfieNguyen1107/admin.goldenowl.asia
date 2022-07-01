@@ -10,7 +10,7 @@
       .field.mt-2.mb-3
         = f.input :deployment, 'data-provider': :summernote, class: 'form-control'
       .field.mt-2.mb-3
-        = f.input :description, 'data-provider': :summernote, class: 'form-control'
+        = f.input :description, as: 'text', 'data-provider': :summernote, class: 'form-control'
       .field.mt-2.mb-3
         = f.input :git_repo, 'data-provider': :summernote, class: 'form-control'
       .field.mt-2.mb-3

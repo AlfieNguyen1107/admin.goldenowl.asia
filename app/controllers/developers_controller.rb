@@ -4,7 +4,7 @@ class DevelopersController < ApplicationController
   before_action :set_project_options, only: %i[new edit]
   before_action :set_data_association, only: %i[new create edit]
   before_action :set_date_year, only: %i[new create edit]
-  before_action :set_developer, only: %i[show edit destroy detail reset_type]
+  before_action :set_developer, only: %i[show edit update destroy detail reset_type]
   before_action :set_new_developer, only: %i[new create]
   before_action :set_developer_collection, only: %i[index]
 
@@ -15,6 +15,17 @@ class DevelopersController < ApplicationController
 
   def show
     @employee = @developer.employable
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'profile_developer',
+               template: 'developers/export.html.slim',
+               layout: 'pdf',
+               page_size: 'A4',
+               margin: { top: 0, bottom: 0, left: 0, right: 0 },
+               viewport_size: '1280x1024'
+      end
+    end
   end
 
   def new

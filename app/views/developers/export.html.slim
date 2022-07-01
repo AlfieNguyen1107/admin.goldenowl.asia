@@ -1,0 +1,127 @@
+.body-cv
+  .head-cv
+    h1
+      = @developer.full_name
+    p
+      = @developer.position.name
+  .page_1
+    .page-break
+      .left-cv
+        h2 CONTACT
+        table
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_address.png'
+            th
+              | Address
+              .text-normal
+                = @developer.employable.current_address
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_phone.png'
+            th
+              | Phone
+              .text-normal
+                = @developer.employable.phone_number
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_mail.png'
+            th
+              | Email
+              .text-normal
+                = @developer.employable.email
+
+        h2 EDUCATION
+        - @employee.education_histories.each do |education_history|
+          h4
+            = education_history.university.name
+          .text-intalic
+            = education_history.subject
+            |&nbsp;-&nbsp;
+            = education_history.details
+            |,&nbsp;
+            = education_history.from.to_s.slice(0, 4)
+            | &nbsp;-&nbsp;
+            = education_history.to.to_s.slice(0, 4)
+
+      .right-cv
+        h2 SKILLS
+        .skill_content
+          ul
+            li
+              |  Tools: &nbsp;
+              = tool_name(@employee)
+            li
+              | Frameworks: &nbsp;
+              = framework_name(@developer)
+            li
+              | Programming languages: &nbsp;
+              = programming_language_name(@developer)
+            li
+              | Certificates: &nbsp;
+              = certificate_name(@developer)
+
+        h2 WORK EXPERIENCE
+        ul
+          li
+            = @developer.company_name
+
+            |(
+            = @developer.created_at.to_s.slice(0, 4)
+            |&nbsp; - present)
+          .text-intalic.margin-left-20
+            = @developer.position.name
+
+          - @developer.employable.employment_histories.each do |employment_history|
+            li
+              = employment_history.company.name
+              |(
+              = employment_history.from.to_s.slice(0, 4)
+              | &nbsp; - &nbsp;
+              = employment_history.to.to_s.slice(0, 4)
+              |)
+            .text-intalic.margin-left-20
+              = employment_history.profession
+
+  - @developer.project_histories.each do |project|
+    .page-break
+      .page-project
+        .header
+          = render partial: '/pdf/header'
+        .body
+          h2 PROJECTS
+          h3
+            |[
+            = project.name
+            |]
+          h3
+            = project.position
+          ul
+            li  Descriptions:
+            ul
+              - project.details.split("\n").each do |detail|
+                li
+                  = detail
+            li
+              | Team size: &nbsp;
+              = project.team_size
+            li Responsibilities:
+            ul
+              - project.responsibilities.split("\n").each do |responsibility|
+                li
+                  = responsibility
+            li
+              | Technologies used:
+              ul
+                li
+                  | Tools: &nbsp;
+                  = project.tools
+                li
+                  | Frameworks: &nbsp;
+                  = project.frameworks
+                li
+                  | Skills: &nbsp;
+                  = project.skills

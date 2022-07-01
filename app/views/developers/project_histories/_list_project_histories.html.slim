@@ -1,0 +1,34 @@
+.project-list-item
+  - @developer.project_histories.each do |project|
+    .card.border-secondary
+      .card-body
+        .row
+          h5.card-text.my-1
+            = link_to developer_project_history_path(@developer, project), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'float-end tn btn-outline-danger rounded-pill' do
+              i.mdi.mdi-window-close
+        .row
+          .col-8
+            h5.card-text.my-1 Name:
+            = project.name
+            h5.card-text.my-1 Company:
+            = project.company.name
+            h5.card-text.my-1 Position:
+            = project.position
+            h5.card-text.my-1 Team size:
+            = project.team_size
+            h5.card-text.my-1 Details:
+            = project.details
+            h5.card-text.my-1 Responsibilities:
+            = project.responsibilities
+            h5.card-text.my-1 Tools:
+            = project.tools
+            h5.card-text.my-1 Frameworks:
+            = project.frameworks
+            h5.card-text.my-1 Skills:
+            = project.skills
+          .col-4
+            h5.card-text.my-1 From:
+            = project.from
+            h5.card-text.my-1 To:
+            = project.to
+    br

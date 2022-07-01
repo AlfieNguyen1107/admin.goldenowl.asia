@@ -2,7 +2,7 @@
 
 module Employees
   class EducationsController < BaseController
-    before_action :set_education, only: %i[delete]
+    before_action :set_education, only: %i[destroy]
 
     def add
       render :add
@@ -21,7 +21,7 @@ module Employees
       render :update_list_educations
     end
 
-    def delete
+    def destroy
       @education.destroy
       render :update_list_educations
     end
