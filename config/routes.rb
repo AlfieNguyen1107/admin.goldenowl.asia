@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       put 'reset_type/:id', to: 'developers#reset_type', as: 'reset_type'
     end
 
-    resources :projects, controller: 'developers/projects', only: %i[create destroy] do
+    resources :projects, controller: 'developers/projects', only: %i[create destroy update] do
       get 'add', on: :collection
     end
 

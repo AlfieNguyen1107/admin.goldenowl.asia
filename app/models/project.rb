@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   DAYS_FROM_NOW = [10, 30, 60].freeze
   enum industry: { sport: 0, ecommerce: 1, finance: 2, education: 3, manufacturing: 4, medical: 5, health_fitness: 6 }
   enum status: { planning: 0, ongoing: 1, finished: 2, archived: 3 }
+  after_update :create_project_history, if: :project_finish?
 
   acts_as_taggable_on :software_categories
   has_many :developer_projects, dependent: :destroy
@@ -81,5 +82,15 @@ class Project < ApplicationRecord
 
   def assign_pc(project_coordinator)
     pc_projects.create project_coordinator: project_coordinator, join_date: Time.zone.today
+  end
+
+  private
+
+  def create_project_history
+    CreateProjectHistoryService.new(project: self).call
+  end
+
+  def project_finish?
+    self.finished?
   end
 end
