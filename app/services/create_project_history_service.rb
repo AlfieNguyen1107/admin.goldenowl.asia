@@ -21,13 +21,13 @@ class CreateProjectHistoryService < ApplicationService
                                                                name: @project.name)
 
         project_history.update(
-          frameworks: @frameworks,
+          frameworks: @frameworks.join(','),
           from: @project.start_date,
           to: @project.end_date,
           position: developer.position.name,
           details: @project.description,
-          skills: @skills.char,
-          tools: @tools
+          skills: @skills.join(','),
+          tools: @tools.join(',')
         )
       end
     end
