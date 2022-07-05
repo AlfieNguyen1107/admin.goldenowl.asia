@@ -33,6 +33,14 @@
               | Email
               .text-normal
                 = @developer.employable.email
+          tr
+            th
+              .logo
+                = wicked_pdf_image_pack_tag 'media/images/logo_web.png'
+            th
+              | Website
+              .text-normal
+                | www.goldenowl.asia
 
         h2 EDUCATION
         - @employee.education_histories.each do |education_history|
@@ -87,8 +95,8 @@
               = employment_history.profession
 
   - @developer.project_histories.each do |project|
-    .page-break
       .page-project
+        .page-break
         .header
           = render partial: '/pdf/header'
         .body
