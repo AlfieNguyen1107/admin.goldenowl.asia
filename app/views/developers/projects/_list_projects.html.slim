@@ -19,6 +19,6 @@
             = project.end_date
         .row
           .w-10.my-2
-            = link_to 'Complete', developer_project_path(@developer, project), method: :put, class: 'btn btn-success btn-sm'
+            = link_to 'Complete', developer_project_path(@developer, project), method: :put, remote: true, class: 'btn btn-success btn-sm'
 
     br

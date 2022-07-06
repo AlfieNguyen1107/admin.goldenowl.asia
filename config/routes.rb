@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get 'add', on: :collection
     end
 
-    resources :project_histories, controller: 'developers/project_histories', only: %i[create destroy] do
+    resources :project_histories, controller: 'developers/project_histories', only: %i[create destroy update] do
       get 'add', on: :collection
     end
   end
@@ -39,15 +39,15 @@ Rails.application.routes.draw do
       get 'add', on: :collection
     end
 
-    resources :educations, controller: 'employees/educations', only: %i[create destroy] do
+    resources :educations, controller: 'employees/educations', only: %i[create destroy update] do
       get 'add', on: :collection
     end
 
-    resources :certificates, controller: 'employees/certificates', only: %i[create destroy] do
+    resources :certificates, controller: 'employees/certificates', only: %i[create destroy update] do
       get 'add', on: :collection
     end
 
-    resources :employments, controller: 'employees/employments', only: %i[create destroy] do
+    resources :employments, controller: 'employees/employments', only: %i[create destroy update] do
       get 'add', on: :collection
     end
   end

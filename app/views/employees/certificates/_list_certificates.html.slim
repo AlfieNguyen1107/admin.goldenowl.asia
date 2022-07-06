@@ -1,5 +1,5 @@
 .certificate-list-item
-  - @employee.certificate_employees.each do |certificate_employee|
+  - @employee.certificate_employees.includes([:certificate])&.each do |certificate_employee|
     .card.border-secondary
       .card-body
         .row
@@ -15,4 +15,32 @@
           .col-4
             h5.card-text.my-1 Score:
             = certificate_employee.score
-    br
+        .row.my-1
+          .w-10
+            button.btn.btn-info.btn-sm[data-bs-toggle="modal" data-bs-target="#centermodal-#{certificate_employee.id}"] Edit
+
+        .modal.fade[tabindex="-1" role="dialog" aria-hidden="true" id="centermodal-#{certificate_employee.id}"]
+          .modal-dialog.modal-dialog-centered
+            .modal-content
+              .modal-header
+                h4#myCenterModalLabel.modal-title
+                  | Certificate update
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
+              .modal-body
+                = form_with url: "/employees/#{@employee.id}/certificates/#{certificate_employee.id}", method: :put do |f|
+                  .row
+                    .col-md-6
+                      p Certificate name:
+                      .my-3
+                      p Year:
+                      .my-3
+                      p Score:
+                    .col-md-6
+                      = certificate_employee.certificate.name
+                      .my-2
+                      = f.text_field :year, class: "form-control"
+                      .my-2
+                      = f.text_field :score, class: "form-control"
+                      .my-2
+                    = f.submit 'Save', class: 'btn btn-success'
+        br

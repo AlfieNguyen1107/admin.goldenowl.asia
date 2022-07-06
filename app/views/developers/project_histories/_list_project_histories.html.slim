@@ -1,5 +1,5 @@
 .project-list-item
-  - @developer.project_histories.each do |project|
+  - @developer.project_histories.includes([:company])&.each do |project|
     .card.border-secondary
       .card-body
         .row
@@ -31,4 +31,66 @@
             = project.from
             h5.card-text.my-1 To:
             = project.to
+
+        .row.my-1
+          .w-10
+            button.btn.btn-info.btn-sm[data-bs-toggle="modal" data-bs-target="#centermodal-project-history"] Edit
+
+        #centermodal-project-history.modal.fade[tabindex="-1" role="dialog" aria-hidden="true"]
+          .modal-dialog.modal-dialog-centered
+            .modal-content
+              .modal-header
+                h4#myCenterModalLabel.modal-title
+                  | Project history update
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
+              .modal-body
+                = form_with url: "/developers/#{@developer.id}/project_histories/#{project.id}", method: :put do |f|
+                  .row
+                    .col-md-4
+                      .my-2
+                      p Name:
+                      .my-3
+                      p Company:
+                      .my-3
+                      p Position:
+                      .my-3
+                      p Team size:
+                      .my-3
+                      p Details:
+                      .my-5
+                      p Responsibilities:
+                      .my-4
+                      p Tools:
+                      .my-4
+                      p Frameworks:
+                      .my-4
+                      p Skills:
+                      .my-4
+                      p From:
+                      .my-3
+                      p To:
+                    .col-md-8
+                      = f.text_field :name, value: project.name, class: "form-control"
+                      .my-2
+                      = f.select :company_id, options_for_select(companies_collection), value: project.company_id, class: 'btn btn-outline-secondary dropdown-toggle'
+                      .my-2
+                      = f.text_field :position, value: project.position, class: "form-control"
+                      .my-2
+                      = f.text_field :team_size, value: project.team_size, class: "form-control"
+                      .my-2
+                      = f.text_area :details, value: project.details, class: "form-control "
+                      .my-2
+                      = f.text_area :responsibilities, value: project.responsibilities, class: "form-control"
+                      .my-2
+                      = f.text_field :tools, value: project.tools, class: "form-control"
+                      .my-2
+                      = f.text_field :frameworks, value: project.frameworks, class: "form-control"
+                      .my-2
+                      = f.text_field :skills, value: project.skills, class: "form-control"
+                      .my-2
+                      = f.date_field :from, value: project.from, class: "form-control"
+                      .my-2
+                      = f.date_field :to, value: project.to, class: "form-control"
+                      .my-2
+                    = f.submit 'Save', class: 'btn btn-success'
     br

@@ -43,7 +43,7 @@
                 | www.goldenowl.asia
 
         h2 EDUCATION
-        - @employee.education_histories.each do |education_history|
+        - @employee.education_histories&.each do |education_history|
           h4
             = education_history.university.name
           .text-intalic
@@ -77,16 +77,16 @@
           li
             = @developer.company_name
 
-            |(
+            |&nbsp;(
             = @developer.created_at.to_s.slice(0, 4)
             |&nbsp; - present)
           .text-intalic.margin-left-20
             = @developer.position.name
 
-          - @developer.employable.employment_histories.each do |employment_history|
+          - @developer.employable.employment_histories.includes([:company])&.each do |employment_history|
             li
               = employment_history.company.name
-              |(
+              |&nbsp;(
               = employment_history.from.to_s.slice(0, 4)
               | &nbsp; - &nbsp;
               = employment_history.to.to_s.slice(0, 4)
@@ -94,7 +94,7 @@
             .text-intalic.margin-left-20
               = employment_history.profession
 
-  - @developer.project_histories.each do |project|
+  - @developer.project_histories&.each do |project|
       .page-project
         .page-break
         .header
@@ -110,7 +110,7 @@
           ul
             li  Descriptions:
             ul
-              - project.details.split("\n").each do |detail|
+              - project.details&.split("\n")&.each do |detail|
                 li
                   = detail
             li
@@ -118,7 +118,7 @@
               = project.team_size
             li Responsibilities:
             ul
-              - project.responsibilities.split("\n").each do |responsibility|
+              - project.responsibilities&.split("\n")&.each do |responsibility|
                 li
                   = responsibility
             li

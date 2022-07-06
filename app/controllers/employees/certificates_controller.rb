@@ -2,7 +2,7 @@
 
 module Employees
   class CertificatesController < BaseController
-    before_action :set_certificate, only: %i[destroy]
+    before_action :set_certificate, only: %i[destroy update]
 
     def add
       render :add
@@ -13,8 +13,7 @@ module Employees
         certificate = CertificateEmployee.find_or_initialize_by(certificate_id: param['id'],
                                                                 employee_id: params['employee_id'])
 
-        certificate.update(year: param['year'],
-                           score: param[:score])
+        certificate.update(certificate_params_for_create(param))
       end
       render :update_list_certificates
     end
@@ -24,10 +23,23 @@ module Employees
       render :update_list_certificates
     end
 
+    def update
+      @certificate.update(certificate_employee_params)
+      render :update
+    end
+
     private
 
     def set_certificate
       @certificate = CertificateEmployee.find(params[:id])
+    end
+
+    def certificate_params_for_create(param)
+      param.permit(:year, :score)
+    end
+
+    def certificate_employee_params
+      params.permit(:id, :year, :score)
     end
 
     def certificate_params

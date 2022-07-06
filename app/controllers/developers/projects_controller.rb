@@ -23,6 +23,7 @@ module Developers
 
     def update
       @project.update(status: 'finished')
+      render :update
     end
 
     private
