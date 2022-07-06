@@ -91,6 +91,6 @@ class Project < ApplicationRecord
   end
 
   def project_finish?
-    self.finished?
+    finished?
   end
 end
