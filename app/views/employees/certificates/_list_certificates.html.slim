@@ -27,7 +27,7 @@
                       | Certificate update
                     button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
                   .modal-body
-                    = simple_form_for certificate_employee, url: "/employees/#{@employee.id}/certificates/#{certificate_employee.id}", method: :put do |f|
+                    = simple_form_for certificate_employee, url: "/employees/#{@employee.id}/certificates/#{certificate_employee.id}", method: :put, remote: true do |f|
                       .row
                         .col-md-6
                           p Certificate name:

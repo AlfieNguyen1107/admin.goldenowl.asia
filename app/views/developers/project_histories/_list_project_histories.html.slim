@@ -44,7 +44,7 @@
                       | Project history update
                     button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
                   .modal-body
-                    = form_with url: "/developers/#{@developer.id}/project_histories/#{project.id}", method: :put do |f|
+                    = simple_form_for project, url: "/developers/#{@developer.id}/project_histories/#{project.id}", method: :put, remote: true do |f|
                       .row
                         .col-md-4
                           .my-2

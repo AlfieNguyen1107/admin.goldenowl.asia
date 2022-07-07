@@ -47,17 +47,17 @@ module Developers
     end
 
     def projects_history_params
-      params.permit(:name,
-                    :company_id,
-                    :position,
-                    :team_size,
-                    :detailss,
-                    :responsibilities,
-                    :tools,
-                    :frameworks,
-                    :skills,
-                    :from,
-                    :to)
+      params['project_history'].permit(:name,
+                                       :company_id,
+                                       :position,
+                                       :team_size,
+                                       :detailss,
+                                       :responsibilities,
+                                       :tools,
+                                       :frameworks,
+                                       :skills,
+                                       :from,
+                                       :to)
     end
 
     def project_params

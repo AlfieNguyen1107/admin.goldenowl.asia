@@ -42,7 +42,7 @@ module Employees
     end
 
     def employment_history_params
-      params.permit(:profession, :details, :from, :to)
+      params['employment_history'].permit(:profession, :details, :from, :to)
     end
 
     def employment_params

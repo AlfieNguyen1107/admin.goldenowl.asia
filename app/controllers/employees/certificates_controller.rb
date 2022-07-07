@@ -39,7 +39,7 @@ module Employees
     end
 
     def certificate_employee_params
-      params.permit(:id, :year, :score)
+      params['certificate_employee'].permit(:id, :year, :score)
     end
 
     def certificate_params
