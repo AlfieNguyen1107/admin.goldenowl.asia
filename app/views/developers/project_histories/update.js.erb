@@ -1,1 +1,3 @@
-location.reload()
+var project_history = "<%= @project_history.id %>"
+$(`#centermodal-project-history-${project_history}`).modal('hide')
+$('#developer-project-history').html("<%= j render(partial: 'developers/project_histories/list_project_histories.html.slim') %>")
