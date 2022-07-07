@@ -32,7 +32,7 @@
                   | Employment update
                 button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
               .modal-body
-                = form_with url: "/employees/#{@employee.id}/employments/#{employment_history.id}", method: :put do |f|
+                = simple_form_for employment_history, url: "/employees/#{@employee.id}/employments/#{employment_history.id}", method: :put do |f|
                   .row
                     .col-md-4
                       p Company name:
@@ -47,13 +47,13 @@
                     .col-md-8
                       = employment_history.company.name
                       .my-2
-                      = f.text_field :profession, value: employment_history.profession, class: "form-control"
+                      = f.text_field :profession, class: "form-control"
                       .my-2
-                      = f.text_area :details, value: employment_history.details, class: "form-control"
+                      = f.text_area :details, class: "form-control"
                       .my-2
-                      = f.date_field :from, value: employment_history.from, class: "form-control"
+                      = f.date_field :from, class: "form-control"
                       .my-2
-                      = f.date_field :to, value: employment_history.to, class: "form-control"
+                      = f.date_field :to, class: "form-control"
                       .my-2
                     = f.submit 'Save', class: 'btn btn-success'
     br

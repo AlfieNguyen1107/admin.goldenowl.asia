@@ -32,7 +32,7 @@
                   | Education update
                 button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
               .modal-body
-                = form_with url: "/employees/#{@employee.id}/educations/#{education_history.id}", method: :put, remote: true do |f|
+                = simple_form_for education_history,  url: "/employees/#{@employee.id}/educations/#{education_history.id}", method: :put, remote: true do |f|
                   .row
                     .col-md-4
                       p University name:
@@ -47,13 +47,13 @@
                     .col-md-8
                       = education_history.university.name
                       .my-2
-                      = f.text_field :subject, value: education_history.subject, class: "form-control"
+                      = f.text_field :subject, class: "form-control"
                       .my-2
-                      = f.text_area :details, value: education_history.details, class: "form-control"
+                      = f.text_area :details, class: "form-control"
                       .my-2
-                      = f.date_field :from, value: education_history.from, class: "form-control"
+                      = f.date_field :from, class: "form-control"
                       .my-2
-                      = f.date_field :to, value: education_history.to, class: "form-control"
+                      = f.date_field :to, class: "form-control"
                       .my-2
                     = f.submit 'Save', class: 'btn btn-success'
     br

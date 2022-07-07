@@ -27,7 +27,7 @@
                       | Certificate update
                     button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
                   .modal-body
-                    = form_with url: "/employees/#{@employee.id}/certificates/#{certificate_employee.id}", method: :put do |f|
+                    = simple_form_for certificate_employee, url: "/employees/#{@employee.id}/certificates/#{certificate_employee.id}", method: :put do |f|
                       .row
                         .col-md-6
                           p Certificate name:
@@ -38,9 +38,9 @@
                         .col-md-6
                           = certificate_employee.certificate.name
                           .my-2
-                          = f.text_field :year, value: certificate_employee.year, class: "form-control"
+                          = f.text_field :year, class: "form-control"
                           .my-2
-                          = f.text_field :score, value: certificate_employee.score,  class: "form-control"
+                          = f.text_field :score, class: "form-control"
                           .my-2
                         = f.submit 'Save', class: 'btn btn-success'
       br
