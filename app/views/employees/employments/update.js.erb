@@ -1,0 +1,3 @@
+var employment = "<%= @employment.id %>"
+$(`#centermodal-employment-${employment}`).modal('hide')
+$('#employee-employment-list').html("<%= j render(partial: 'employees/employments/list_employments.html.slim') %>")

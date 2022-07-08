@@ -1,5 +1,5 @@
 .skill-list-item.display-flex
-  - @employee.employee_skills.each do |employee_skill|
+  - @employee.employee_skills.includes([:skill]).each do |employee_skill|
     .skill-item
       span.badge.bg-primary.fs-4.my-1
         = employee_skill.skill.name

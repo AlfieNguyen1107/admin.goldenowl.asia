@@ -1,5 +1,5 @@
 .framework-list-item.display-flex
-  - @developer.developer_frameworks.each do |developer_framework|
+  - @developer.developer_frameworks.includes([:framework]).each do |developer_framework|
     .framework-item
       span.badge.bg-primary.fs-4.my-1
         = developer_framework.framework.name

@@ -2,7 +2,8 @@
 
 module Developers
   class ProjectsController < BaseController
-    before_action :set_project, only: %i[destroy]
+    before_action :set_developer_project, only: %i[destroy]
+    before_action :set_project, only: %i[update]
 
     def add
       render :add
@@ -16,14 +17,23 @@ module Developers
     end
 
     def destroy
-      @project.destroy
+      @developer_project.destroy
       render :update_list_project
+    end
+
+    def update
+      @project.update(status: 'finished')
+      render :update
     end
 
     private
 
+    def set_developer_project
+      @developer_project = DeveloperProject.find_by(developer_id: @developer.id, project_id: params[:id])
+    end
+
     def set_project
-      @project = DeveloperProject.find_by(developer_id: @developer.id, project_id: params[:id])
+      @project = Project.find(params[:id])
     end
 
     def project_params

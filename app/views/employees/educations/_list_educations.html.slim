@@ -1,5 +1,5 @@
 .education-list-item
-  - @employee.education_histories.each do |education_history|
+  - @employee.education_histories.includes([:university])&.each do |education_history|
     .card.border-secondary
       .card-body
         .row
@@ -19,4 +19,41 @@
             = education_history.from
             h5.card-text.my-1 To:
             = education_history.to
+
+        .row.my-1
+          .w-10
+            button.btn.btn-info.btn-sm[data-bs-toggle="modal" data-bs-target="#centermodal-education-#{education_history.id}"] Edit
+
+        .modal.fade[tabindex="-1" role="dialog" aria-hidden="true" id="centermodal-education-#{education_history.id}"]
+          .modal-dialog.modal-dialog-centered
+            .modal-content
+              .modal-header
+                h4#myCenterModalLabel.modal-title
+                  | Education update
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
+              .modal-body
+                = simple_form_for education_history,  url: "/employees/#{@employee.id}/educations/#{education_history.id}", method: :put, remote: true do |f|
+                  .row
+                    .col-md-4
+                      p University name:
+                      .my-3
+                      p Subject:
+                      .my-3
+                      p Details:
+                      .my-5
+                      p From:
+                      .my-3
+                      p To:
+                    .col-md-8
+                      = education_history.university.name
+                      .my-2
+                      = f.text_field :subject, class: "form-control"
+                      .my-2
+                      = f.text_area :details, class: "form-control"
+                      .my-2
+                      = f.date_field :from, class: "form-control"
+                      .my-2
+                      = f.date_field :to, class: "form-control"
+                      .my-2
+                    = f.submit 'Save', class: 'btn btn-success'
     br

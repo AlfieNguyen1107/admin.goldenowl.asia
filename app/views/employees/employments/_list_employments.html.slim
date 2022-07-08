@@ -1,5 +1,5 @@
 .employment-list-item
-  - @employee.employment_histories.each do |employment_history|
+  - @employee.employment_histories.includes([:company]).each do |employment_history|
     .card.border-secondary
       .card-body
         .row
@@ -19,4 +19,41 @@
             = employment_history.from
             h5.card-text.my-1 To:
             = employment_history.to
+
+        .row.my-1
+          .w-10
+            button.btn.btn-info.btn-sm[data-bs-toggle="modal" data-bs-target="#centermodal-employment-#{employment_history.id}"] Edit
+
+        .modal.fade[tabindex="-1" role="dialog" aria-hidden="true" id="centermodal-employment-#{employment_history.id}"]
+          .modal-dialog.modal-dialog-centered
+            .modal-content
+              .modal-header
+                h4#myCenterModalLabel.modal-title
+                  | Employment update
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-hidden="true"]
+              .modal-body
+                = simple_form_for employment_history, url: "/employees/#{@employee.id}/employments/#{employment_history.id}", method: :put, remote: true do |f|
+                  .row
+                    .col-md-4
+                      p Company name:
+                      .my-3
+                      p Profession:
+                      .my-3
+                      p Details:
+                      .my-5
+                      p From:
+                      .my-3
+                      p To:
+                    .col-md-8
+                      = employment_history.company.name
+                      .my-2
+                      = f.text_field :profession, class: "form-control"
+                      .my-2
+                      = f.text_area :details, class: "form-control"
+                      .my-2
+                      = f.date_field :from, class: "form-control"
+                      .my-2
+                      = f.date_field :to, class: "form-control"
+                      .my-2
+                    = f.submit 'Save', class: 'btn btn-success'
     br

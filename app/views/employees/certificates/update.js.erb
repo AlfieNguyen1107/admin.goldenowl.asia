@@ -1,0 +1,3 @@
+var certificate = "<%= @certificate.id %>"
+$(`#centermodal-${certificate}`).modal('hide')
+$('#employee-certificate-list').html("<%= j render(partial: 'employees/certificates/list_certificates.html.slim') %>")

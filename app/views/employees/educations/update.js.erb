@@ -1,0 +1,3 @@
+var education = "<%= @education.id %>"
+$(`#centermodal-education-${education}`).modal('hide')
+$('#employee-education-list').html("<%= j render(partial: 'employees/educations/list_educations.html.slim') %>")

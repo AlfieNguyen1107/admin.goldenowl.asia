@@ -2,7 +2,7 @@
 
 module Employees
   class EducationsController < BaseController
-    before_action :set_education, only: %i[destroy]
+    before_action :set_education, only: %i[update destroy]
 
     def add
       render :add
@@ -11,12 +11,10 @@ module Employees
     def create
       education_params['educations'].each do |param|
         education = EducationHistory.find_or_initialize_by(university_id: param['id'],
-                                                           employee_id: params['employee_id'])
+                                                           employee_id: @employee.id,
+                                                           subject: param['subject'])
 
-        education.update(subject: param['subject'],
-                         details: param['details'],
-                         from: param['from'],
-                         to: param['to'])
+        education.update(education_params_for_create(param))
       end
       render :update_list_educations
     end
@@ -26,10 +24,25 @@ module Employees
       render :update_list_educations
     end
 
+    def update
+      @education.update(education_history_params)
+      render :update
+    end
+
     private
 
     def set_education
       @education = EducationHistory.find(params[:id])
+    end
+
+    def education_params_for_create(param)
+      param.permit(:details,
+                   :from,
+                   :to)
+    end
+
+    def education_history_params
+      params['education_history'].permit(:subject, :details, :from, :to)
     end
 
     def education_params
