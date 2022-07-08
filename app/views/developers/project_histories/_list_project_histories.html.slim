@@ -72,25 +72,25 @@
                         .col-md-8
                           = f.text_field :name, value: project.name, class: "form-control"
                           .my-2
-                          = f.select :company_id, options_for_select(companies_collection), value: project.company_id, class: 'btn btn-outline-secondary dropdown-toggle'
+                          = f.select :company_id, options_for_select(companies_collection), class: 'btn btn-outline-secondary dropdown-toggle'
                           .my-2
-                          = f.text_field :position, value: project.position, class: "form-control"
+                          = f.text_field :position, class: "form-control"
                           .my-2
-                          = f.text_field :team_size, value: project.team_size, class: "form-control"
+                          = f.text_field :team_size, class: "form-control"
                           .my-2
-                          = f.text_area :details, value: project.details, class: "form-control "
+                          = f.text_area :details, class: "form-control "
                           .my-2
-                          = f.text_area :responsibilities, value: project.responsibilities, class: "form-control"
+                          = f.text_area :responsibilities, class: "form-control"
                           .my-2
-                          = f.text_field :tools, value: project.tools, class: "form-control"
+                          = f.text_field :tools, class: "form-control"
                           .my-2
-                          = f.text_field :frameworks, value: project.frameworks, class: "form-control"
+                          = f.text_field :frameworks, class: "form-control"
                           .my-2
-                          = f.text_field :skills, value: project.skills, class: "form-control"
+                          = f.text_field :skills,  class: "form-control"
                           .my-2
-                          = f.date_field :from, value: project.from, class: "form-control"
+                          = f.date_field :from, class: "form-control"
                           .my-2
-                          = f.date_field :to, value: project.to, class: "form-control"
+                          = f.date_field :to, class: "form-control"
                           .my-2
                         = f.submit 'Save', class: 'btn btn-success'
     br
