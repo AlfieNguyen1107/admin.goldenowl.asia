@@ -51,7 +51,7 @@ module Developers
                                        :company_id,
                                        :position,
                                        :team_size,
-                                       :detailss,
+                                       :details,
                                        :responsibilities,
                                        :tools,
                                        :frameworks,
