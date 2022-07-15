@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_29_085916) do
+ActiveRecord::Schema.define(version: 2022_07_15_052144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,16 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
     t.index ["contactable_type", "contactable_id"], name: "index_clients_on_contactable_type_and_contactable_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "developer_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["developer_id"], name: "index_comments_on_developer_id"
+    t.index ["task_id"], name: "index_comments_on_task_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "registration_number"
@@ -210,7 +220,7 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
     t.string "employable_type"
     t.string "type", default: "Developer"
     t.bigint "mentor_id"
-    t.index ["company_name"], name: "index_developers_on_company_name", unique: true
+    t.index ["company_name"], name: "index_developers_on_company_name"
     t.index ["employable_id"], name: "index_developers_on_employable_id"
     t.index ["employable_type"], name: "index_developers_on_employable_type"
     t.index ["mentor_id"], name: "index_developers_on_mentor_id"
@@ -629,6 +639,15 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "table_name", force: :cascade do |t|
+    t.bigint "workspace_id", null: false
+    t.bigint "developer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["developer_id"], name: "index_table_name_on_developer_id"
+    t.index ["workspace_id"], name: "index_table_name_on_workspace_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -658,6 +677,25 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "task_developers", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "developer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["developer_id"], name: "index_task_developers_on_developer_id"
+    t.index ["task_id"], name: "index_task_developers_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "status"
+    t.bigint "workspace_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workspace_id"], name: "index_tasks_on_workspace_id"
   end
 
   create_table "tools", force: :cascade do |t|
@@ -695,6 +733,12 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "workspaces", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "annual_leaves", "employees"
   add_foreign_key "assignment_scores", "assignments"
@@ -702,6 +746,8 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
   add_foreign_key "assignments", "employees", column: "assigned_by_id"
   add_foreign_key "certificate_employees", "certificates"
   add_foreign_key "certificate_employees", "employees"
+  add_foreign_key "comments", "developers"
+  add_foreign_key "comments", "tasks"
   add_foreign_key "developer_frameworks", "developers"
   add_foreign_key "developer_frameworks", "frameworks"
   add_foreign_key "developer_programming_languages", "developers"
@@ -745,6 +791,11 @@ ActiveRecord::Schema.define(version: 2022_06_29_085916) do
   add_foreign_key "projects", "clients"
   add_foreign_key "skill_categories", "skill_category_groups"
   add_foreign_key "skills", "skill_categories"
+  add_foreign_key "table_name", "developers"
+  add_foreign_key "table_name", "workspaces"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "task_developers", "developers"
+  add_foreign_key "task_developers", "tasks"
+  add_foreign_key "tasks", "workspaces"
   add_foreign_key "tools", "skill_categories"
 end

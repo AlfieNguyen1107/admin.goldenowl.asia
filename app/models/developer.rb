@@ -18,7 +18,7 @@
 #
 # Indexes
 #
-#  index_developers_on_company_name     (company_name) UNIQUE
+#  index_developers_on_company_name     (company_name)
 #  index_developers_on_employable_id    (employable_id)
 #  index_developers_on_employable_type  (employable_type)
 #  index_developers_on_mentor_id        (mentor_id)
